@@ -10,6 +10,11 @@ jobs:
       - name: set up JDK 17
         uses: actions/setup-java@v1
         with:
-          java-version: '11'
+          java-version: '17'
       - name: Maven Verify
         run: mvn -B clean verify
+    runs:
+      using: "composite"
+      steps:
+        - run: $GITHUB_ACTION_PATH/script.sh
+          shell: bash
