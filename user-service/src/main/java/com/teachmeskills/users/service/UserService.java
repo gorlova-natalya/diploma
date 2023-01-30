@@ -42,15 +42,9 @@ public class UserService {
 
     public User createUser(String login, String password, Role role) {
         log.info("Creating user with login {}", login);
-        if (password.isEmpty()) {
-            log.info("User password is empty");
-            throw new RuntimeException("User password is empty");
-        }
         final User user = new User(login, hashingPassword(password), role);
         userRepository.save(user);
         log.info("User with login {} successfully create", login);
         return user;
     }
 }
-
-

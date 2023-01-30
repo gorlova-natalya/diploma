@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class VerifyUserDto {
 
+    @NotEmpty
     String login;
+    @NotEmpty
     String password;
 }
