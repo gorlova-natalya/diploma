@@ -1,5 +1,5 @@
 server:
-  port: 9091
+  port: 9092
 
 spring:
   datasource:
@@ -29,3 +29,6 @@ feign:
       domain:
         connectTimeout: 5000
         readTimeout: 3000
+
+hashSecret: SECRET
+complexity: 12

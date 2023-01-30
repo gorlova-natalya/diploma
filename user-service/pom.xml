@@ -152,22 +152,6 @@
             <version>${spring-boot-starter-web.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${springfox.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.plugin</groupId>
-                    <artifactId>spring-plugin-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
@@ -432,10 +416,10 @@
                 </executions>
                 <configuration>
                     <from>
-                        <image>openjdk:17-bullseye</image>
+                        <image>openjdk:17-jdk-slim-bullseye</image>
                     </from>
                     <to>
-                        <image>tms-user-service</image>
+                        <image>user-service</image>
                         <tags>
                             <tag>latest</tag>
                         </tags>

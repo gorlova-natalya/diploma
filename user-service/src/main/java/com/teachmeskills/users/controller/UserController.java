@@ -5,10 +5,9 @@ import com.teachmeskills.users.dto.AppUserDto;
 import com.teachmeskills.users.dto.CreateUserDto;
 import com.teachmeskills.users.dto.VerifyResultDto;
 import com.teachmeskills.users.dto.VerifyUserDto;
+import com.teachmeskills.users.facade.UserFacade;
 import com.teachmeskills.users.model.User;
 import com.teachmeskills.users.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -28,15 +27,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-@Tag(name = "users", description = "Users API")
-@Api("/api/v1/users")
 @Slf4j
 public class UserController {
 
     private final UserService userService;
     private final UserConverter userConverter;
+    private final UserFacade userFacade;
 
-    @Tag(name = "users")
     @GetMapping
     protected List<AppUserDto> getUsers(@RequestParam(defaultValue = "1", name = "page", required = false) Integer pageNo,
                                         @RequestParam(defaultValue = "5", name = "pageSize", required = false) Integer pageSize) {
@@ -47,8 +44,8 @@ public class UserController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    protected CreateUserDto createUser(@Valid @RequestBody final CreateUserDto dto) {
-        final User user = userService.createUser(dto.getLogin(), dto.getPassword(), dto.getRole());
+    protected AppUserDto createUser(@Valid @RequestBody final CreateUserDto dto) {
+        final User user = userFacade.createUser(dto.getLogin(), dto.getPassword(), dto.getRole());
         log.info("User {} registered", dto.getLogin());
         return userConverter.toDto(user);
     }

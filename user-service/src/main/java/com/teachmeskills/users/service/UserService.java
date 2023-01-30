@@ -35,6 +35,11 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
+    public boolean verify(String login, String password) {
+        Optional<User> user = userRepository.getUserByLogin(login);
+        return user.filter(value -> hashPassword.validatePassword(password, value.getPassword())).isPresent();
+    }
+
     public User createUser(String login, String password, Role role) {
         log.info("Creating user with login {}", login);
         if (password.isEmpty()) {
@@ -45,11 +50,6 @@ public class UserService {
         userRepository.save(user);
         log.info("User with login {} successfully create", login);
         return user;
-    }
-
-    public boolean verify(String login, String password) {
-        Optional<User> user = userRepository.getUserByLogin(login);
-        return user.filter(value -> hashPassword.validatePassword(password, value.getPassword())).isPresent();
     }
 }
 

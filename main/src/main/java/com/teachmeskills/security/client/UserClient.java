@@ -21,8 +21,8 @@ public interface UserClient {
     UsersListDto getUsers(final PageDto pageDto);
 
     @RequestMapping(method = RequestMethod.POST, value = "/verify")
-    VerifyResultDto verifyUser(final VerifyUserDto requests);
+    VerifyResultDto verifyUser(final VerifyUserDto request);
 
     @RequestMapping(method = RequestMethod.POST)
-    AppUserDto saveUser(final CreateUserDto request);
+    AppUserDto createUser(final CreateUserDto request);
 }

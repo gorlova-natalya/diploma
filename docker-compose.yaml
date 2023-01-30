@@ -40,6 +40,6 @@ services:
     container_name: "user-service"
     image: user-service:latest
     ports:
-      - "9091:9091"
+      - "9092:9092"
     depends_on:
       - postgres

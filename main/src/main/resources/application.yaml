@@ -3,10 +3,6 @@ server:
 
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: postgres
-    url: jdbc:postgresql://localhost:35432/postgres
   mvc:
     hiddenmethod:
       filter:
@@ -14,9 +10,6 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-
-hashSecret: SECRET
-complexity: 12
 jwtSecret: "SECRET"
 
 management:
@@ -34,4 +27,4 @@ feign:
 
 services:
   user:
-    url: "http://user-service:9091"
+    url: 'http://localhost:9092'

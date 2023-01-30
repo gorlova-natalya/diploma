@@ -3,8 +3,7 @@ package com.teachmeskills.users;
 import com.teachmeskills.users.controller.UserController;
 import com.teachmeskills.users.converter.UserConverter;
 import com.teachmeskills.users.dto.CreateUserDto;
-import com.teachmeskills.users.model.Role;
-import com.teachmeskills.users.service.UserService;
+import com.teachmeskills.users.facade.UserFacade;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +29,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private UserService userService;
+    private UserFacade userFacade;
 
     @MockBean
     private UserConverter userConverter;
@@ -39,8 +38,7 @@ public class UserControllerTest {
     public void shouldCreateUser() throws Exception {
         final String login = "Natasha";
         final String password = "123";
-        final Role role = new Role();
-        role.setRole("user");
+        final String role = "user";
         final CreateUserDto dto = CreateUserDto.builder().login(login).password(password).role(role).build();
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -49,7 +47,7 @@ public class UserControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
-        then(userService)
+        then(userFacade)
                 .should()
                 .createUser(login, password, role);
     }
