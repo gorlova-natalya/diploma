@@ -26,10 +26,10 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(requests -> requests
-                        .antMatchers( "/login", "/documents").permitAll()
-                        .antMatchers("/users","/users/**", "api/v1/users/**").hasAnyRole("ADMIN")
+                                .antMatchers("/login", "/documents").permitAll()
+                                .antMatchers("/users", "/users/**", "api/v1/users/**").hasAnyRole("ADMIN")
 //                        .antMatchers("/api/v1/documents/**").hasAnyRole("user")
-                        .anyRequest().authenticated()
+                                .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(LogoutConfigurer::permitAll);

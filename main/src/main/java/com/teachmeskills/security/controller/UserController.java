@@ -4,7 +4,6 @@ import com.teachmeskills.security.client.dto.AppUserDto;
 import com.teachmeskills.security.client.dto.CreateUserDto;
 import com.teachmeskills.security.client.dto.PageDto;
 import com.teachmeskills.security.client.dto.UsersListDto;
-import com.teachmeskills.security.dto.UserDto;
 import com.teachmeskills.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
