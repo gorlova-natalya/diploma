@@ -13,8 +13,4 @@ jobs:
           java-version: '17'
       - name: Maven Verify
         run: mvn -B clean verify
-    runs:
-      using: "composite"
-      steps:
-        - run: $GITHUB_ACTION_PATH/script.sh
-          shell: bash
+
