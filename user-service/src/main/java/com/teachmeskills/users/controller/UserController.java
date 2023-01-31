@@ -1,8 +1,10 @@
 package com.teachmeskills.users.controller;
 
-import com.teachmeskills.users.converter.UserConverter;
 import com.teachmeskills.users.dto.AppUserDto;
+import com.teachmeskills.users.dto.Converter;
 import com.teachmeskills.users.dto.CreateUserDto;
+import com.teachmeskills.users.dto.PageDto;
+import com.teachmeskills.users.dto.UsersListDto;
 import com.teachmeskills.users.dto.VerifyResultDto;
 import com.teachmeskills.users.dto.VerifyUserDto;
 import com.teachmeskills.users.facade.UserFacade;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,15 +32,22 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final UserConverter userConverter;
+    private final Converter converter;
     private final UserFacade userFacade;
 
+    @GetMapping("/me")
+    protected AppUserDto getUser(String login) {
+        User user = userService.getUser(login);
+        return AppUserDto.builder().id(user.getId()).login(user.getLogin()).
+                password(user.getPassword()).role(user.getRole().getName()).build();
+    }
+
     @GetMapping
-    protected List<AppUserDto> getUsers(@RequestParam(defaultValue = "1", name = "page", required = false) Integer pageNo,
-                                        @RequestParam(defaultValue = "5", name = "pageSize", required = false) Integer pageSize) {
-        final Page<User> page = userService.findPaginatedUsers(pageNo, pageSize);
+    protected UsersListDto getUsers(final PageDto dto) {
+        final Page<User> page = userService.findPaginatedUsers(dto.getPageNo(), dto.getPageSize());
         List<User> listUsers = page.getContent();
-        return userConverter.toDto(listUsers);
+        return UsersListDto.builder().listUsers(converter.toDto(listUsers)).
+                totalPages(page.getTotalPages()).totalElements(page.getTotalElements()).build();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -47,7 +55,8 @@ public class UserController {
     protected AppUserDto createUser(@Valid @RequestBody final CreateUserDto dto) {
         final User user = userFacade.createUser(dto.getLogin(), dto.getPassword(), dto.getRole());
         log.info("User {} registered", dto.getLogin());
-        return userConverter.toDto(user);
+        return AppUserDto.builder().login(user.getLogin()).password(user.getPassword()).role(user.getRole().getName())
+                .build();
     }
 
     @PostMapping("/verify")

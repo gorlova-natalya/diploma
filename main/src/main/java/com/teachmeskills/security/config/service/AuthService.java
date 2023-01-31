@@ -20,6 +20,11 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        for (
+//                GrantedAuthority role : ((UserDetails) principal).getAuthorities()) {
+//            role.getAuthority();
+//        }
         final AppUserDto user = userService.getUser(username);
         return new User(user.getLogin(), user.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole())));
     }

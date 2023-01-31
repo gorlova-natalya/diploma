@@ -37,16 +37,6 @@ public class LoginController {
     @SneakyThrows
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     protected String doPost(@Valid @ModelAttribute("dto") final UserDto dto, HttpServletResponse response) {
-
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-//        if (principal instanceof UserDetails) {
-//            String login = ((UserDetails)principal).getUsername();
-//        } else {
-//            String login = principal.toString();
-//        }
-//        ((UserDetails)principal).getAuthorities().stream().forEach(role -> role.getAuthority());
-
         final String login = dto.getLogin();
         final String password = dto.getPassword();
         if (userService.verifyUser(login, password).isValid()) {
@@ -54,8 +44,8 @@ public class LoginController {
             final Cookie cookie = new Cookie("myToken", token);
             response.addCookie(cookie);
             log.info("User {} logged in", login);
-            return "main";
-//            return "redirect:/users";
+//            return "main";
+            return "redirect:/documents";
         } else {
             final PrintWriter out = response.getWriter();
             out.println("Username or password error");

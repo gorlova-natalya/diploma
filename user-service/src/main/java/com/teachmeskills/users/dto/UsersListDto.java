@@ -4,13 +4,14 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
+@Jacksonized
 @Value
 @Builder
-@Jacksonized
-public class AppUserDto {
+public class UsersListDto {
 
-    long id;
-    String login;
-    String password;
-    String role;
+    List<AppUserDto> listUsers;
+    int totalPages;
+    long totalElements;
 }

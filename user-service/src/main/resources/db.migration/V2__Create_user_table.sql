@@ -11,6 +11,6 @@ VALUES ('Natasha', '$2a$12$MLzVq4kZXBnvXJE2xZCdIO/rb/gselnIxdTp6awqyuzwc9CmOE6O6
         FROM roles
         WHERE role = 'admin'));
 INSERT INTO users (login, password, role_id)
-VALUES ('Natasha1', '123', (SELECT id
+VALUES ('Natasha1', '$2a$12$MLzVq4kZXBnvXJE2xZCdIO/rb/gselnIxdTp6awqyuzwc9CmOE6O6', (SELECT id
         FROM roles
         WHERE role = 'user'));

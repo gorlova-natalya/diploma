@@ -1,9 +1,10 @@
 package com.teachmeskills.users;
 
 import com.teachmeskills.users.controller.UserController;
-import com.teachmeskills.users.converter.UserConverter;
+import com.teachmeskills.users.dto.Converter;
 import com.teachmeskills.users.dto.CreateUserDto;
 import com.teachmeskills.users.facade.UserFacade;
+import com.teachmeskills.users.service.UserService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,12 +33,15 @@ public class UserControllerTest {
     private UserFacade userFacade;
 
     @MockBean
-    private UserConverter userConverter;
+    private UserService userService;
+
+    @MockBean
+    private Converter converter;
 
     @Test
     public void shouldCreateUser() throws Exception {
         final String login = "Natasha";
-        final String password = "123";
+        final String password = "1231";
         final String role = "user";
         final CreateUserDto dto = CreateUserDto.builder().login(login).password(password).role(role).build();
 
@@ -45,10 +49,27 @@ public class UserControllerTest {
                         .post("/api/v1/users", dto)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                .andExpect(status().isAccepted()).andReturn();
 
         then(userFacade)
                 .should()
                 .createUser(login, password, role);
+    }
+
+    @Test
+    public void shouldCreateUserWithEmptyPassword() throws Exception {
+        final String login = "Natasha8";
+        final String password = null;
+        final String role = "user";
+        final CreateUserDto dto = CreateUserDto.builder().login(login).password(password).role(role).build();
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/api/v1/users", dto)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+
+        then(userFacade)
+                .shouldHaveNoInteractions();
     }
 }

@@ -22,6 +22,10 @@ public class UserService {
 
     private final HashPassword hashPassword;
 
+    public User getUser(String login) {
+        return userRepository.getUserByLogin(login).orElseThrow();
+    }
+
     public List<User> findUsers() {
         return userRepository.findAll();
     }

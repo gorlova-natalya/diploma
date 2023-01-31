@@ -7,10 +7,8 @@ import lombok.extern.jackson.Jacksonized;
 @Value
 @Builder
 @Jacksonized
-public class AppUserDto {
+public class PageDto {
 
-    long id;
-    String login;
-    String password;
-    String role;
+    int pageNo;
+    int pageSize;
 }

@@ -2,7 +2,9 @@ package com.teachmeskills.security.controller;
 
 import com.teachmeskills.security.client.dto.AppUserDto;
 import com.teachmeskills.security.client.dto.CreateUserDto;
+import com.teachmeskills.security.client.dto.PageDto;
 import com.teachmeskills.security.client.dto.UsersListDto;
+import com.teachmeskills.security.dto.UserDto;
 import com.teachmeskills.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,32 +19,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping(value = "/users")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/registration")
+    @GetMapping("/me")
     protected String doGet(final Model model) {
         final org.springframework.security.core.userdetails.User authorized =
                 (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUserDto user = userService.getUser(authorized.getUsername());
         model.addAttribute("dto", user);
-        return "reg";
+        return "menu";
     }
 
     @GetMapping
     protected String getUsers(@RequestParam(defaultValue = "1", name = "page", required = false) Integer pageNo,
                               @RequestParam(defaultValue = "5", name = "pageSize", required = false) Integer pageSize,
                               Model model) {
-        final UsersListDto dto = userService.getUsers(pageNo, pageSize);
-        List<AppUserDto> listUsers = dto.getListUsers();
-        model.addAttribute("users", listUsers);
+        final PageDto pageDto = PageDto.builder().pageNo(pageNo).pageSize(pageSize).build();
+        final UsersListDto dto = userService.getUsers(pageDto);
+        model.addAttribute("users", dto.getListUsers());
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("totalPages", dto.getTotalPages());

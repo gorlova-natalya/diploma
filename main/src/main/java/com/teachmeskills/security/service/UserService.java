@@ -20,9 +20,7 @@ public class UserService {
         return userClient.getUser(login);
     }
 
-    public UsersListDto getUsers(int pageNo, int pageSize) {
-        PageDto pageDto = PageDto.builder().pageNo(pageNo).pageSize(pageSize).build();
-
+    public UsersListDto getUsers(PageDto pageDto) {
         return userClient.getUsers(pageDto);
     }
 
