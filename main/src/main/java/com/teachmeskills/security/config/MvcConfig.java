@@ -25,9 +25,4 @@ public class MvcConfig implements WebMvcConfigurer {
     public IDialect conditionalCommentDialect() {
         return new Java8TimeDialect();
     }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("*");
-    }
 }

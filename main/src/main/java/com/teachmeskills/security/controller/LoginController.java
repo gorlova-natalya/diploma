@@ -44,7 +44,6 @@ public class LoginController {
             final Cookie cookie = new Cookie("myToken", token);
             response.addCookie(cookie);
             log.info("User {} logged in", login);
-//            return "main";
             return "redirect:/documents";
         } else {
             final PrintWriter out = response.getWriter();

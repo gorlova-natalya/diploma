@@ -27,9 +27,9 @@ public class UserService {
 
     public AppUserDto createUser(final CreateUserDto user) {
         final CreateUserDto request = new CreateUserDto();
-                request.setLogin(user.getLogin());
-                request.setPassword(user.getPassword());
-                request.setRole(user.getRole());
+        request.setLogin(user.getLogin());
+        request.setPassword(user.getPassword());
+        request.setRole(user.getRole());
         return userClient.createUser(request);
     }
 
