@@ -20,7 +20,6 @@ public class UserService {
         return userClient.getUser(login);
     }
 
-
     public UsersListDto getUsers(final PageDto pageDto) {
         return userClient.getUsers(pageDto);
     }
