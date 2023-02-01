@@ -25,12 +25,12 @@ public class SecurityConfig {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests(requests -> requests
-                                .antMatchers("/login", "/documents").permitAll()
-                                .antMatchers("/users", "/users/**", "api/v1/users/**").hasAnyRole("ADMIN")
-//                        .antMatchers("/api/v1/documents/**").hasAnyRole("user")
-                                .anyRequest().authenticated()
-                )
+                .authorizeRequests().antMatchers("/*", "/login").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/users").hasAnyRole(("admin"))
+                .anyRequest()
+                .authenticated()
+                .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(LogoutConfigurer::permitAll);
 

@@ -33,7 +33,7 @@ public class UserController {
                 (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUserDto user = userService.getUser(authorized.getUsername());
         model.addAttribute("dto", user);
-        return "menu";
+        return "reg";
     }
 
     @GetMapping

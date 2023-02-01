@@ -21,7 +21,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="login">Login</label>
                             <div class="col-sm-7">
-                                <input class="col-form-label form-control" id="login" th:field="*{login}" placeholder="Login">
+                                <input class="col-form-label form-control" id="login" th:field="*{dto.login}" placeholder="Login">
                                 <p th:if="${#fields.hasErrors('login')}">Invalid Name</p>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                             <label class="col-sm-3 col-form-label" for="password">Password</label>
                             <div class="col-sm-7">
                                 <input class="col-form-label form-control" type="password"
-                                       id="password" th:field="*{password}" name="password"
+                                       id="password" th:field="*{dto.password}" name="password"
                                        placeholder="password">
                             </div>
                         </div>

@@ -13,7 +13,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/documents" th:href="@{/documents}">Documents</a>
+                <a class="nav-item nav-link active" href="/documents" th:href="@{/documents}">Documents</a>
                 <div sec:authorize="hasRole('admin')">
                     <a class="nav-item nav-link active" href="/users/me" th:href="@{/users}">Users</a>
                 </div>
