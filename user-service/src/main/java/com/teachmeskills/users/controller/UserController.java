@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping
-    protected UsersListDto getUsers(final PageDto dto) {
+    protected UsersListDto getUsers(@RequestBody final PageDto dto) {
         final Page<User> page = userService.findPaginatedUsers(dto.getPageNo(), dto.getPageSize());
         List<User> listUsers = page.getContent();
         return UsersListDto.builder().listUsers(converter.toDto(listUsers)).

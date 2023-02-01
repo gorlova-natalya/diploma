@@ -1,7 +1,7 @@
 package com.teachmeskills.security.client;
 
 import com.teachmeskills.security.client.dto.AppUserDto;
-import com.teachmeskills.security.client.dto.CreateUserDto;
+import com.teachmeskills.security.dto.CreateUserDto;
 import com.teachmeskills.security.client.dto.PageDto;
 import com.teachmeskills.security.client.dto.UsersListDto;
 import com.teachmeskills.security.client.dto.VerifyResultDto;

@@ -2,7 +2,7 @@ package com.teachmeskills.security.service;
 
 import com.teachmeskills.security.client.UserClient;
 import com.teachmeskills.security.client.dto.AppUserDto;
-import com.teachmeskills.security.client.dto.CreateUserDto;
+import com.teachmeskills.security.dto.CreateUserDto;
 import com.teachmeskills.security.client.dto.PageDto;
 import com.teachmeskills.security.client.dto.UsersListDto;
 import com.teachmeskills.security.client.dto.VerifyResultDto;
@@ -20,17 +20,16 @@ public class UserService {
         return userClient.getUser(login);
     }
 
-    public UsersListDto getUsers(PageDto pageDto) {
+
+    public UsersListDto getUsers(final PageDto pageDto) {
         return userClient.getUsers(pageDto);
     }
 
     public AppUserDto createUser(final CreateUserDto user) {
-        final CreateUserDto request = CreateUserDto.builder()
-                .login(user.getLogin())
-                .password(user.getPassword())
-                .role(user.getRole())
-                .build();
-
+        final CreateUserDto request = new CreateUserDto();
+                request.setLogin(user.getLogin());
+                request.setPassword(user.getPassword());
+                request.setRole(user.getRole());
         return userClient.createUser(request);
     }
 

@@ -15,7 +15,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/documents" th:href="@{/documents}">Documents</a>
                 <div sec:authorize="hasRole('admin')">
-                    <a class="nav-item nav-link active" href="/users/me" th:href="@{/users}">Users</a>
+                    <a class="nav-item nav-link active" href="/users" th:href="@{/users}">Users</a>
                 </div>
 
                 <a class="nav-item nav-link" href="/login" th:href="@{/login}">Login page</a>

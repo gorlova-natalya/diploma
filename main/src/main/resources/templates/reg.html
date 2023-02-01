@@ -6,40 +6,59 @@
 </head>
 <body>
 <div th:insert="menu :: header"></div>
-<div class="container">
-    <div class="row" style="margin-top: 25px">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title">
-                    <h3>Registration Page</h3>
-                </div>
-                <div class="card-text">
-                    <form method="POST"
-                          action="#"
-                          th:action="@{/registration}"
-                          th:object="${dto}">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="login">Login</label>
-                            <div class="col-sm-7">
-                                <input class="col-form-label form-control" id="login" th:field="*{dto.login}" placeholder="Login">
-                                <p th:if="${#fields.hasErrors('login')}">Invalid Name</p>
-                            </div>
+<section class="vh-100 bg-image"
+         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+                            <h2 class="text-uppercase text-center mb-5">Create user</h2>
+
+                            <form method="POST"
+                                  action="#"
+                                  th:action="@{/users}"
+                                  th:object="${createUserDto}">
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="login" class="form-control form-control-lg"
+                                           th:field="*{login}"
+                                           name="login" placeholder="Login"/>
+                                    <label class="form-label" for="login">Login</label>
+                                    <p th:if="${#fields.hasErrors('login')}">Invalid Name</p>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="password" id="password" class="form-control form-control-lg"
+                                           th:field="*{password}" name="password"
+                                           placeholder="password">
+                                    <label class="form-label" for="Password">Password</label>
+                                    <p th:if="${#fields.hasErrors('password')}">Invalid Name</p>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="role" class="form-control form-control-lg"
+                                           th:field="*{role}"
+                                           name="role" placeholder="Role"/>
+                                    <label class="form-label" for="role">Role</label>
+                                    <p th:if="${#fields.hasErrors('role')}">Invalid Role</p>
+                                </div>
+
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                        Register
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label" for="password">Password</label>
-                            <div class="col-sm-7">
-                                <input class="col-form-label form-control" type="password"
-                                       id="password" th:field="*{dto.password}" name="password"
-                                       placeholder="password">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 <div class="container">
     <div class="row" style="margin-top: 25px">
         <div class="card">
@@ -52,26 +71,30 @@
                         <tr>
                             <th>Login</th>
                             <th>Password</th>
-                            <th>Add friend</th>
+                            <th>Role</th>
+                            <!--                            <th>Delete user</th>-->
                         </tr>
                         <tbody>
-                        <tr th:each="user : ${users}">
+                        <tr th:each="users : ${users}">
                             <td>
-                                <span th:text="${user.login}"/>
+                                <span th:text="${users.login}"/>
                             </td>
                             <td>
-                                <span th:text="${user.password}"/>
+                                <span th:text="${users.password}"/>
                             </td>
                             <td>
-                                <div th:if="${@authContext.getLoggedInUserId() != user.id}">
-                                    <form method="post"
-                                          action="#"
-                                          th:action="@{/addFriend/} + ${user.id}">
-                                        <button type="submit" class="button btn btn-primary" name="button">Add friend
-                                        </button>
-                                    </form>
-                                </div>
+                                <span th:text="${users.role}"/>
                             </td>
+                            <!--                            <td>-->
+                            <!--                                <div th:if="${@authContext.getLoggedInUserId() != user.id}">-->
+                            <!--                                    <form method="post"-->
+                            <!--                                          action="#"-->
+                            <!--                                          th:action="@{/addFriend/} + ${user.id}">-->
+                            <!--                                        <button type="submit" class="button btn btn-primary" name="button">Add friend-->
+                            <!--                                        </button>-->
+                            <!--                                    </form>-->
+                            <!--                                </div>-->
+                            <!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>
