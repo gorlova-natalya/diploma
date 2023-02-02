@@ -14,15 +14,16 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Arrays;
 
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends GenericFilterBean {
 
-    public static final String AUTHORIZATION = "Authorization";
-
+    public static final String AUTHORIZATION = "myToken";
     private final Jwt jwtProvider;
     private final AuthService customUserDetailsService;
 
@@ -40,17 +41,19 @@ public class JwtFilter extends GenericFilterBean {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     customUserDetails, null, customUserDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
-            UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            principal.getAuthorities().forEach(GrantedAuthority::getAuthority);
+            customUserDetails.getAuthorities().forEach(GrantedAuthority::getAuthority);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
     private String getTokenFromRequest(HttpServletRequest request) {
-        String bearer = request.getHeader(AUTHORIZATION);
-        if (bearer != null && bearer.startsWith("Bearer ")) {
-            return bearer.substring(7);
+        final Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return null;
         }
-        return null;
+        return Arrays.stream(cookies)
+                .filter(cookie -> cookie.getName().equals(AUTHORIZATION))
+                .findFirst()
+                .map(Cookie::getValue).orElse(null);
     }
 }

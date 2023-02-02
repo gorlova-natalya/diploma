@@ -1,5 +1,6 @@
 package com.teachmeskills.security.controller;
 
+import com.teachmeskills.security.client.dto.AppUserDto;
 import com.teachmeskills.security.config.jwt.Jwt;
 import com.teachmeskills.security.dto.UserDto;
 import com.teachmeskills.security.service.UserService;
@@ -40,9 +41,13 @@ public class LoginController {
         final String login = dto.getLogin();
         final String password = dto.getPassword();
         if (userService.verifyUser(login, password).isValid()) {
-            final String token = jwt.generateToken(dto.getLogin());
+            AppUserDto userLoggedIn = userService.getUser(login);
+            String role = userLoggedIn.getRole();
+            final String token = jwt.generateToken(userLoggedIn.getLogin());
             final Cookie cookie = new Cookie("myToken", token);
+            final Cookie cookieRole = new Cookie("myRole", role);
             response.addCookie(cookie);
+            response.addCookie(cookieRole);
             log.info("User {} logged in", login);
             return "redirect:/documents";
         } else {

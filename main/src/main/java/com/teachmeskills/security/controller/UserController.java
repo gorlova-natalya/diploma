@@ -8,7 +8,6 @@ import com.teachmeskills.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/users")
 @RequiredArgsConstructor
@@ -24,15 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
     private final UserService userService;
-
-    @GetMapping("/me")
-    protected String doGet(final Model model) {
-        final org.springframework.security.core.userdetails.User authorized =
-                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        AppUserDto user = userService.getUser(authorized.getUsername());
-        model.addAttribute("dto", user);
-        return "reg";
-    }
 
     @GetMapping
     protected String getUsers(@RequestParam(defaultValue = "1", name = "page", required = false) Integer pageNo,
@@ -52,9 +44,8 @@ public class UserController {
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     protected String createUser(@ModelAttribute("createUserDto") final CreateUserDto createUserDto, Model model) {
         userService.createUser(createUserDto);
-        final PageDto pageDto = PageDto.builder().pageNo(1).pageSize(5).build();
-        final UsersListDto dto = userService.getUsers(pageDto);
-        model.addAttribute("users", dto.getListUsers());
+        final List<AppUserDto> dto = userService.getAllUsers();
+        model.addAttribute("users", dto);
         log.info("User {} registered", createUserDto.getLogin());
         return "redirect:/users";
     }

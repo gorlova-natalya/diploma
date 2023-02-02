@@ -10,6 +10,8 @@ import com.teachmeskills.security.client.dto.VerifyUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -22,6 +24,10 @@ public class UserService {
 
     public UsersListDto getUsers(final PageDto pageDto) {
         return userClient.getUsers(pageDto);
+    }
+
+    public List<AppUserDto> getAllUsers() {
+        return userClient.getAllUsers();
     }
 
     public AppUserDto createUser(final CreateUserDto user) {

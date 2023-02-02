@@ -19,8 +19,8 @@ public class AuthService implements UserDetailsService {
     private final UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        final AppUserDto user = userService.getUser(username);
+    public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
+        final AppUserDto user = userService.getUser(login);
         return new User(user.getLogin(), user.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole())));
     }
 }

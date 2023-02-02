@@ -36,8 +36,8 @@ public class UserController {
     private final UserFacade userFacade;
 
     @GetMapping("/me")
-    protected AppUserDto getUser(String login) {
-        User user = userService.getUser(login);
+    protected AppUserDto getUser(@RequestBody final String login) {
+        final User user = userService.getUser(login).stream().findFirst().orElse(null);
         return AppUserDto.builder().id(user.getId()).login(user.getLogin()).
                 password(user.getPassword()).role(user.getRole().getName()).build();
     }
@@ -48,6 +48,12 @@ public class UserController {
         List<User> listUsers = page.getContent();
         return UsersListDto.builder().listUsers(converter.toDto(listUsers)).
                 totalPages(page.getTotalPages()).totalElements(page.getTotalElements()).build();
+    }
+
+    @GetMapping("/all")
+    protected List<AppUserDto> getAllUsers() {
+        List<User> listUsers = userService.findUsers();
+        return converter.toDto(listUsers);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
