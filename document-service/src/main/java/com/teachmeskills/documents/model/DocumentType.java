@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class DocumentType {
     String typeName;
 
     @ManyToMany
-            @JoinTable (name = "signers", joinColumns = @JoinColumn(name = "document_type_id"),
+    @JoinTable(name = "signers", joinColumns = @JoinColumn(name = "document_type_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
     List<Employee> signersList;
 }
