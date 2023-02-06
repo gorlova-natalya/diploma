@@ -1,15 +1,21 @@
 server:
-  port: 9090
+  port: 9093
 
 spring:
+  datasource:
+    driver-class-name: 'org.postgresql.Driver'
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:35432/postgres
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
   mvc:
     hiddenmethod:
       filter:
         enabled: true
     pathmatch:
       matching-strategy: ant_path_matcher
-
-jwtSecret: "SECRET"
 
 management:
   endpoints:
@@ -23,10 +29,3 @@ feign:
       domain:
         connectTimeout: 5000
         readTimeout: 3000
-
-services:
-  user:
-    url: 'http://localhost:9092'
-  document:
-    url: 'http://localhost:9093'
-

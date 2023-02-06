@@ -1,25 +1,26 @@
-<html xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="container-fluid" th:fragment="header">
+<div class="container-fluid" th:fragment="header" th:filed="${authorities}">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Menu</a>
+        <a class="navbar-brand">Меню</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/documents" th:href="@{/documents}">Documents</a>
+                <a class="nav-item nav-link active" href="/documents" th:href="@{/documents}">Документы</a>
 
-                <div sec:authorize="hasRole('admin')">
-                    <a class="nav-item nav-link active" href="/users" th:href="@{/users}">Users</a>
+                <div sec:authorize="principal.authorities == hasAuthority('admin')"
+                >
+                    <a class="nav-item nav-link active" href="/users" th:href="@{/users}">Пользователи</a>
                 </div>
 
-                <a class="nav-item nav-link" href="/login" th:href="@{/login}">Login page</a>
+                <a class="nav-item nav-link" href="/login" th:href="@{/login}">Выйти</a>
             </div>
         </div>
     </nav>

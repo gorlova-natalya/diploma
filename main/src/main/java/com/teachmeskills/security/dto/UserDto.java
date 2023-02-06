@@ -2,9 +2,11 @@ package com.teachmeskills.security.dto;
 
 import lombok.Data;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@Valid
 public class UserDto {
 
     @NotEmpty(message = "Login must not be empty")

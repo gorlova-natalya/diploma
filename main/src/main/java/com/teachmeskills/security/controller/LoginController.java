@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,11 @@ public class LoginController {
 
     @SneakyThrows
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected String doPost(@Valid @ModelAttribute("dto") final UserDto dto, HttpServletResponse response) {
+    protected String doPost(@Valid @ModelAttribute("dto") final UserDto dto, HttpServletResponse response,
+                            final BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            return "login";
+        }
         final String login = dto.getLogin();
         final String password = dto.getPassword();
         if (userService.verifyUser(login, password).isValid()) {

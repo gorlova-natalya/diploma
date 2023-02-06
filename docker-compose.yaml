@@ -26,7 +26,6 @@ services:
     volumes:
       - "./dev-env/postgres/init.sql:/docker-entrypoint-initdb.d/1-init.sql"
 
-
   main:
     container_name: "main"
     image: main:latest
@@ -43,3 +42,12 @@ services:
       - "9092:9092"
     depends_on:
       - postgres
+
+  document-service:
+    container_name: "document-service"
+    image: document-service:latest
+    ports:
+      - "9093:9093"
+    depends_on:
+      - postgres
+

@@ -11,6 +11,7 @@
     <modules>
         <module>main</module>
         <module>user-service</module>
+        <module>document-service</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -343,6 +344,10 @@
                             <tag>latest</tag>
                         </tags>
                         <image>user-service</image>
+                        <tags>
+                            <tag>latest</tag>
+                        </tags>
+                        <image>document-service</image>
                         <tags>
                             <tag>latest</tag>
                         </tags>

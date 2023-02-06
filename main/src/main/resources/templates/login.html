@@ -29,7 +29,7 @@
                             <input type="login" id="form2Example18" class="form-control form-control-lg"
                                    th:filed="*{login}" name="login" placeholder="Enter login"/>
                             <label class="form-label" for="form2Example18">Login</label>
-                            <p th:if="${#fields.hasErrors('login')}">Invalid login</p>
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Invalid login</p>
                         </div>
 
                         <div class="form-outline mb-4">
@@ -37,7 +37,7 @@
                                    th:filed="*{password}" name="password"
                                    placeholder="Enter password"/>
                             <label class="form-label" for="form2Example28">Password</label>
-                            <p th:if="${#fields.hasErrors('password')}">Invalid password</p>
+                            <p th:if="${#fields.hasErrors()}" th:errors="*{password}">Invalid password</p>
                         </div>
 
                         <div class="pt-1 mb-4">

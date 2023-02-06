@@ -6,11 +6,10 @@
         <artifactId>diploma</artifactId>
         <groupId>org.example</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>main</artifactId>
+    <artifactId>document-service</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -28,9 +27,8 @@
         <lombok-mapstruct.version>0.2.0</lombok-mapstruct.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <org.lombok.version>1.18.22</org.lombok.version>
+        <springfox.version>3.0.0</springfox.version>
         <jib.maven.plugin.version>3.3.1</jib.maven.plugin.version>
-        <feign.httpclient>11.8</feign.httpclient>
-        <spring.cloud.starter.openfeign>3.1.4</spring.cloud.starter.openfeign>
     </properties>
 
     <dependencyManagement>
@@ -39,11 +37,6 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <version>2.13.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.thymeleaf.extras</groupId>
-                <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-                <version>3.0.4.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -140,16 +133,6 @@
                 <version>5.3.23</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>5.7.5</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-                <version>5.7.5</version>
-            </dependency>
-            <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${org.mapstruct.version}</version>
@@ -159,21 +142,6 @@
                 <artifactId>commons-logging</artifactId>
                 <version>1.2</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <version>2.7.5</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-crypto</artifactId>
-                <version>5.6.7</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-openfeign-core</artifactId>
-                <version>2.2.6.RELEASE</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -182,21 +150,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring-boot-starter-web.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <version>5.7.5</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-test</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -224,11 +177,6 @@
             <version>2.3.0</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>${spring-boot-starter-web.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
             <version>1.10.0</version>
@@ -240,7 +188,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring-boot-starter-web.version}</version>
         </dependency>
         <dependency>
@@ -293,29 +241,8 @@
             <version>0.9.0</version>
         </dependency>
         <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-httpclient</artifactId>
-            <version>${feign.httpclient}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-openfeign-core</artifactId>
-            <version>2.2.6.RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-aop</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>${spring.cloud.starter.openfeign}</version>
         </dependency>
     </dependencies>
 
@@ -475,7 +402,6 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
@@ -493,7 +419,7 @@
                         <image>openjdk:17-jdk-slim-bullseye</image>
                     </from>
                     <to>
-                        <image>main</image>
+                        <image>document-service</image>
                         <tags>
                             <tag>latest</tag>
                         </tags>
@@ -505,5 +431,20 @@
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.7.1.1</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <includeFilterFile>whizbang/lib-filter.xml</includeFilterFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>
