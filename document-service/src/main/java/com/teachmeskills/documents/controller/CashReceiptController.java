@@ -4,10 +4,12 @@ import com.teachmeskills.documents.converter.DocumentTypeConverter;
 import com.teachmeskills.documents.converter.EmployeeConverter;
 import com.teachmeskills.documents.converter.OrganizationConverter;
 import com.teachmeskills.documents.dto.CashReceiptDto;
+import com.teachmeskills.documents.dto.DocumentTypeDto;
 import com.teachmeskills.documents.dto.EmployeeDto;
 import com.teachmeskills.documents.dto.OrganizationDto;
 import com.teachmeskills.documents.facade.DocumentFacade;
 import com.teachmeskills.documents.model.CashReceipt;
+import com.teachmeskills.documents.model.DocumentType;
 import com.teachmeskills.documents.model.Employee;
 import com.teachmeskills.documents.model.Organization;
 import com.teachmeskills.documents.service.EmployeeService;
@@ -66,5 +68,17 @@ public class CashReceiptController {
     protected List<EmployeeDto> getAllEmployees() {
         List<Employee> employees = employeeService.getEmployees();
         return employeeConverter.toDto(employees);
+    }
+
+    @GetMapping("/type")
+    protected DocumentTypeDto getDocumentTypeById(@RequestBody final long id) {
+        DocumentType documentType = documentFacade.getDocumentType(id);
+        return documentTypeConverter.toDto(documentType);
+    }
+
+    @GetMapping("/types")
+    protected List<DocumentTypeDto> getDocumentTypes() {
+        List<DocumentType> documentTypes = documentFacade.getDocumentTypes();
+        return documentTypeConverter.toDto(documentTypes);
     }
 }

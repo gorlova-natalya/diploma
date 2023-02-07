@@ -23,8 +23,12 @@ public interface DocumentClient {
     List<OrganizationDto> getAllOrganizations();
 
     @RequestMapping(method = RequestMethod.GET, value = "/type")
-    DocumentTypeDto getDocumentTypeById(long id);
+    @Headers(value = "Content-Type: application/json")
+    DocumentTypeDto getDocumentTypeById(@RequestBody final long id);
 
     @RequestMapping(method = RequestMethod.GET, value = "/employees")
     List<EmployeeDto> getEmployees();
+
+    @RequestMapping(method = RequestMethod.GET, value = "/types")
+    List<DocumentTypeDto> getDocumentTypes();
 }

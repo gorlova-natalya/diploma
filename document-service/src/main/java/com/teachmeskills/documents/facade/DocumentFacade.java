@@ -7,6 +7,7 @@ import com.teachmeskills.documents.dto.DocumentTypeDto;
 import com.teachmeskills.documents.dto.EmployeeDto;
 import com.teachmeskills.documents.dto.OrganizationDto;
 import com.teachmeskills.documents.model.CashReceipt;
+import com.teachmeskills.documents.model.DocumentType;
 import com.teachmeskills.documents.service.DocumentService;
 import com.teachmeskills.documents.service.EmployeeService;
 import com.teachmeskills.documents.service.OrganizationService;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +33,13 @@ public class DocumentFacade {
                                          String annex) {
         return documentService.createCashReceipt(documentTypeConverter.toEntity(documentTypeDto), documentNumber, purpose, date, employeeConverter.toEntity(employee),
                organizationService.getOrganizationByName(organization.getName()), sum, annex);
+    }
+
+    public DocumentType getDocumentType(long id){
+        return documentService.getDocumentType(id);
+    }
+
+    public List<DocumentType> getDocumentTypes() {
+        return documentService.getDocumentTypes();
     }
 }

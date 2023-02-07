@@ -33,10 +33,6 @@ public class CashReceiptService {
         return documentClient.getAllOrganizations();
     }
 
-    public DocumentTypeDto getDocumentTypeById(long id) {
-        return documentClient.getDocumentTypeById(id);
-    }
-
     public List<EmployeeDto> getEmployees() {
         return documentClient.getEmployees();
     }
