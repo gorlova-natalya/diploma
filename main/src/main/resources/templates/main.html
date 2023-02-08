@@ -16,12 +16,10 @@
                 </div>
                 <div class="row mt-4"></div>
                 <div class="card">
-                    <form                           th:action="@{/cash-receipt/{id}}">
 
-                    <a th:field="*{type.id}"
-                       th:value = "1"
+                    <a href="#"
+                       th:href="@{/cash-receipt/{id}(id=1)}"
                        class="btn btn-light" role="button">Приходные кассовые ордера</a>
-                    </form>
                 </div>
                 <div class="row mt-4"></div>
                 <div class="card">

@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,20 +28,20 @@ public class CashReceiptController {
     private final CashReceiptService cashReceiptService;
     private final DocumentService documentService;
 
-    @GetMapping("/{type}")
-    protected String doGet(@PathVariable ("type") DocumentTypeDto documentTypeDto, final Model model) {
-        model.addAttribute("cashDto", new CashReceiptDto());
-//        DocumentTypeDto documentTypeById = documentService.getDocumentTypeById(typeId);
-        model.addAttribute("documentType", documentTypeDto);
+    @GetMapping("/{id}")
+    protected String doGet(@PathVariable ("id") Long id, final Model model) {
+        DocumentTypeDto documentType = documentService.getDocumentTypeById(id);
+        model.addAttribute("documentType", documentType);
         List<OrganizationDto> organizations = cashReceiptService.getOrganizations();
         model.addAttribute("organizationsDto", organizations);
         List<EmployeeDto> employees = cashReceiptService.getEmployees();
         model.addAttribute("employeesDto", employees);
+        model.addAttribute("cashDto", new CashReceiptDto());
         return "cashReceiptForm";
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected String createOrder(@ModelAttribute("cashReceiptDto") final CashReceiptDto cashReceiptDto, Model model) {
+    protected String createOrder(@ModelAttribute("cashDto") CashReceiptDto cashReceiptDto, Model model)  {
         CashReceiptDto order = cashReceiptService.createOrder(cashReceiptDto);
         model.addAttribute("cashReceipt", order);
         return "cash";

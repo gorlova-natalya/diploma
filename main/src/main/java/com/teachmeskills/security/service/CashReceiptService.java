@@ -2,7 +2,6 @@ package com.teachmeskills.security.service;
 
 import com.teachmeskills.security.client.DocumentClient;
 import com.teachmeskills.security.dto.CashReceiptDto;
-import com.teachmeskills.security.dto.DocumentTypeDto;
 import com.teachmeskills.security.dto.EmployeeDto;
 import com.teachmeskills.security.dto.OrganizationDto;
 import lombok.RequiredArgsConstructor;

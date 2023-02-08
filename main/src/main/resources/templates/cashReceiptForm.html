@@ -35,8 +35,10 @@
                     <div class="col-auto">
                         <label class="control-label col-sm-4">От кого получено</label>
                         <select class="form-control" name="employee" th:field="*{employee.fullName}">
-                            <option selected value="1">Выбрать сотрудника</option>
-                            <option th:each="employeeDto : ${employeesDto}" th:value="${employeeDto}"
+                            <option selected value="0">Выбрать сотрудника</option>
+                            <option th:each="employeeDto : ${employeesDto}"
+
+                                    th:value="${employeeDto}"
                                     th:text="${employeeDto.fullName}">
                             </option>
                         </select>
@@ -72,7 +74,13 @@
                         <input type="text" th:field="*{annex}" class="form-control" placeholder="Приложение"
                                aria-label="Приложение">
                     </div>
-                    <div class="row mt-4"></div>
+                    <div class="row mt-4">
+                        <input type="hidden" th:field="*{documentType.id}" th:value="${documentType.getId()}">
+                        <input type="hidden" th:field="*{documentType.typeName}" th:value="${documentType.getTypeName()}">
+                        <input type="hidden" th:each="signer : ${documentType.signersList}" th:field="${documentType.signersList}"
+                               th:value="${documentType.getTypeName()}">
+                    </div>
+
 
                     <div class="text-center">
                         <button class="btn btn-primary waves-effect waves-light " id="btn-submit">Печать документа</button>

@@ -12,6 +12,5 @@ import lombok.extern.jackson.Jacksonized;
 public class EmployeeDto {
 
     String fullName;
-
     PositionDto position;
 }

@@ -13,7 +13,7 @@ public class DocumentService {
 
     private final DocumentClient documentClient;
 
-    public DocumentTypeDto getDocumentTypeById(final long id) {
+    public DocumentTypeDto getDocumentTypeById(final Long id) {
         return documentClient.getDocumentTypeById(id);
     }
 

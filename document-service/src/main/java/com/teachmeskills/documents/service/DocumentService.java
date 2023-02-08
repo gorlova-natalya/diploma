@@ -32,7 +32,7 @@ public class DocumentService {
         return cashReceipt;
     }
 
-    public DocumentType getDocumentType(long id) {
+    public DocumentType getDocumentType(Long id) {
         return documentRepository.getDocumentTypeById(id);
     }
 

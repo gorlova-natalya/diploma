@@ -8,6 +8,7 @@ import com.teachmeskills.documents.dto.EmployeeDto;
 import com.teachmeskills.documents.dto.OrganizationDto;
 import com.teachmeskills.documents.model.CashReceipt;
 import com.teachmeskills.documents.model.DocumentType;
+import com.teachmeskills.documents.model.Employee;
 import com.teachmeskills.documents.service.DocumentService;
 import com.teachmeskills.documents.service.EmployeeService;
 import com.teachmeskills.documents.service.OrganizationService;
@@ -32,11 +33,17 @@ public class DocumentFacade {
                                          LocalDate date, EmployeeDto employee, OrganizationDto organization, double sum,
                                          String annex) {
         return documentService.createCashReceipt(documentTypeConverter.toEntity(documentTypeDto), documentNumber, purpose, date, employeeConverter.toEntity(employee),
-               organizationService.getOrganizationByName(organization.getName()), sum, annex);
+                organizationService.getOrganizationByName(organization.getName()), sum, annex);
     }
 
-    public DocumentType getDocumentType(long id){
-        return documentService.getDocumentType(id);
+    public DocumentType getDocumentType(Long id) {
+        DocumentType documentType1 = documentService.getDocumentType(id);
+        List<Employee> employees = employeeService.getEmployeesBySignedDocumentsContains(documentType1);
+        DocumentType documentType = new DocumentType();
+        documentType.setId(id);
+        documentType.setTypeName(documentType1.getTypeName());
+        documentType.setSignersList(employees);
+        return documentType;
     }
 
     public List<DocumentType> getDocumentTypes() {

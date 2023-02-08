@@ -39,7 +39,7 @@ public class CashReceiptController {
     private final DocumentTypeConverter documentTypeConverter;
     private final EmployeeConverter employeeConverter;
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     protected CashReceiptDto createCashReceipt(@Valid @RequestBody final CashReceiptDto dto) {
         final CashReceipt cashReceipt = documentFacade.createCashReceipt(dto.getDocumentType(), dto.getDocumentNumber(),
                 dto.getPurpose(), dto.getDocumentDate(), dto.getEmployee(),
@@ -71,7 +71,7 @@ public class CashReceiptController {
     }
 
     @GetMapping("/type")
-    protected DocumentTypeDto getDocumentTypeById(@RequestBody final long id) {
+    protected DocumentTypeDto getDocumentTypeById(@RequestBody final Long id) {
         DocumentType documentType = documentFacade.getDocumentType(id);
         return documentTypeConverter.toDto(documentType);
     }

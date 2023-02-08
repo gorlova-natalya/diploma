@@ -15,7 +15,8 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/documents" th:href="@{/documents}">Документы</a>
 
-                <div sec:authorize="principal.authorities == hasAuthority('admin')"
+                <div sec:authentication="principal.authorities"
+                        sec:authorize="hasRole('admin')"
                 >
                     <a class="nav-item nav-link active" href="/users" th:href="@{/users}">Пользователи</a>
                 </div>

@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(uses = PositionConverter.class)
+
 public interface EmployeeConverter {
 
     EmployeeDto toDto(Employee employee);

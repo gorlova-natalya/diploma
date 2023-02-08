@@ -35,4 +35,12 @@ public class Employee {
 
     @ManyToMany(mappedBy = "signersList")
     List<DocumentType> signedDocuments;
+
+    public List<DocumentType> getSignedDocuments() {
+        return signedDocuments;
+    }
+
+    public void setSignedDocuments(List<DocumentType> signedDocuments) {
+        this.signedDocuments = signedDocuments;
+    }
 }
