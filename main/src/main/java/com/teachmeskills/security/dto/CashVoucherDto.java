@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @Jacksonized
 @RequiredArgsConstructor
-public class CashReceiptDto {
+public class CashVoucherDto {
 
     String purpose;
     EmployeeDto employee;
@@ -23,4 +23,5 @@ public class CashReceiptDto {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     LocalDate documentDate;
     String annex;
+    String passport;
 }

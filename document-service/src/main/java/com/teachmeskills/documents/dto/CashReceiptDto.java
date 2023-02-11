@@ -19,7 +19,7 @@ public class CashReceiptDto {
     OrganizationDto organization;
     double sum;
     int documentNumber;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     LocalDate documentDate;
     String annex;

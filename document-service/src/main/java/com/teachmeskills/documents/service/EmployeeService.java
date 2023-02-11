@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,8 +15,8 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    public Employee getEmployeeByName(String name) {
-        return employeeRepository.getEmployeeByFullName(name);
+    public Optional<Employee> getEmployeeByName(String fullName) {
+        return employeeRepository.getEmployeeByFullName(fullName);
     }
 
     public List<Employee> getEmployees() {
@@ -24,5 +25,9 @@ public class EmployeeService {
 
     public List<Employee> getEmployeesBySignedDocumentsContains(DocumentType documentType) {
         return employeeRepository.getEmployeesBySignedDocuments(documentType);
+    }
+
+    public Optional<Employee> get(Long id) {
+        return employeeRepository.getEmployeeById(id);
     }
 }

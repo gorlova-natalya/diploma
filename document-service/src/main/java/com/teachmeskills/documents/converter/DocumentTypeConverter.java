@@ -11,7 +11,5 @@ public interface DocumentTypeConverter {
 
     DocumentTypeDto toDto(DocumentType documentType);
 
-    DocumentType toEntity(DocumentTypeDto documentTypeDto);
-
     List<DocumentTypeDto> toDto(List<DocumentType> documentType);
 }

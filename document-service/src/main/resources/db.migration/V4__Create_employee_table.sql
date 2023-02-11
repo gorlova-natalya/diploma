@@ -1,7 +1,7 @@
 CREATE TABLE employees
 (
     id          BIGSERIAL NOT NULL UNIQUE PRIMARY KEY,
-    full_name    VARCHAR   NOT NULL UNIQUE,
+    full_name    VARCHAR NOT NULL,
     position_id BIGINT REFERENCES positions (id)
 );
 

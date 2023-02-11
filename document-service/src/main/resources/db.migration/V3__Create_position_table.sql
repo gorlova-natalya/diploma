@@ -1,7 +1,7 @@
 CREATE TABLE positions
 (
     id   BIGSERIAL NOT NULL UNIQUE PRIMARY KEY,
-    position_name VARCHAR   NOT NULL UNIQUE,
+    position_name VARCHAR   NOT NULL,
     signature_authority BOOLEAN
 );
 

@@ -11,11 +11,11 @@
         <div class="card">
             <div class="card-body">
 
-                <h2 class="text-center">Приходный кассовый ордер</h2>
+                <h2 class="text-center">Раcходный кассовый ордер</h2>
                 <form method="POST"
                       action="#"
-                      th:action="@{/cash-receipt}"
-                      th:object="${cashDto}">
+                      th:action="@{/cash-voucher}"
+                      th:object="${voucherDto}">
                     <div class="row g-3">
                         <div class="col-sm-7">
                             <label class="control-label col-sm-4" for="documentNumber">Номер документа</label>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="row mt-4"></div>
                     <div class="col-auto">
-                        <label class="control-label col-sm-4">От кого получено</label>
+                        <label class="control-label col-sm-4">Кому выдано</label>
                         <select class="form-control" name="employee" th:field="*{employeeId}">
                             <option selected value="0">Выбрать сотрудника</option>
                             <option th:each="employeeDto : ${employeesDto}"
@@ -73,10 +73,17 @@
                         <input type="text" th:field="*{annex}" class="form-control" placeholder="Приложение"
                                aria-label="Приложение">
                     </div>
+                    <div class="row mt-4"></div>
+
+                    <div class="col-auto">
+                        <label class="control-label col-sm-4">Предъявлен документ</label>
+                        <input type="text" th:field="*{passport}" class="form-control" placeholder="Предъявлен документ"
+                               aria-label="Предъявлен документ">
+                    </div>
+
                     <div class="row mt-4">
                         <input type="hidden" th:value="${documentTypeId}" th:name="documentTypeId" class="form-control">
                     </div>
-
 
                     <div class="text-center">
                         <button class="btn btn-primary waves-effect waves-light " id="btn-submit">Печать документа</button>

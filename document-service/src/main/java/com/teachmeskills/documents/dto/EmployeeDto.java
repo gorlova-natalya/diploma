@@ -11,6 +11,7 @@ import lombok.extern.jackson.Jacksonized;
 @NoArgsConstructor
 public class EmployeeDto {
 
+    Long id;
     String fullName;
     PositionDto position;
 }

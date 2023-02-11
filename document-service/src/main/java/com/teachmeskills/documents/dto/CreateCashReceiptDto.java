@@ -1,4 +1,4 @@
-package com.teachmeskills.security.dto;
+package com.teachmeskills.documents.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -11,12 +11,12 @@ import java.time.LocalDate;
 @Data
 @Jacksonized
 @RequiredArgsConstructor
-public class CashReceiptDto {
+public class CreateCashReceiptDto {
 
     String purpose;
-    EmployeeDto employee;
-    DocumentTypeDto documentType;
-    OrganizationDto organization;
+    Long employeeId;
+    Long documentTypeId;
+    Long organizationId;
     double sum;
     int documentNumber;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")

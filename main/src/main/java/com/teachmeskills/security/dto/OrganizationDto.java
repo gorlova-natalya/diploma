@@ -11,6 +11,7 @@ import lombok.extern.jackson.Jacksonized;
 @NoArgsConstructor
 public class OrganizationDto {
 
+    Long id;
     String name;
 
     int payerNumber;

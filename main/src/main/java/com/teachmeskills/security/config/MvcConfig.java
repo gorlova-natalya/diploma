@@ -1,5 +1,6 @@
 package com.teachmeskills.security.config;
 
+import feign.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,5 +35,10 @@ public class MvcConfig implements WebMvcConfigurer {
         engine.addDialect(new Java8TimeDialect());
         engine.setTemplateResolver(templateResolver);
         return engine;
+    }
+
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.BASIC;
     }
 }

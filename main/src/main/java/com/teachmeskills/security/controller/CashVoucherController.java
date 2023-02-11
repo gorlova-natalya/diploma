@@ -1,7 +1,7 @@
 package com.teachmeskills.security.controller;
 
-import com.teachmeskills.security.dto.CashReceiptDto;
-import com.teachmeskills.security.dto.CreateCashReceiptDto;
+import com.teachmeskills.security.dto.CashVoucherDto;
+import com.teachmeskills.security.dto.CreateCashVoucherDto;
 import com.teachmeskills.security.dto.EmployeeDto;
 import com.teachmeskills.security.dto.OrganizationDto;
 import com.teachmeskills.security.service.DocumentService;
@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/cash-receipt")
+@RequestMapping(value = "/cash-voucher")
 @RequiredArgsConstructor
 @Slf4j
-public class CashReceiptController {
+public class CashVoucherController {
 
-    private final OrganizationService organizationService;
     private final DocumentService documentService;
+    private final OrganizationService organizationService;
 
     @GetMapping("/{id}")
     protected String doGet(@PathVariable("id") Long id, final Model model) {
@@ -34,17 +34,17 @@ public class CashReceiptController {
         model.addAttribute("organizationsDto", organizations);
         List<EmployeeDto> employees = organizationService.getEmployees();
         model.addAttribute("employeesDto", employees);
-        model.addAttribute("cashDto", new CreateCashReceiptDto());
+        model.addAttribute("voucherDto", new CreateCashVoucherDto());
         model.addAttribute("documentTypeId", id);
-        return "cashReceiptForm";
+        return "cashVoucherForm";
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected String createOrder(@ModelAttribute("cashDto") CreateCashReceiptDto createCashReceiptDto, Model model) {
-        CashReceiptDto order = documentService.createOrder(createCashReceiptDto);
-        model.addAttribute("cashReceipt", order);
+    protected String createCashVoucher(@ModelAttribute("voucherDto") CreateCashVoucherDto createCashVoucherDto, Model model) {
+        CashVoucherDto voucher = documentService.createVoucher(createCashVoucherDto);
+        model.addAttribute("cashVoucher", voucher);
 //        documentService.generatePDF("http://localhost:9090/cash-receipt",
 //                "output.pdf");
-        return "cash";
+        return "voucher";
     }
 }

@@ -9,8 +9,7 @@ SELECT typ.id, emp.id
          FROM employees AS emp
                   INNER JOIN positions AS pos ON pos.id = emp.position_id
                   FULL JOIN types AS typ ON typ.type_name = 'Приходный кассовый ордер'
-         WHERE position_name = 'Директор'
-            OR position_name = 'Главный бухгалтер'
+         WHERE position_name = 'Главный бухгалтер'
             OR position_name = 'Кассир';
 
 INSERT INTO signers (document_type_id, employees_id)

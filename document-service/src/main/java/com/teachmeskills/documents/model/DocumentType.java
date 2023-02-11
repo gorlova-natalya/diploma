@@ -30,7 +30,7 @@ public class DocumentType {
     @Column(name = "type_name")
     String typeName;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.ALL, CascadeType.MERGE})
     @JoinTable(name = "signers", joinColumns = @JoinColumn(name = "document_type_id"),
             inverseJoinColumns = @JoinColumn(name = "employees_id"))
     List<Employee> signersList;

@@ -1,7 +1,7 @@
 CREATE TABLE organizations
 (
     id                BIGSERIAL NOT NULL UNIQUE PRIMARY KEY,
-    organization_name VARCHAR   NOT NULL UNIQUE,
+    organization_name VARCHAR   NOT NULL,
     payer_ID_number   BIGINT    NOT NULL UNIQUE,
     supervisor_id     BIGINT REFERENCES employees (id)
 );

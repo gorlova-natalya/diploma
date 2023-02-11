@@ -21,9 +21,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @NonFinal
 @Entity
-@Table(name = "orders")
+@Table(name = "vouchers")
 @Builder
-public class CashReceipt {
+public class CashVoucher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +58,11 @@ public class CashReceipt {
     @Column(name = "annex")
     String annex;
 
-    public CashReceipt(long id, DocumentType documentType, int documentNumber, String purpose, LocalDate documentDate, Employee employee, Organization organization, double sum, String annex) {
+    @Column(name = "passport")
+    String passport;
+
+    public CashVoucher(long id, DocumentType documentType, int documentNumber, String purpose, LocalDate documentDate,
+                       Employee employee, Organization organization, double sum, String annex, String passport) {
         this.id = id;
         this.documentType = documentType;
         this.documentNumber = documentNumber;
@@ -68,5 +72,6 @@ public class CashReceipt {
         this.organization = organization;
         this.sum = sum;
         this.annex = annex;
+        this.passport = passport;
     }
 }

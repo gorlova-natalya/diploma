@@ -11,6 +11,7 @@ import lombok.extern.jackson.Jacksonized;
 @NoArgsConstructor
 public class PositionDto {
 
+    Long id;
     String name;
     boolean signatureAuthority;
 }

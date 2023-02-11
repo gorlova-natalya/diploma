@@ -123,16 +123,14 @@
     <tr>
         <td colspan="4"
             style="width: 48.7%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 11.05pt;vertical-align: top;">
-            <p style="margin:0cm;text-align:center;font-size:12px;font-family:Courier;" th:text="*{organization.name}">
-                ОПЕРАТИВНАЯ ТАМОЖНЯ</p>
+            <p style="margin:0cm;text-align:center;font-size:12px;font-family:Courier;" th:text="*{organization.name}"></p>
         </td>
         <td colspan="2" rowspan="5" style="width: 2.56%;padding: 0cm 0.3pt;height: 11.05pt;vertical-align: top;">
             <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>&nbsp;</p>
         </td>
         <td colspan="6"
             style="width: 48.68%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm 0.3pt;height: 11.05pt;vertical-align: top;">
-            <p style="margin:0cm;text-align:center;font-size:12px;font-family:Courier;" th:text="*{organization.name}">
-                ОПЕРАТИВНАЯ ТАМОЖНЯ</p>
+            <p style="margin:0cm;text-align:center;font-size:12px;font-family:Courier;" th:text="*{organization.name}"></p>
         </td>
     </tr>
     <tr>
@@ -149,11 +147,12 @@
     <tr>
         <td colspan="4" style="width: 48.7%;padding: 0cm;height: 12.8pt;vertical-align: top;">
             <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'><strong>ПРИХОДНЫЙ<br>&nbsp;КАССОВЫЙ
-                ОРДЕР</strong> &nbsp;<span style="font-size:12px;font-family:Courier;">0000025</span></p>
+                ОРДЕР</strong> &nbsp;<span style="font-size:12px;font-family:Courier;" th:text="*{documentNumber}"></span></p>
         </td>
         <td colspan="6" rowspan="2" style="width: 48.68%;padding: 0cm 0.3pt;height: 12.8pt;vertical-align: top;">
             <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'><strong>КВИТАНЦИЯ<br>&nbsp;к
-                приходному кассовому<br>&nbsp;ордеру</strong> &nbsp;<span style="font-size:12px;font-family:Courier;">0000025</span>
+                приходному кассовому<br>&nbsp;ордеру</strong> &nbsp;<span style="font-size:12px;font-family:Courier;"
+                                                                          th:text="*{documentNumber}"></span>
             </p>
         </td>
     </tr>
@@ -164,28 +163,19 @@
                 <tr>
                     <td style="width: 3.02%;padding: 0cm;height: 12.8pt;vertical-align: bottom;">
                         <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;text-align:center;'>
-                            &quot;</p>
+                            </p>
                     </td>
-                    <td style="width: 6.28%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 12.8pt;vertical-align: bottom;">
+                    <td>
+                    </td>
+                    <td style="width: 50.98%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 12.8pt;vertical-align: bottom;">
                         <p style='margin:0cm;text-align:center;font-size:12px;font-family:"Arial",sans-serif;'><span
-                                style="font-family:Courier;">20</span></p>
+                                style="font-family:Courier;" th:text="${#temporals.format(cashReceipt.documentDate, 'dd.MM.yyyy')}"></span></p>
                     </td>
-                    <td style="width: 5.06%;padding: 0cm 0cm 0cm 1.4pt;height: 12.8pt;vertical-align: bottom;">
-                        <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>&quot;</p>
+                    <td>
                     </td>
-                    <td style="width: 39.98%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 12.8pt;vertical-align: bottom;">
-                        <p style='margin:0cm;text-align:center;font-size:12px;font-family:"Arial",sans-serif;'><span
-                                style="font-family:Courier;">декабря</span></p>
+                    <td>
                     </td>
-                    <td style="width: 8.58%;padding: 0cm 2.85pt 0cm 0cm;height: 12.8pt;vertical-align: bottom;">
-                        <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;text-align:right;'>20&nbsp;</p>
-                    </td>
-                    <td style="width: 5.7%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 12.8pt;vertical-align: bottom;">
-                        <p style='margin:0cm;text-align:center;font-size:12px;font-family:"Arial",sans-serif;'><span
-                                style="font-family:Courier;">22</span></p>
-                    </td>
-                    <td style="width:31.38%;padding:0cm 0cm 0cm 0cm;height:12.8pt;">
-                        <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>&nbsp;г.</p>
+                    <td>
                     </td>
                 </tr>
                 </tbody>
@@ -226,31 +216,22 @@
                             <tbody>
                             <tr>
                                 <td style="width: 3.02%;padding: 0cm;height: 12.8pt;vertical-align: bottom;">
-                                    <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;text-align:center;'>
-                                        &quot;</p>
+                                    <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;text-align:center;'></p>
                                 </td>
-                                <td style="width: 6.28%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 12.8pt;vertical-align: bottom;">
-                                    <p style='margin:0cm;text-align:center;font-size:12px;font-family:"Arial",sans-serif;'>
-                                        <span style="font-family:Courier;">20</span></p>
+                                <td>
                                 </td>
                                 <td style="width: 5.06%;padding: 0cm 0cm 0cm 1.4pt;height: 12.8pt;vertical-align: bottom;">
-                                    <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>&quot;</p>
+                                    <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'></p>
                                 </td>
                                 <td style="width: 39.98%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 12.8pt;vertical-align: bottom;">
                                     <p style='margin:0cm;text-align:center;font-size:12px;font-family:"Arial",sans-serif;'>
-                                        <span style="font-family:Courier;">декабря</span></p>
+                                        <span style="font-family:Courier;" th:text="${#temporals.format(cashReceipt.documentDate, 'dd.MM.yyyy')}"></span></p>
                                 </td>
-                                <td style="width: 8.58%;padding: 0cm 2.85pt 0cm 0cm;height: 12.8pt;vertical-align: bottom;">
-                                    <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;text-align:right;'>
-                                        20&nbsp;</p>
+                                <td>
                                 </td>
-                                <td style="width: 5.7%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 12.8pt;vertical-align: bottom;">
-                                    <p style='margin:0cm;text-align:center;font-size:12px;font-family:"Arial",sans-serif;'>
-                                        <span style="font-family:Courier;">22</span></p>
+                                <td>
                                 </td>
-                                <td style="width:31.38%;padding:0cm 0cm 0cm 0cm;height:12.8pt;">
-                                    <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>
-                                        &nbsp;г.</p>
+                                <td>
                                 </td>
                             </tr>
                             </tbody>
@@ -276,7 +257,7 @@
         </td>
         <td style="width:27.46%;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 1.4pt 0cm 2.85pt;height:  12.0pt;">
             <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;text-align:right;'><span
-                    style="font-size:12px;font-family:Courier;">139.99</span></p>
+                    style="font-size:12px;font-family:Courier;" th:text="*{sum}"></span></p>
         </td>
         <td colspan="2" style="width: 2.56%;border: none;padding: 0cm 0.3pt;height: 12pt;vertical-align: top;">
             <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>&nbsp;</p>
@@ -301,7 +282,7 @@
                     </td>
                     <td style="width: 38.16%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm 0cm 0cm 1.4pt;height: 1pt;vertical-align: bottom;">
                         <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'><span
-                                style="font-size:12px;font-family:Courier;">Кулинича Юрия Александровича</span></p>
+                                style="font-size:12px;font-family:Courier;" th:text="*{employee.fullName}"></span></p>
                     </td>
                 </tr>
                 </tbody>
@@ -316,7 +297,7 @@
         <td colspan="4"
             style="width: 38.16%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm 0cm 0cm 1.4pt;height: 12pt;vertical-align: bottom;">
             <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'><span
-                    style="font-size:12px;font-family:Courier;">Кулинича Юрия Александровича</span></p>
+                    style="font-size:12px;font-family:Courier;" th:text="*{employee.fullName}"></span></p>
         </td>
         <td colspan="2" rowspan="2" style="width: 2.56%;padding: 0cm 0.3pt;height: 12pt;vertical-align: top;">
             <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>&nbsp;</p>
@@ -376,8 +357,7 @@
                         <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>Основание</p>
                     </td>
                     <td style="width: 76.6%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm 0cm 0cm 1.4pt;height: 14.2pt;vertical-align: bottom;">
-                        <p style="margin:0cm;font-size:12px;font-family:Courier;text-align:justify;">Возмещение
-                            стоимости утерянного имущества&nbsp;</p>
+                        <p style="margin:0cm;font-size:12px;font-family:Courier;text-align:justify;" th:text="*{purpose}"></p>
                     </td>
                 </tr>
                 </tbody>
@@ -395,8 +375,7 @@
                         <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>Основание</p>
                     </td>
                     <td style="width: 76.6%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm 0cm 0cm 1.4pt;height: 14.2pt;vertical-align: bottom;">
-                        <p style="margin:0cm;font-size:12px;font-family:Courier;text-align:justify;">Возмещение
-                            стоимости утерянного имущества&nbsp;</p>
+                        <p style="margin:0cm;font-size:12px;font-family:Courier;text-align:justify;" th:text="*{purpose}"></p>
                     </td>
                 </tr>
                 </tbody>
@@ -622,7 +601,8 @@
         </td>
         <td colspan="3"
             style="width: 36.62%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm 0cm 0cm 1.4pt;height: 12pt;vertical-align: bottom;">
-            <p style="margin:0cm;font-size:12px;font-family:Courier;text-align:justify;">Заявление</p>
+            <p style="margin:0cm;font-size:12px;font-family:Courier;text-align:justify;"><span
+                    style="font-family:Courier;"><span style="font-size:12px;" th:text="*{annex}">&nbsp;</span></span></p>
         </td>
         <td colspan="2" style="width: 2.56%;padding: 0cm 0.3pt;height: 12pt;vertical-align: top;">
             <p style='margin:0cm;font-size:13px;font-family:"Times New Roman",serif;'>&nbsp;</p>

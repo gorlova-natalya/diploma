@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -13,11 +14,15 @@ public class OrganizationService {
 
     private final OrganizationRepository organizationRepository;
 
-    public Organization getOrganizationByName(String name) {
+    public Optional<Organization> getOrganizationByName(String name) {
         return organizationRepository.getOrganizationByName(name);
     }
 
     public List<Organization> findOrganizations() {
         return organizationRepository.findAll();
+    }
+
+    public Optional<Organization> get(Long id) {
+        return organizationRepository.getOrganizationById(id);
     }
 }

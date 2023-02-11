@@ -1,21 +1,18 @@
 package com.teachmeskills.documents.facade;
 
-import com.teachmeskills.documents.converter.DocumentTypeConverter;
-import com.teachmeskills.documents.converter.EmployeeConverter;
-import com.teachmeskills.documents.converter.OrganizationConverter;
-import com.teachmeskills.documents.dto.DocumentTypeDto;
-import com.teachmeskills.documents.dto.EmployeeDto;
-import com.teachmeskills.documents.dto.OrganizationDto;
+import com.teachmeskills.documents.dto.CreateCashReceiptDto;
+import com.teachmeskills.documents.dto.CreateCashVoucherDto;
 import com.teachmeskills.documents.model.CashReceipt;
+import com.teachmeskills.documents.model.CashVoucher;
 import com.teachmeskills.documents.model.DocumentType;
 import com.teachmeskills.documents.model.Employee;
+import com.teachmeskills.documents.model.Organization;
 import com.teachmeskills.documents.service.DocumentService;
 import com.teachmeskills.documents.service.EmployeeService;
 import com.teachmeskills.documents.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -25,22 +22,35 @@ public class DocumentFacade {
     private final DocumentService documentService;
     private final EmployeeService employeeService;
     private final OrganizationService organizationService;
-    private final OrganizationConverter organizationConverter;
-    private final EmployeeConverter employeeConverter;
-    private final DocumentTypeConverter documentTypeConverter;
 
-    public CashReceipt createCashReceipt(DocumentTypeDto documentTypeDto, int documentNumber, String purpose,
-                                         LocalDate date, EmployeeDto employee, OrganizationDto organization, double sum,
-                                         String annex) {
-        return documentService.createCashReceipt(documentTypeConverter.toEntity(documentTypeDto), documentNumber, purpose, date, employeeConverter.toEntity(employee),
-                organizationService.getOrganizationByName(organization.getName()), sum, annex);
+    public CashReceipt createCashReceipt(CreateCashReceiptDto dto) {
+        Organization organization = organizationService
+                .get(dto.getOrganizationId()).stream().findFirst().orElse(null);
+        Employee employee = employeeService.get(dto.getEmployeeId()).stream().findFirst().orElse(null);
+        DocumentType documentType = documentService.getDocumentType(dto.getDocumentTypeId()).stream().findFirst().orElse(null);
+
+        return documentService.createCashReceipt(documentType,
+                dto.getDocumentNumber(), dto.getPurpose(), dto.getDocumentDate(),
+               employee, organization, dto.getSum(), dto.getAnnex());
+    }
+
+    public CashVoucher createCashVoucher(CreateCashVoucherDto dto) {
+        Organization organization = organizationService
+                .get(dto.getOrganizationId()).stream().findFirst().orElse(null);
+        Employee employee = employeeService.get(dto.getEmployeeId()).stream().findFirst().orElse(null);
+        DocumentType documentType = documentService.getDocumentType(dto.getDocumentTypeId()).stream().findFirst().orElse(null);
+
+        return documentService.createCashVoucher(documentType,
+                dto.getDocumentNumber(), dto.getPurpose(), dto.getDocumentDate(),
+                employee, organization, dto.getSum(), dto.getAnnex(), dto.getPassport());
     }
 
     public DocumentType getDocumentType(Long id) {
-        DocumentType documentType1 = documentService.getDocumentType(id);
+        DocumentType documentType1 = documentService.getDocumentType(id).stream().findFirst().orElse(null);
         List<Employee> employees = employeeService.getEmployeesBySignedDocumentsContains(documentType1);
         DocumentType documentType = new DocumentType();
         documentType.setId(id);
+        assert documentType1 != null;
         documentType.setTypeName(documentType1.getTypeName());
         documentType.setSignersList(employees);
         return documentType;
