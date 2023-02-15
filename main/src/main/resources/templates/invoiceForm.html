@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+<div th:insert="menu :: header"></div>
+<div class="container">
+    <div class="row" style="margin-top: 25px">
+        <div class="card">
+            <div class="card-body">
+
+                <h2 class="text-center">Накладная на выдачу в производство</h2>
+                <form method="POST"
+                      action="#"
+                      th:action="@{/internal-invoice}"
+                      th:object="${invoiceDto}">
+                    <div class="row g-3">
+                        <div class="col-sm-7">
+                            <label class="control-label col-sm-4" for="documentNumber">Номер документа</label>
+                            <input aria-label="Номер" class="form-control" id="documentNumber" name="documentNumber"
+                                   placeholder="Номер документа" th:filed="*{documentNumber}" type="number">
+                        </div>
+                        <div class="col-sm">
+                            <label class="control-label col-sm-4">Дата документа</label>
+                            <input type="date" name="documentDate" th:field="*{documentDate}"
+                                   th:value="*{documentDate}"
+                                   th:text="*{documentDate}"
+                                   class="form-control" placeholder="Дата документа"
+                                   aria-label="Дата">
+                        </div>
+                    </div>
+                    <div class="row mt-4"></div>
+                    <div class="col-auto">
+                        <label class="control-label col-sm-4">От кого получено</label>
+                        <select class="form-control" name="employee" th:field="*{employeeId}">
+                            <option selected value="0">Выбрать сотрудника</option>
+                            <option th:each="employeeDto : ${employeesDto}"
+                                    th:value="${employeeDto.id}"
+                                    th:text="${employeeDto.fullName}">
+                            </option>
+                        </select>
+
+                    </div>
+                    <div class="row mt-4"></div>
+                    <div class="col-auto">
+                        <label class="control-label col-sm-4">Организация</label>
+                        <select class="form-control" id="organization" name="organization"
+                                th:field="*{organizationId}"> \\в какое поле записывает
+                            <option selected value="0">Выбрать организацию</option>
+                            <option th:each="organizationDto : ${organizationsDto}" th:value="${organizationDto.id}"
+                                    th:text="${organizationDto.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="row mt-4"></div>
+                    <div class="col-sm-4">
+                        <label class="control-label col-sm-7">Сумма платежа в рублях</label>
+                        <input type="number" step="0.01" th:field="*{sum}" class="form-control" placeholder="Сумма"
+                               aria-label="Дата">
+                    </div>
+                    <div class="row mt-4"></div>
+                    <div class="col-auto">
+                        <label class="control-label col-sm-4">Основание</label>
+                        <input type="text" class="form-control" th:field="*{purpose}"
+                               placeholder="Основание для приема" aria-label="Основание">
+                    </div>
+                    <div class="row mt-4"></div>
+
+                    <div class="col-auto">
+                        <label class="control-label col-sm-4">Приложение</label>
+                        <input type="text" th:field="*{annex}" class="form-control" placeholder="Приложение"
+                               aria-label="Приложение">
+                    </div>
+                    <div class="row mt-4">
+                        <input type="hidden" th:value="${documentTypeId}" th:name="documentTypeId" class="form-control">
+                    </div>
+
+
+                    <div class="text-center">
+                        <button class="btn btn-primary waves-effect waves-light " id="btn-submit">Печать документа</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

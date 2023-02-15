@@ -28,11 +28,13 @@
                 </div>
                 <div class="row mt-4"></div>
                 <div class="card">
-                    <a href="/cash-receipt" class="btn btn-light" role="button">Накладные на выдачу в производство</a>
+                    <a href="#"
+                       th:href="@{/internal-invoice/{id}(id=3)}" class="btn btn-light" role="button">Накладные на выдачу в производство</a>
                 </div>
                 <div class="row mt-4"></div>
                 <div class="card">
-                    <a href="/cash-receipt" class="btn btn-light" role="button">Накладные на внутреннее перемещение</a>
+                    <a href="#"
+                          th:href="@{/internal-invoice/{id}(id=4)}" class="btn btn-light" role="button">Накладные на внутреннее перемещение</a>
                 </div>
             </div>
         </div>

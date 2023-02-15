@@ -43,8 +43,6 @@ public class CashVoucherController {
     protected String createCashVoucher(@ModelAttribute("voucherDto") CreateCashVoucherDto createCashVoucherDto, Model model) {
         CashVoucherDto voucher = documentService.createVoucher(createCashVoucherDto);
         model.addAttribute("cashVoucher", voucher);
-//        documentService.generatePDF("http://localhost:9090/cash-receipt",
-//                "output.pdf");
         return "voucher";
     }
 }

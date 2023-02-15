@@ -1,6 +1,6 @@
 package com.teachmeskills.security.service;
 
-import com.lowagie.text.DocumentException;
+import com.itextpdf.html2pdf.HtmlConverter;
 import com.teachmeskills.security.client.DocumentClient;
 import com.teachmeskills.security.dto.CashReceiptDto;
 import com.teachmeskills.security.dto.CashVoucherDto;
@@ -8,11 +8,10 @@ import com.teachmeskills.security.dto.CreateCashReceiptDto;
 import com.teachmeskills.security.dto.CreateCashVoucherDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,22 +27,22 @@ public class DocumentService {
         return documentClient.createCashVoucher(createCashVoucherDto);
     }
 
-    public void generatePDF(String inputHtmlPath, String outputPdfPath) {
-        try {
-//            String url = new File(inputHtmlPath).toURI().toURL().toString();
-//            System.out.println("URL: " + url);
+    public void generatePDF() throws IOException {
 
-            OutputStream out = new FileOutputStream(outputPdfPath);
+//        PdfDocument pdfDoc = new PdfDocument(new PdfWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash.html"));
+//
+//        pdfDoc.setDefaultPageSize(new PageSize(1500, 842));
+//        HtmlConverter.convertToPdf(new FileInputStream("index-to-pdf.pdf"), pdfDoc);
 
-            ITextRenderer renderer = new ITextRenderer();
+        HtmlConverter.convertToPdf(new FileInputStream("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash.html"),
+                new FileOutputStream("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/index-to-pdf.pdf"));
 
-            renderer.setDocument(inputHtmlPath);
-            renderer.layout();
-            renderer.createPDF(out);
-
-            out.close();
-        } catch (DocumentException | IOException e) {
-            e.printStackTrace();
-        }
+//        File htmlSource = new File("http://localhost:9090/cash-receipt/cash.html");
+//        File pdfDest = new File("output.pdf");
+//        // pdfHTML specific code
+//        InputStream stream = new URL("http://localhost:9090/cash-receipt/cash.html").openStream();
+//        ConverterProperties converterProperties = new ConverterProperties();
+//        HtmlConverter.convertToPdf(stream,
+//                new FileOutputStream(pdfDest), converterProperties);
     }
 }

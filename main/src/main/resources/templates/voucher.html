@@ -88,7 +88,7 @@
 
 <body lang=EN-US style='word-wrap:break-word'>
 
-<div class=WordSection1>
+<div class=WordSection1 th:object="${cashVoucher}">
 
     <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"
            style='border-collapse:collapse'>
@@ -107,8 +107,8 @@
     </table>
 
     <p class=newncpi align=right style='text-align:right'><span lang=RU
-                                                                style='font-size:6.0pt'> </span><span lang=RU
-                                                                                                      style='font-size:10.0pt'>Форма</span>
+                                                                style='font-size:6.0pt'></span><span lang=RU
+                                                                                                     style='font-size:10.0pt'>Форма</span>
     </p>
 
     <p class=onestring><span lang=RU style='font-size:10.0pt'>&nbsp;</span></p>
@@ -119,7 +119,7 @@
             <td width=681 colspan=3 style='width:510.45pt;border:none;border-bottom:solid windowtext 1.0pt;
   padding:0in .3pt 0in .3pt;height:11.5pt'>
                 <p class=table10 align=center style='text-align:center'><span lang=RU>&nbsp; </span><span
-                        style='font-size:9.0pt;font-family:Courier'>ОПЕРАТИВНАЯ ТАМОЖНЯ</span></p>
+                        style='font-size:9.0pt;font-family:Courier' th:text="*{organization.name}"></span></p>
             </td>
         </tr>
         <tr style='height:14.2pt'>
@@ -139,7 +139,8 @@
             <td width=96 valign=bottom style='width:71.75pt;border:none;border-bottom:
   solid windowtext 1.0pt;padding:0in 0in 0in 0in;height:11.4pt'>
                 <p class=table10 align=center style='text-align:center'><span lang=RU
-                                                                              style='font-size:9.0pt;font-family:Courier'>000030</span>
+                                                                              style='font-size:9.0pt;font-family:Courier'
+                                                                              th:text="*{documentNumber}"></span>
                 </p>
             </td>
             <td width=434 valign=bottom style='width:325.85pt;padding:0in 0in 0in 0in;
@@ -155,39 +156,35 @@
                     <tr style='height:12.8pt'>
                         <td width=9 valign=bottom style='width:7.1pt;padding:0in 1.4pt 0in 0in;
     height:12.8pt'>
-                            <p class=table10 align=right style='text-align:right'><span lang=RU>&quot;</span></p>
+                            <p class=table10 align=right style='text-align:right'><span lang=RU></span></p>
                         </td>
                         <td width=19 valign=bottom style='width:14.2pt;border:none;border-bottom:
     solid windowtext 1.0pt;padding:0in 0in 0in 0in;height:12.8pt'>
-                            <p class=table10Arial><span style='font-family:Courier'>21</span></p>
-                        </td>
-                        <td width=19 valign=bottom style='width:14.15pt;padding:0in 0in 0in 1.4pt;
-    height:12.8pt'>
-                            <p class=table10><span lang=RU>&quot;</span></p>
+                            <p class=table10Arial><span style='font-family:Courier'></span></p>
                         </td>
                         <td width=132 valign=bottom style='width:99.25pt;border:none;border-bottom:
     solid windowtext 1.0pt;padding:0in 0in 0in 0in;height:12.8pt'>
-                            <p class=table10Arial><span lang=RU style='font-family:Courier'>декабря</span></p>
-                        </td>
-                        <td width=28 valign=bottom style='width:21.25pt;padding:0in 2.85pt 0in 0in;
-    height:12.8pt'>
-                            <p class=table10 align=right style='text-align:right'>20</p>
+                            <p class=table10Arial><span lang=RU style='font-family:Courier'
+                                                        th:text="${#temporals.format(cashVoucher.documentDate, 'dd.MM.yyyy')}"></span>
+                            </p>
                         </td>
                         <td width=19 valign=bottom style='width:14.15pt;border:none;border-bottom:
     solid windowtext 1.0pt;padding:0in 0in 0in 0in;height:12.8pt'>
-                            <p class=table10Arial><span style='font-family:Courier'>22</span></p>
+                            <p class=table10Arial><span style='font-family:Courier'></span></p>
                         </td>
                         <td width=453 style='width:339.75pt;padding:0in 0in 0in 0in;height:12.8pt'>
-                            <p class=table10> <span lang=RU>г.</span></p>
+                            <p class=table10><span lang=RU></span></p>
                         </td>
                     </tr>
+
                 </table>
                 <p class=table10></p>
             </td>
         </tr>
     </table>
 
-    <p class=MsoNormal><span lang=RU style='font-size:6.0pt'> </span></p>
+    <p class=onestring><span lang=RU style='font-size:10.0pt'>&nbsp;</span></p>
+    <p class=MsoNormal><span lang=RU style='font-size:6.0pt'></span></p>
 
     <table class=tablencpi border=0 cellspacing=0 cellpadding=0 width="74%"
            style='border-collapse:collapse'>
@@ -216,7 +213,8 @@
   border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 1.4pt 0in .3pt;height:12.0pt'>
                 <p class=table10 align=right style='text-align:right'><span lang=RU
-                                                                            style='font-size:9.0pt;font-family:Courier'>139.99</span>
+                                                                            style='font-size:9.0pt;font-family:Courier'
+                                                                            th:text="*{sum}"></span>
                 </p>
             </td>
         </tr>
@@ -234,7 +232,7 @@
             <td width=627 colspan=8 style='width:470.3pt;border:none;border-bottom:solid windowtext 1.0pt;
   padding:0in 0in 0in 0in;height:11.35pt'>
                 <p class=table10 style='text-align:justify'><span lang=RU style='font-size:
-  9.0pt;font-family:Courier'>В банк для зачисления на р/с.</span></p>
+  9.0pt;font-family:Courier' th:text="*{employee.fullName}"></span></p>
             </td>
         </tr>
         <tr style='height:11.35pt'>
@@ -253,7 +251,7 @@
             <td width=606 colspan=6 style='width:454.15pt;border:none;border-bottom:solid windowtext 1.0pt;
   padding:0in 0in 0in 0in;height:11.35pt'>
                 <p class=table10 style='text-align:justify'><span style='font-size:9.0pt;
-  font-family:Courier'>В банк для зачисления на р/с. Возмещение стоимости
+  font-family:Courier' th:text="*{purpose}">
   имущества </span></p>
             </td>
         </tr>
@@ -265,7 +263,7 @@
             <td width=627 colspan=8 style='width:470.3pt;border:none;border-bottom:solid windowtext 1.0pt;
   padding:0in 0in 0in 0in;height:11.35pt'>
                 <p class=table10 style='text-align:justify'><span style='font-size:9.0pt;
-  font-family:Courier'>Сто тридцать девять рублей 99 копеек</span></p>
+  font-family:Courier' th:text="*{sum}"></span></p>
             </td>
         </tr>
         <tr style='height:11.35pt'>
@@ -284,7 +282,7 @@
             <td width=595 colspan=5 style='width:446.2pt;border:none;border-bottom:solid windowtext 1.0pt;
   padding:0in 0in 0in 0in;height:11.35pt'>
                 <p class=table10 style='text-align:justify'><span lang=RU style='font-size:
-  9.0pt;font-family:Courier'> </span></p>
+  9.0pt;font-family:Courier' th:text="*{annex}"></span></p>
             </td>
         </tr>
         <tr style='height:12.0pt'>
@@ -308,8 +306,13 @@
             </td>
             <td width=237 style='width:177.65pt;border:none;border-bottom:solid windowtext 1.0pt;
   padding:0in .3pt 0in .3pt;height:12.0pt'>
-                <p class=table10 align=center style='text-align:center'><span
-                        style='font-size:9.0pt;font-family:Courier'>Ф.В. Яшков</span></p>
+                <th:block th:each="signer : ${cashVoucher.documentType.signersList}"
+                     th:value="${signer.position.name}"
+                     th:if="${signer.position.name eq 'Директор'}">
+                    <p class=table10 align=center style='text-align:center' ><span
+                            style='font-size:9.0pt;font-family:Courier' th:text="${signer.fullName}"></span>
+                    </p>
+                </th:block>
             </td>
         </tr>
         <tr style='height:12.0pt'>
@@ -349,15 +352,20 @@
             </td>
             <td width=237 style='width:177.65pt;border:none;border-bottom:solid windowtext 1.0pt;
   padding:0in .3pt 0in .3pt;height:12.0pt'>
-                <p class=table10 align=center style='text-align:center'><span
-                        style='font-size:9.0pt;font-family:Courier'>Е.Н. Боярчук</span></p>
+                <th:block th:each="signer : ${cashVoucher.documentType.signersList}"
+                          th:value="${signer.position.name}"
+                          th:if="${signer.position.name eq 'Главный бухгалтер'}">
+                    <p class=table10 align=center style='text-align:center' ><span
+                            style='font-size:9.0pt;font-family:Courier' th:text="${signer.fullName}"></span>
+                    </p>
+                </th:block>
             </td>
         </tr>
         <tr style='height:12.0pt'>
             <td width=104 colspan=5 valign=top style='width:78.3pt;padding:0in 0in 0in 0in;
   height:12.0pt'>
                 <p class=table10 style='text-indent:119.9pt'><i><span lang=RU
-                                                                      style='font-size:8.0pt'>(</span></i></p>
+                                                                      style='font-size:8.0pt'></span></i></p>
             </td>
             <td width=170 colspan=2 valign=top style='width:127.55pt;padding:0in 0in 0in 0in;
   height:12.0pt'>
@@ -421,7 +429,7 @@
             <td width=548 colspan=3 style='width:410.9pt;border:none;border-bottom:solid windowtext 1.0pt;
   padding:0in 0in 0in 0in;height:11.35pt'>
                 <p class=table10 style='text-align:justify'><span lang=RU style='font-size:
-  9.0pt;font-family:Courier'> </span></p>
+  9.0pt;font-family:Courier' th:text="*{passport}"></span></p>
             </td>
         </tr>
         <tr style='height:12.0pt'>
@@ -447,8 +455,13 @@
             </td>
             <td width=237 style='width:177.65pt;border:none;border-bottom:solid windowtext 1.0pt;
   padding:0in .3pt 0in .3pt;height:12.0pt'>
-                <p class=table10 align=center style='text-align:center'><span
-                        style='font-size:9.0pt;font-family:Courier'>В.В. Цыпурко</span></p>
+                <th:block th:each="signer : ${cashVoucher.documentType.signersList}"
+                          th:value="${signer.position.name}"
+                          th:if="${signer.position.name eq 'Кассир'}">
+                    <p class=table10 align=center style='text-align:center' ><span
+                            style='font-size:9.0pt;font-family:Courier' th:text="${signer.fullName}"></span>
+                    </p>
+                </th:block>
             </td>
         </tr>
         <tr style='height:12.0pt'>
