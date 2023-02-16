@@ -1,7 +1,7 @@
 package com.teachmeskills.documents.facade;
 
-import com.teachmeskills.documents.dto.CreateCashReceiptDto;
-import com.teachmeskills.documents.dto.CreateCashVoucherDto;
+import org.example.common.dto.document.CreateCashReceiptDto;
+import org.example.common.dto.document.CreateCashVoucherDto;
 import com.teachmeskills.documents.model.CashReceipt;
 import com.teachmeskills.documents.model.CashVoucher;
 import com.teachmeskills.documents.model.DocumentType;

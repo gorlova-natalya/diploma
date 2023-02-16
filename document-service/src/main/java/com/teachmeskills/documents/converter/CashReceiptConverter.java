@@ -1,6 +1,6 @@
 package com.teachmeskills.documents.converter;
 
-import com.teachmeskills.documents.dto.CashReceiptDto;
+import org.example.common.dto.document.CashReceiptDto;
 import com.teachmeskills.documents.model.CashReceipt;
 import org.mapstruct.Mapper;
 

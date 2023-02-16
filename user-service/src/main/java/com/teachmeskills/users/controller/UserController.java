@@ -1,17 +1,17 @@
 package com.teachmeskills.users.controller;
 
-import com.teachmeskills.users.dto.AppUserDto;
-import com.teachmeskills.users.dto.Converter;
-import com.teachmeskills.users.dto.CreateUserDto;
-import com.teachmeskills.users.dto.PageDto;
-import com.teachmeskills.users.dto.UsersListDto;
-import com.teachmeskills.users.dto.VerifyResultDto;
-import com.teachmeskills.users.dto.VerifyUserDto;
+import lombok.AllArgsConstructor;
+import org.example.common.dto.user.AppUserDto;
+import com.teachmeskills.users.converter.Converter;
+import org.example.common.dto.user.PageDto;
+import org.example.common.dto.user.UsersListDto;
+import org.example.common.dto.user.VerifyResultDto;
 import com.teachmeskills.users.facade.UserFacade;
 import com.teachmeskills.users.model.User;
 import com.teachmeskills.users.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.dto.user.CreateUserDto;
+import org.example.common.dto.user.VerifyUserDto;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,7 +27,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Slf4j
 public class UserController {
 

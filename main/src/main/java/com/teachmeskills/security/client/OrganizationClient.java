@@ -1,8 +1,9 @@
 package com.teachmeskills.security.client;
 
-import com.teachmeskills.security.dto.EmployeeDto;
-import com.teachmeskills.security.dto.OrganizationDto;
 import feign.Headers;
+import org.example.common.dto.document.DepartmentDto;
+import org.example.common.dto.document.EmployeeDto;
+import org.example.common.dto.document.OrganizationDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,4 +26,7 @@ public interface OrganizationClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/employees")
     List<EmployeeDto> getEmployees();
+
+    @RequestMapping(method = RequestMethod.GET, value = "/departments")
+    List<DepartmentDto> getDepartments();
 }

@@ -1,9 +1,12 @@
 package com.teachmeskills.documents.controller;
 
+import com.teachmeskills.documents.converter.DepartmentConverter;
 import com.teachmeskills.documents.converter.EmployeeConverter;
 import com.teachmeskills.documents.converter.OrganizationConverter;
-import com.teachmeskills.documents.dto.EmployeeDto;
-import com.teachmeskills.documents.dto.OrganizationDto;
+import org.example.common.dto.document.DepartmentDto;
+import org.example.common.dto.document.EmployeeDto;
+import org.example.common.dto.document.OrganizationDto;
+import com.teachmeskills.documents.model.Department;
 import com.teachmeskills.documents.model.Employee;
 import com.teachmeskills.documents.model.Organization;
 import com.teachmeskills.documents.service.EmployeeService;
@@ -27,6 +30,7 @@ public class OrganizationController {
     private final OrganizationConverter organizationConverter;
     private final EmployeeService employeeService;
     private final EmployeeConverter employeeConverter;
+    private final DepartmentConverter departmentConverter;
 
     @GetMapping("/organizations")
     protected List<OrganizationDto> getAllOrganizations() {
@@ -50,5 +54,11 @@ public class OrganizationController {
     protected EmployeeDto getEmployeeByName(@RequestBody final String fullName) {
         Employee employee = employeeService.getEmployeeByName(fullName).stream().findFirst().orElse(null);
         return employeeConverter.toDto(employee);
+    }
+
+    @GetMapping("/departments")
+    protected List<DepartmentDto> getDepartments() {
+        List<Department> departments = organizationService.findDepartments();
+        return departmentConverter.toDto(departments);
     }
 }

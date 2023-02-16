@@ -1,12 +1,12 @@
 package com.teachmeskills.security.controller;
 
-import com.teachmeskills.security.client.dto.AppUserDto;
-import com.teachmeskills.security.dto.CreateUserDto;
-import com.teachmeskills.security.client.dto.PageDto;
-import com.teachmeskills.security.client.dto.UsersListDto;
 import com.teachmeskills.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.dto.user.AppUserDto;
+import org.example.common.dto.user.CreateUserDto;
+import org.example.common.dto.user.PageDto;
+import org.example.common.dto.user.UsersListDto;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

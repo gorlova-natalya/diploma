@@ -1,7 +1,7 @@
 package com.teachmeskills.documents.converter;
 
-import com.teachmeskills.documents.dto.DocumentTypeDto;
 import com.teachmeskills.documents.model.DocumentType;
+import org.example.common.dto.document.DocumentTypeDto;
 import org.mapstruct.Mapper;
 
 import java.util.List;

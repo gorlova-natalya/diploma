@@ -1,13 +1,14 @@
 package com.teachmeskills.security.controller;
 
-import com.teachmeskills.security.dto.CashVoucherDto;
-import com.teachmeskills.security.dto.CreateCashVoucherDto;
-import com.teachmeskills.security.dto.EmployeeDto;
-import com.teachmeskills.security.dto.OrganizationDto;
+import org.example.common.dto.document.AssetDto;
+import com.teachmeskills.security.service.AssetService;
 import com.teachmeskills.security.service.DocumentService;
 import com.teachmeskills.security.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.example.common.dto.document.CreateInvoiceDto;
+import org.example.common.dto.document.DepartmentDto;
+import org.example.common.dto.document.EmployeeDto;
+import org.example.common.dto.document.OrganizationDto;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,27 +23,31 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/internal-invoice")
 @RequiredArgsConstructor
-@Slf4j
 public class InvoiceController {
 
     private final DocumentService documentService;
     private final OrganizationService organizationService;
+    private final AssetService assetService;
 
     @GetMapping("/{id}")
     protected String doGet(@PathVariable("id") Long id, final Model model) {
         List<OrganizationDto> organizations = organizationService.getOrganizations();
+        List<DepartmentDto> departments = organizationService.getDepartments();
+        List<AssetDto> assets = assetService.getAssets();
         model.addAttribute("organizationsDto", organizations);
+        model.addAttribute("departmentsDto", departments);
+        model.addAttribute("assetsDto", assets);
         List<EmployeeDto> employees = organizationService.getEmployees();
         model.addAttribute("employeesDto", employees);
-        model.addAttribute("invoiceDto", new CreateCashVoucherDto());
+        model.addAttribute("invoiceDto", new CreateInvoiceDto());
         model.addAttribute("documentTypeId", id);
         return "invoiceForm";
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected String createCashVoucher(@ModelAttribute("invoiceDto") CreateCashVoucherDto createCashVoucherDto, Model model) {
-        CashVoucherDto voucher = documentService.createVoucher(createCashVoucherDto);
-        model.addAttribute("cashVoucher", voucher);
-        return "voucher";
+    protected String createInvoice(@ModelAttribute("invoiceDto") CreateInvoiceDto createInvoiceDto, Model model) {
+        CreateInvoiceDto invoice = documentService.createInvoice(createInvoiceDto);
+        model.addAttribute("invoice", invoice);
+        return "invoice";
     }
 }

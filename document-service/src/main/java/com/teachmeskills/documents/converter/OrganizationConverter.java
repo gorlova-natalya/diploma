@@ -1,6 +1,6 @@
 package com.teachmeskills.documents.converter;
 
-import com.teachmeskills.documents.dto.OrganizationDto;
+import org.example.common.dto.document.OrganizationDto;
 import com.teachmeskills.documents.model.Organization;
 import org.mapstruct.Mapper;
 

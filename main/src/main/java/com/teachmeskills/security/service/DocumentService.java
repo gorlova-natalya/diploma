@@ -2,11 +2,12 @@ package com.teachmeskills.security.service;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.teachmeskills.security.client.DocumentClient;
-import com.teachmeskills.security.dto.CashReceiptDto;
-import com.teachmeskills.security.dto.CashVoucherDto;
-import com.teachmeskills.security.dto.CreateCashReceiptDto;
-import com.teachmeskills.security.dto.CreateCashVoucherDto;
+import org.example.common.dto.document.CashVoucherDto;
 import lombok.RequiredArgsConstructor;
+import org.example.common.dto.document.CashReceiptDto;
+import org.example.common.dto.document.CreateCashReceiptDto;
+import org.example.common.dto.document.CreateCashVoucherDto;
+import org.example.common.dto.document.CreateInvoiceDto;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -25,6 +26,10 @@ public class DocumentService {
 
     public CashVoucherDto createVoucher(final CreateCashVoucherDto createCashVoucherDto) {
         return documentClient.createCashVoucher(createCashVoucherDto);
+    }
+
+    public CreateInvoiceDto createInvoice(final CreateInvoiceDto createInvoiceDto) {
+        return documentClient.createInvoice(createInvoiceDto);
     }
 
     public void generatePDF() throws IOException {

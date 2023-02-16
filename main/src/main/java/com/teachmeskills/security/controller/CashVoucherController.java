@@ -1,13 +1,13 @@
 package com.teachmeskills.security.controller;
 
-import com.teachmeskills.security.dto.CashVoucherDto;
-import com.teachmeskills.security.dto.CreateCashVoucherDto;
-import com.teachmeskills.security.dto.EmployeeDto;
-import com.teachmeskills.security.dto.OrganizationDto;
+import org.example.common.dto.document.CashVoucherDto;
 import com.teachmeskills.security.service.DocumentService;
 import com.teachmeskills.security.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.dto.document.CreateCashVoucherDto;
+import org.example.common.dto.document.EmployeeDto;
+import org.example.common.dto.document.OrganizationDto;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

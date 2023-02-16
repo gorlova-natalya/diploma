@@ -1,0 +1,1 @@
+docker run --rm -v "C:\Users\natas\Documents\diploma\document-service\src\main\resources\db.migration:/flyway/sql/documents" --network "diploma_default" flyway/flyway -url=jdbc:postgresql://db:5432/postgres -user=postgres -password=postgres migrate

@@ -1,6 +1,6 @@
 package com.teachmeskills.documents.converter;
 
-import com.teachmeskills.documents.dto.EmployeeDto;
+import org.example.common.dto.document.EmployeeDto;
 import com.teachmeskills.documents.model.Employee;
 import org.mapstruct.Mapper;
 

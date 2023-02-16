@@ -1,14 +1,14 @@
 package com.teachmeskills.security.controller;
 
-import com.teachmeskills.security.dto.CashReceiptDto;
-import com.teachmeskills.security.dto.CreateCashReceiptDto;
-import com.teachmeskills.security.dto.EmployeeDto;
-import com.teachmeskills.security.dto.OrganizationDto;
 import com.teachmeskills.security.service.DocumentService;
 import com.teachmeskills.security.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.dto.document.CashReceiptDto;
+import org.example.common.dto.document.CreateCashReceiptDto;
+import org.example.common.dto.document.EmployeeDto;
+import org.example.common.dto.document.OrganizationDto;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

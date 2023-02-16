@@ -1,8 +1,8 @@
 package com.teachmeskills.security.config.service;
 
-import com.teachmeskills.security.client.dto.AppUserDto;
 import com.teachmeskills.security.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.example.common.dto.user.AppUserDto;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
