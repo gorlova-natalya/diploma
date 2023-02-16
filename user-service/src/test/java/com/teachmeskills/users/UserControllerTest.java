@@ -1,13 +1,13 @@
 package com.teachmeskills.users;
 
 import com.teachmeskills.users.controller.UserController;
-import com.teachmeskills.users.dto.Converter;
-import com.teachmeskills.users.dto.CreateUserDto;
+import com.teachmeskills.users.converter.Converter;
 import com.teachmeskills.users.facade.UserFacade;
 import com.teachmeskills.users.model.Role;
 import com.teachmeskills.users.model.User;
 import com.teachmeskills.users.repository.UserRepository;
 import com.teachmeskills.users.service.UserService;
+import org.example.common.dto.user.CreateUserDto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
