@@ -7,6 +7,7 @@ import org.example.common.dto.document.CreateCashVoucherDto;
 import org.example.common.dto.document.CreateInvoiceDto;
 import org.example.common.dto.document.DocumentTypeDto;
 import feign.Headers;
+import org.example.common.dto.document.InvoiceDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +27,7 @@ public interface DocumentClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "/invoice")
     @Headers(value = "Content-Type: application/json")
-    CreateInvoiceDto createInvoice(final CreateInvoiceDto createInvoiceDto);
+    InvoiceDto createInvoice(final CreateInvoiceDto createInvoiceDto);
 
     @RequestMapping(method = RequestMethod.GET, value = "/type")
     @Headers(value = "Content-Type: application/json")

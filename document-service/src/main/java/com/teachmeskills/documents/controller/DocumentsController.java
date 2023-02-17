@@ -3,6 +3,8 @@ package com.teachmeskills.documents.controller;
 import com.teachmeskills.documents.converter.CashReceiptConverter;
 import com.teachmeskills.documents.converter.CashVoucherConverter;
 import com.teachmeskills.documents.converter.DocumentTypeConverter;
+import com.teachmeskills.documents.converter.InvoiceConverter;
+import com.teachmeskills.documents.model.Invoice;
 import org.example.common.dto.document.CashReceiptDto;
 import org.example.common.dto.document.CashVoucherDto;
 import org.example.common.dto.document.CreateCashReceiptDto;
@@ -13,7 +15,9 @@ import com.teachmeskills.documents.model.CashVoucher;
 import com.teachmeskills.documents.model.DocumentType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.dto.document.CreateInvoiceDto;
 import org.example.common.dto.document.DocumentTypeDto;
+import org.example.common.dto.document.InvoiceDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +40,7 @@ public class DocumentsController {
     private final DocumentTypeConverter documentTypeConverter;
     private final CashReceiptConverter cashReceiptConverter;
     private final CashVoucherConverter cashVoucherConverter;
+    private final InvoiceConverter invoiceConverter;
 
     @GetMapping("/type")
     protected DocumentTypeDto getDocumentTypeById(@RequestBody final Long id) {
@@ -63,5 +68,13 @@ public class DocumentsController {
         final CashVoucher cashVoucher = documentFacade.createCashVoucher(dto);
         log.info("документ создан");
         return cashVoucherConverter.toDto(cashVoucher);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/invoice")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    protected InvoiceDto createInvoice(@Valid @RequestBody final CreateInvoiceDto dto) {
+        final Invoice invoice = documentFacade.createInvoice(dto);
+        log.info("документ создан");
+        return invoiceConverter.toDto(invoice);
     }
 }

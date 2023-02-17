@@ -12,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -47,7 +49,11 @@ public class Asset {
     @JoinColumn(name = "asset_unit_id", referencedColumnName = "id")
     AssetUnit assetUnits;
 
-    public Asset(Long id, String assetName, Integer assetCount, Double cost, Department department, Employee employee, AssetUnit assetUnits) {
+    @OneToMany(mappedBy = "invoice")
+    List<AssetCount> invoiceAssetCount;
+
+    public Asset(Long id, String assetName, Integer assetCount, Double cost, Department department, Employee employee,
+                 AssetUnit assetUnits, List<AssetCount> invoiceAssetCount) {
         this.id = id;
         this.assetName = assetName;
         this.assetCount = assetCount;
@@ -55,5 +61,6 @@ public class Asset {
         this.department = department;
         this.employee = employee;
         this.assetUnits = assetUnits;
+        this.invoiceAssetCount = invoiceAssetCount;
     }
 }

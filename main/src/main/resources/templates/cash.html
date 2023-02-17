@@ -90,8 +90,7 @@
         font-size: 8pt
     }
 
-    .tablencpi {
-    }</style>
+</style>
 </head>
 <body>
 <table style="border: none;width:100.0%;border-collapse:collapse;">
@@ -522,7 +521,7 @@
                     </td>
                     <td style="width:35.62%;border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 0cm 1.4pt;height:12.0pt;">
                         <p style='margin:0cm;font-size:16px;font-family:"Times New Roman",serif;'><span
-                                style="font-family:Courier;"><span style="font-size:12px;">Сто тридцать девять рублей 99 &nbsp; &nbsp;</span></span>
+                                style="font-family:Courier;"><span style="font-size:12px;" th:text="*{sum}"></span></span>
                         </p>
                     </td>
                 </tr>
@@ -540,7 +539,7 @@
         <td colspan="4"
             style="width:35.28%;border:none;border-bottom:solid windowtext 1.0pt;padding:0cm 0cm 0cm 1.4pt;height:12.0pt;">
             <p style='margin:0cm;font-size:16px;font-family:"Times New Roman",serif;'><span
-                    style="font-size:12px;font-family:Courier;">Сто тридцать девять рублей 99 &nbsp; &nbsp;</span></p>
+                    style="font-size:12px;font-family:Courier;" th:text="*{sum}">&nbsp;</span></p>
         </td>
     </tr>
     <tr>
@@ -574,7 +573,7 @@
                 <tr>
                     <td style="width: 100%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 12pt;vertical-align: bottom;">
                         <p style='margin:0cm;font-size:16px;font-family:"Times New Roman",serif;'><span
-                                style="font-size:12px;font-family:Courier;">копеек</span></p>
+                                style="font-size:12px;font-family:Courier;"></span></p>
                     </td>
                 </tr>
                 </tbody>
@@ -587,7 +586,7 @@
         <td colspan="5"
             style="width: 48.38%;border-top: none;border-right: none;border-left: none;border-image: initial;border-bottom: 1pt solid windowtext;padding: 0cm;height: 12pt;vertical-align: bottom;">
             <p style='margin:0cm;font-size:16px;font-family:"Times New Roman",serif;text-align:justify;'><span
-                    style="font-size:12px;font-family:Courier;">копеек</span></p>
+                    style="font-size:12px;font-family:Courier;"></span></p>
         </td>
     </tr>
     <tr>
@@ -878,12 +877,6 @@
     <tr>
         <td style="border:none;">
             <div>
-                <form method="post"
-                      action="#"
-                      th:action="@{/cash-receipt/pdf}">
-                    <button type="submit" class="button btn btn-primary" name="button">Распечатать
-                    </button>
-                </form>
             </div><br></td>
         <td style="border:none;"><br></td>
         <td style="border:none;"><br></td>

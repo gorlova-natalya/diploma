@@ -32,4 +32,8 @@ public class OrganizationService {
     public List<Department> findDepartments() {
         return departmentRepository.findAll();
     }
+
+    public Optional<Department> getDepartment(Long id) {
+        return departmentRepository.findById(id);
+    }
 }

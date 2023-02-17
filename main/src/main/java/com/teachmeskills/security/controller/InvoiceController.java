@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.common.dto.document.CreateInvoiceDto;
 import org.example.common.dto.document.DepartmentDto;
 import org.example.common.dto.document.EmployeeDto;
+import org.example.common.dto.document.InvoiceDto;
 import org.example.common.dto.document.OrganizationDto;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,7 @@ public class InvoiceController {
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     protected String createInvoice(@ModelAttribute("invoiceDto") CreateInvoiceDto createInvoiceDto, Model model) {
-        CreateInvoiceDto invoice = documentService.createInvoice(createInvoiceDto);
+        InvoiceDto invoice = documentService.createInvoice(createInvoiceDto);
         model.addAttribute("invoice", invoice);
         return "invoice";
     }

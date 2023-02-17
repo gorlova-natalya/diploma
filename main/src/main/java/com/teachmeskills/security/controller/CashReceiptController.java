@@ -1,5 +1,6 @@
 package com.teachmeskills.security.controller;
 
+import com.teachmeskills.security.config.ThymeLeafConfig;
 import com.teachmeskills.security.service.DocumentService;
 import com.teachmeskills.security.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.context.Context;
 
+import java.io.FileWriter;
+import java.io.Writer;
 import java.util.List;
 
 @Controller
@@ -46,15 +50,15 @@ public class CashReceiptController {
         CashReceiptDto order = documentService.createOrder(createCashReceiptDto);
         model.addAttribute("cashReceipt", order);
 
-//        documentService.generatePDF();
-        return "cash";
-    }
+        //заполнение шаблона
+        Context context = new Context();
+        context.setVariable("cashReceipt", order);
+        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/index-to-pdf.html");
+        writer.write(ThymeLeafConfig.getTemplateEngine().process("cash.html", context));
+        writer.close();
 
-    @SneakyThrows
-    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, value = "/pdf")
-    protected String createPdf(@ModelAttribute("cashDto") CreateCashReceiptDto createCashReceiptDto,
-                               @ModelAttribute("cashReceipt") CashReceiptDto order) {
+        //генерация из заполненного шаблона
         documentService.generatePDF();
-        return "menu";
+        return "cash";
     }
 }
