@@ -1,9 +1,7 @@
 package com.teachmeskills.security.service;
 
-import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.teachmeskills.security.client.DocumentClient;
@@ -17,7 +15,6 @@ import org.example.common.dto.document.InvoiceDto;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Service
@@ -48,6 +45,5 @@ public class DocumentService {
         HtmlConverter.convertToPdf(
                 new FileInputStream("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/index-to-pdf.html"),
                 pdfDoc);
-
     }
 }
