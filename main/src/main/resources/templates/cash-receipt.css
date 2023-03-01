@@ -1,0 +1,27 @@
+body {
+    font-family: 'Times New Roman';
+    font-size: 12pt
+}
+
+p {
+    margin: 0pt
+}
+
+table {
+    margin-top: 0pt;
+    margin-bottom: 0pt
+}
+
+.table10 {
+    font-size: 10pt
+}
+
+span.Courier90 {
+    font-family: Courier;
+    font-size: 9pt
+}
+
+span.a {
+    font-family: Tahoma;
+    font-size: 8pt
+}

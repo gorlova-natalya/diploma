@@ -5,7 +5,7 @@ import org.example.common.dto.document.InvoiceDto;
 import org.mapstruct.Mapper;
 
 @Mapper(uses = {EmployeeConverter.class, DocumentTypeConverter.class, OrganizationConverter.class,
-                DepartmentConverter.class, AssetConverter.class})
+                DepartmentConverter.class, AssetCountConverter.class})
 public interface InvoiceConverter {
 
     InvoiceDto toDto(Invoice invoice);

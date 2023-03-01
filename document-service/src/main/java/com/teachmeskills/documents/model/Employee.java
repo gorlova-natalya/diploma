@@ -36,17 +36,9 @@ public class Employee {
     @JoinColumn(name = "position_id", referencedColumnName = "id")
     Position position;
 
-    @ManyToMany(mappedBy = "signersList")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "signersList")
     List<DocumentType> signedDocuments;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private List<CashReceipt> cashReceipts;
-
-    public List<DocumentType> getSignedDocuments() {
-        return signedDocuments;
-    }
-
-    public void setSignedDocuments(List<DocumentType> signedDocuments) {
-        this.signedDocuments = signedDocuments;
-    }
 }

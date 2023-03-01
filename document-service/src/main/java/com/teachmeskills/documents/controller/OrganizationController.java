@@ -32,7 +32,7 @@ public class OrganizationController {
     private final EmployeeConverter employeeConverter;
     private final DepartmentConverter departmentConverter;
 
-    @GetMapping("/organizations")
+    @GetMapping
     protected List<OrganizationDto> getAllOrganizations() {
         List<Organization> organizations = organizationService.findOrganizations();
         return organizationConverter.toDto(organizations);

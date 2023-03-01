@@ -18,7 +18,19 @@ public class AssetService {
         return assetRepository.findAll();
     }
 
+    public List<Asset> getAssetsById(List<Long> ids) {
+        return assetRepository.findAllById(ids);
+    }
+
     public Optional<Asset> getAsset(Long id) {
         return assetRepository.findById(id);
+    }
+
+    public Double getSum(Long id, int count) {
+        Asset asset = getAsset(id).orElse(null);
+        if (asset != null) {
+            return asset.getCost() * count;
+        }
+        return null;
     }
 }

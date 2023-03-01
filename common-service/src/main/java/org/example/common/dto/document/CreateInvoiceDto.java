@@ -7,6 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Jacksonized
@@ -15,14 +16,14 @@ public class CreateInvoiceDto {
 
     Long id;
     int documentNumber;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd.MM.yyyy")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     LocalDate documentDate;
     Long organization;
     Long fromDepartment;
     Long toDepartment;
     Long fromEmployee;
     Long toEmployee;
-    Long documentType;
-    Long asset;
+    Long documentTypeId;
+    List<ChooseAssetDto> assetCount;
 }

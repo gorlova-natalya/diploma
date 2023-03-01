@@ -34,6 +34,9 @@ public class Asset {
     @Column(name = "asset_count")
     Integer assetCount;
 
+    @Column(name = "asset_number")
+    Integer assetNumber;
+
     @Column(name = "cost")
     Double cost;
 
@@ -52,11 +55,12 @@ public class Asset {
     @OneToMany(mappedBy = "invoice")
     List<AssetCount> invoiceAssetCount;
 
-    public Asset(Long id, String assetName, Integer assetCount, Double cost, Department department, Employee employee,
-                 AssetUnit assetUnits, List<AssetCount> invoiceAssetCount) {
+    public Asset(Long id, String assetName, Integer assetCount, Integer assetNumber, Double cost, Department department,
+                 Employee employee, AssetUnit assetUnits, List<AssetCount> invoiceAssetCount) {
         this.id = id;
         this.assetName = assetName;
         this.assetCount = assetCount;
+        this.assetNumber = assetNumber;
         this.cost = cost;
         this.department = department;
         this.employee = employee;

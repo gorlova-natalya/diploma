@@ -56,23 +56,19 @@ public class Invoice {
     private Employee fromEmployee;
 
     @ManyToOne
-    @JoinColumn(name = "to__employee_id", referencedColumnName = "id")
+    @JoinColumn(name = "to_employee_id", referencedColumnName = "id")
     private Employee toEmployee;
 
     @ManyToOne
     @JoinColumn(name = "document_type_id", referencedColumnName = "id")
     private DocumentType documentType;
 
-    @ManyToOne
-    @JoinColumn(name = "asset_id", referencedColumnName = "id")
-    private Asset asset;
-
     @OneToMany(mappedBy = "asset")
     List<AssetCount> assetCount;
 
     public Invoice(Long id, int documentNumber, LocalDate documentDate, Organization organization,
                    Department fromDepartment, Department toDepartment, Employee fromEmployee, Employee toEmployee,
-                   DocumentType documentType, Asset asset, List<AssetCount> assetCount) {
+                   DocumentType documentType, List<AssetCount> assetCount) {
         this.id = id;
         this.documentNumber = documentNumber;
         this.documentDate = documentDate;
@@ -82,7 +78,6 @@ public class Invoice {
         this.fromEmployee = fromEmployee;
         this.toEmployee = toEmployee;
         this.documentType = documentType;
-        this.asset = asset;
         this.assetCount = assetCount;
     }
 }

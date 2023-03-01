@@ -1,9 +1,12 @@
 package com.teachmeskills.documents.facade;
 
-import com.teachmeskills.documents.model.Asset;
+import com.teachmeskills.documents.model.AssetCount;
 import com.teachmeskills.documents.model.Department;
 import com.teachmeskills.documents.model.Invoice;
 import com.teachmeskills.documents.service.AssetService;
+import com.teachmeskills.documents.service.CashReceiptService;
+import com.teachmeskills.documents.service.CashVoucherService;
+import com.teachmeskills.documents.service.InvoiceService;
 import org.example.common.dto.document.CreateCashReceiptDto;
 import org.example.common.dto.document.CreateCashVoucherDto;
 import com.teachmeskills.documents.model.CashReceipt;
@@ -19,47 +22,42 @@ import org.example.common.dto.document.CreateInvoiceDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class DocumentFacade {
 
     private final DocumentService documentService;
+    private final CashReceiptService cashReceiptService;
+    private final CashVoucherService cashVoucherService;
+    private final InvoiceService invoiceService;
     private final EmployeeService employeeService;
     private final OrganizationService organizationService;
     private final AssetService assetService;
 
     public CashReceipt createCashReceipt(CreateCashReceiptDto dto) {
-        Organization organization = organizationService
-                .get(dto.getOrganizationId()).stream().findFirst().orElse(null);
-        Employee employee = employeeService.get(dto.getEmployeeId()).stream().findFirst().orElse(null);
-        DocumentType documentType = documentService.getDocumentType(dto.getDocumentTypeId()).stream().findFirst().orElse(null);
+        Organization organization = organizationService.get(dto.getOrganizationId()).orElse(null);
+        Employee employee = employeeService.get(dto.getEmployeeId()).orElse(null);
+        DocumentType documentType = documentService.getDocumentType(dto.getDocumentTypeId()).orElse(null);
 
-        return documentService.createCashReceipt(documentType,
+        return cashReceiptService.createCashReceipt(documentType,
                 dto.getDocumentNumber(), dto.getPurpose(), dto.getDocumentDate(),
-               employee, organization, dto.getSum(), dto.getAnnex());
+                employee, organization, dto.getSum(), dto.getAnnex());
     }
 
     public CashVoucher createCashVoucher(CreateCashVoucherDto dto) {
-        Organization organization = organizationService
-                .get(dto.getOrganizationId()).stream().findFirst().orElse(null);
-        Employee employee = employeeService.get(dto.getEmployeeId()).stream().findFirst().orElse(null);
-        DocumentType documentType = documentService.getDocumentType(dto.getDocumentTypeId()).stream().findFirst().orElse(null);
+        Organization organization = organizationService.get(dto.getOrganizationId()).orElse(null);
+        Employee employee = employeeService.get(dto.getEmployeeId()).orElse(null);
+        DocumentType documentType = documentService.getDocumentType(dto.getDocumentTypeId()).orElse(null);
 
-        return documentService.createCashVoucher(documentType,
+        return cashVoucherService.createCashVoucher(documentType,
                 dto.getDocumentNumber(), dto.getPurpose(), dto.getDocumentDate(),
                 employee, organization, dto.getSum(), dto.getAnnex(), dto.getPassport());
     }
 
     public DocumentType getDocumentType(Long id) {
-        DocumentType documentType1 = documentService.getDocumentType(id).stream().findFirst().orElse(null);
-        List<Employee> employees = employeeService.getEmployeesBySignedDocumentsContains(documentType1);
-        DocumentType documentType = new DocumentType();
-        documentType.setId(id);
-        assert documentType1 != null;
-        documentType.setTypeName(documentType1.getTypeName());
-        documentType.setSignersList(employees);
-        return documentType;
+        return documentService.getDocumentType(id).orElse(null);
     }
 
     public List<DocumentType> getDocumentTypes() {
@@ -67,19 +65,23 @@ public class DocumentFacade {
     }
 
     public Invoice createInvoice(CreateInvoiceDto dto) {
-        Organization organization = organizationService
-                .get(dto.getOrganization()).stream().findFirst().orElse(null);
-        Employee fromEmployee = employeeService.get(dto.getFromEmployee()).stream().findFirst().orElse(null);
-        Employee toEmployee = employeeService.get(dto.getToEmployee()).stream().findFirst().orElse(null);
-        DocumentType documentType = documentService.getDocumentType(dto.getDocumentType()).stream().findFirst()
-                .orElse(null);
-        Department fromDepartment = organizationService.getDepartment(dto.getFromDepartment()).stream().findFirst()
-                .orElse(null);
-        Department toDepartment = organizationService.getDepartment(dto.getToDepartment()).stream().findFirst()
-                .orElse(null);
-        Asset asset = assetService.getAsset(dto.getAsset()).stream().findFirst().orElse(null);
+        Organization organization = organizationService.get(dto.getOrganization()).orElse(null);
+        Employee fromEmployee = employeeService.get(dto.getFromEmployee()).orElse(null);
+        Employee toEmployee = employeeService.get(dto.getToEmployee()).orElse(null);
+        DocumentType documentType = documentService.getDocumentType(dto.getDocumentTypeId()).orElse(null);
+        Department fromDepartment = organizationService.getDepartment(dto.getFromDepartment()).orElse(null);
+        Department toDepartment = organizationService.getDepartment(dto.getToDepartment()).orElse(null);
+        List<AssetCount> assets = dto.getAssetCount().stream()
+                .filter(chooseAssetDto -> chooseAssetDto.getAssetId() != null)
+                .map(chooseAssetDto -> AssetCount.builder()
+                                .asset(assetService.getAsset(chooseAssetDto.getAssetId())
+                                        .orElseThrow(RuntimeException::new))
+                                .count(chooseAssetDto.getCount())
+                                .sum(assetService.getSum(chooseAssetDto.getAssetId(), chooseAssetDto.getCount()))
+                                .build())
+                .collect(Collectors.toList());
 
-        return documentService.createInvoice(dto.getDocumentNumber(), dto.getDocumentDate(), organization,
-                fromDepartment, toDepartment, fromEmployee, toEmployee, documentType, asset);
+        return invoiceService.createInvoice(dto.getDocumentNumber(), dto.getDocumentDate(), organization,
+                fromDepartment, toDepartment, fromEmployee, toEmployee, documentType, assets);
     }
 }

@@ -8,7 +8,5 @@ CREATE TABLE invoices
     to_department_id BIGINT REFERENCES departments (id),
     from_employee_id BIGINT REFERENCES employees (id),
     to_employee_id BIGINT REFERENCES employees (id),
-    asset_id      BIGINT REFERENCES assets (id),
     document_type_id BIGINT REFERENCES types (id)
-
 );

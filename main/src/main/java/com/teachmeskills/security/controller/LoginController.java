@@ -38,8 +38,8 @@ public class LoginController {
 
     @SneakyThrows
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected String doPost(@Valid @ModelAttribute("dto") final UserDto dto, HttpServletResponse response,
-                            final BindingResult bindingResult) {
+    protected String authorizeUser(@Valid @ModelAttribute("dto") final UserDto dto, HttpServletResponse response,
+                                   final BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             return "login";
         }

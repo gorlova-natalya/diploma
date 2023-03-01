@@ -29,7 +29,8 @@
                             <input type="login" id="form2Example18" class="form-control form-control-lg"
                                    th:filed="*{login}" name="login" placeholder="Введите логин"/>
                             <label class="form-label" for="form2Example18">Логин</label>
-                            <p class="alert alert-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Invalid login</p>
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('login')}"
+                               th:errors="*{login}">Invalid login</p>
                         </div>
 
                         <div class="form-outline mb-4">

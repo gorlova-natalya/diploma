@@ -7,14 +7,10 @@ import lombok.extern.jackson.Jacksonized;
 @Data
 @Jacksonized
 @RequiredArgsConstructor
-public class AssetDto {
+public class AssetCountDto {
 
     Long id;
-    String assetName;
-    Integer assetCount;
-    Integer assetNumber;
-    Double cost;
-    DepartmentDto department;
-    EmployeeDto employee;
-    AssetUnitDto assetUnits;
+    AssetDto asset;
+    int count;
+    Double sum;
 }

@@ -1,5 +1,7 @@
 package com.teachmeskills.security.controller;
 
+import com.ibm.icu.text.RuleBasedNumberFormat;
+import com.teachmeskills.security.config.ThymeLeafConfig;
 import org.example.common.dto.document.CashVoucherDto;
 import com.teachmeskills.security.service.DocumentService;
 import com.teachmeskills.security.service.OrganizationService;
@@ -16,8 +18,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.context.Context;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping(value = "/cash-voucher")
@@ -40,9 +47,25 @@ public class CashVoucherController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected String createCashVoucher(@ModelAttribute("voucherDto") CreateCashVoucherDto createCashVoucherDto, Model model) {
+    protected String createCashVoucher(@ModelAttribute("voucherDto") CreateCashVoucherDto createCashVoucherDto, Model model) throws IOException {
         CashVoucherDto voucher = documentService.createVoucher(createCashVoucherDto);
         model.addAttribute("cashVoucher", voucher);
+        RuleBasedNumberFormat nf = new RuleBasedNumberFormat(Locale.forLanguageTag("ru"),
+                RuleBasedNumberFormat.SPELLOUT);
+        String format = nf.format(voucher.getSum());
+        model.addAttribute("sumText", format);
+
+        Context context = new Context();
+        context.setVariable("cashVoucher", voucher);
+        context.setVariable("sumText", format);
+        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash_voucher.html");
+        writer.write(ThymeLeafConfig.getTemplateEngine().process("voucher.html", context));
+        writer.close();
+
+        String pdfFileName = "C:/Users/natas/Documents/diploma/print/cash_voucher.pdf";
+        String htmlFileName = "C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash_voucher.html";
+
+        documentService.generatePDF(pdfFileName, htmlFileName);
         return "voucher";
     }
 }

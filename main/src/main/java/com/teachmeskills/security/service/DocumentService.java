@@ -4,7 +4,9 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.teachmeskills.security.client.DocumentClient;
+import com.teachmeskills.security.client.CashReceiptClient;
+import com.teachmeskills.security.client.CashVoucherClient;
+import com.teachmeskills.security.client.InvoiceClient;
 import org.example.common.dto.document.CashVoucherDto;
 import lombok.RequiredArgsConstructor;
 import org.example.common.dto.document.CashReceiptDto;
@@ -14,6 +16,7 @@ import org.example.common.dto.document.CreateInvoiceDto;
 import org.example.common.dto.document.InvoiceDto;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -21,29 +24,27 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class DocumentService {
 
-    private final DocumentClient documentClient;
+    private final CashReceiptClient cashReceiptClient;
+    private final CashVoucherClient cashVoucherClient;
+    private final InvoiceClient invoiceClient;
 
     public CashReceiptDto createOrder(final CreateCashReceiptDto createCashReceiptDto) {
-        return documentClient.createCashReceipt(createCashReceiptDto);
+        return cashReceiptClient.createCashReceipt(createCashReceiptDto);
     }
 
     public CashVoucherDto createVoucher(final CreateCashVoucherDto createCashVoucherDto) {
-        return documentClient.createCashVoucher(createCashVoucherDto);
+        return cashVoucherClient.createCashVoucher(createCashVoucherDto);
     }
 
     public InvoiceDto createInvoice(final CreateInvoiceDto createInvoiceDto) {
-        return documentClient.createInvoice(createInvoiceDto);
+        return invoiceClient.createInvoice(createInvoiceDto);
     }
 
-    public void generatePDF() throws IOException {
-
-        PdfDocument pdfDoc = new PdfDocument(
-                new PdfWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/index-to-pdf.pdf"));
-
+    public void generatePDF(String pdfFileName, String htmlFileName) throws IOException {
+        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(pdfFileName));
         pdfDoc.setDefaultPageSize(new PageSize(774, 1095));
-
-        HtmlConverter.convertToPdf(
-                new FileInputStream("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/index-to-pdf.html"),
-                pdfDoc);
+        HtmlConverter.convertToPdf(new FileInputStream(htmlFileName), pdfDoc);
+        File directory = new File(pdfFileName);
+        Runtime.getRuntime().exec("explorer.exe /select," + directory);
     }
 }

@@ -1,5 +1,6 @@
 package com.teachmeskills.security.controller;
 
+import com.ibm.icu.text.RuleBasedNumberFormat;
 import com.teachmeskills.security.config.ThymeLeafConfig;
 import com.teachmeskills.security.service.DocumentService;
 import com.teachmeskills.security.service.OrganizationService;
@@ -23,6 +24,7 @@ import org.thymeleaf.context.Context;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping(value = "/cash-receipt")
@@ -49,16 +51,22 @@ public class CashReceiptController {
     protected String createOrder(@ModelAttribute("cashDto") CreateCashReceiptDto createCashReceiptDto, Model model) {
         CashReceiptDto order = documentService.createOrder(createCashReceiptDto);
         model.addAttribute("cashReceipt", order);
+        RuleBasedNumberFormat nf = new RuleBasedNumberFormat(Locale.forLanguageTag("ru"),
+                RuleBasedNumberFormat.SPELLOUT);
+        String format = nf.format(order.getSum());
+        model.addAttribute("sumText", format);
 
-        //заполнение шаблона
         Context context = new Context();
         context.setVariable("cashReceipt", order);
-        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/index-to-pdf.html");
+        context.setVariable("sumText", format);
+        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash_receipt.html");
         writer.write(ThymeLeafConfig.getTemplateEngine().process("cash.html", context));
         writer.close();
 
-        //генерация из заполненного шаблона
-        documentService.generatePDF();
+        String pdfFileName = "C:/Users/natas/Documents/diploma/print/cash_receipt.pdf";
+        String htmlFileName = "C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash_receipt.html";
+
+        documentService.generatePDF(pdfFileName, htmlFileName);
         return "cash";
     }
 }
