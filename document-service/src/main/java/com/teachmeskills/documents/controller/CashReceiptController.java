@@ -1,7 +1,7 @@
 package com.teachmeskills.documents.controller;
 
 import com.teachmeskills.documents.converter.CashReceiptConverter;
-import com.teachmeskills.documents.facade.DocumentFacade;
+import com.teachmeskills.documents.facade.CashReceiptFacade;
 import com.teachmeskills.documents.model.CashReceipt;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +23,13 @@ import javax.validation.Valid;
 @Slf4j
 public class CashReceiptController {
 
-    private final DocumentFacade documentFacade;
+    private final CashReceiptFacade cashReceiptFacade;
     private final CashReceiptConverter cashReceiptConverter;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     protected CashReceiptDto createCashReceipt(@Valid @RequestBody final CreateCashReceiptDto dto) {
-        final CashReceipt cashReceipt = documentFacade.createCashReceipt(dto);
+        final CashReceipt cashReceipt = cashReceiptFacade.createCashReceipt(dto);
         log.info("Document created, " + cashReceipt.getDocumentType().getTypeName() +
                 ", №" + cashReceipt.getDocumentNumber());
         return cashReceiptConverter.toDto(cashReceipt);

@@ -1,17 +1,20 @@
 package org.example.common.dto.document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.jackson.Jacksonized;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Jacksonized
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateInvoiceDto {
 
     Long id;
@@ -25,5 +28,5 @@ public class CreateInvoiceDto {
     Long fromEmployee;
     Long toEmployee;
     Long documentTypeId;
-    List<ChooseAssetDto> assetCount;
+    List<ChooseAssetDto> assetCount = new ArrayList<>();
 }

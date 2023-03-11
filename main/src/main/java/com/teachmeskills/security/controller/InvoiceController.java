@@ -26,7 +26,6 @@ import org.thymeleaf.context.Context;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,9 +48,7 @@ public class InvoiceController {
         model.addAttribute("assetsDto", assets);
         List<EmployeeDto> employees = organizationService.getEmployees();
         model.addAttribute("employeesDto", employees);
-        CreateInvoiceDto createInvoiceDto = new CreateInvoiceDto();
-        createInvoiceDto.setAssetCount(new ArrayList<>());
-        model.addAttribute("invoiceDto", createInvoiceDto);
+        model.addAttribute("invoiceDto", new CreateInvoiceDto());
         model.addAttribute("documentTypeId", id);
         return "invoiceForm";
     }
@@ -77,12 +74,12 @@ public class InvoiceController {
         context.setVariable("sumText", format);
         context.setVariable("countText", count);
         context.setVariable("documentSum", sumInvoice);
-        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/internal_invoice.html");
+        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/filledTemplates/internal_invoice.html");
         writer.write(ThymeLeafConfig.getTemplateEngine().process("invoice.html", context));
         writer.close();
 
         String pdfFileName = "C:/Users/natas/Documents/diploma/print/internal_invoice.pdf";
-        String htmlFileName = "C:/Users/natas/Documents/diploma/main/src/main/resources/templates/internal_invoice.html";
+        String htmlFileName = "C:/Users/natas/Documents/diploma/main/src/main/resources/filledTemplates/internal_invoice.html";
 
         documentService.generatePDF(pdfFileName, htmlFileName);
         return "invoice";

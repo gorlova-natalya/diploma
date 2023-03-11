@@ -1,5 +1,6 @@
 package com.teachmeskills.documents.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.NonFinal;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @NonFinal
 @Entity
 @Table(name = "employees")

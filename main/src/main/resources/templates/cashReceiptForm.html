@@ -57,7 +57,7 @@
                     <div class="row mt-4"></div>
                     <div class="col-sm-4">
                         <label class="control-label col-sm-7">Сумма платежа в рублях</label>
-                        <input type="number" step="0.01" th:field="*{sum}" class="form-control" placeholder="Сумма"
+                        <input type="number" step="0.01" th:field="*{sum}" min="0.01" class="form-control" placeholder="Сумма"
                                aria-label="Дата">
                     </div>
                     <div class="row mt-4"></div>

@@ -30,7 +30,7 @@ public class UserController {
     protected String getUsers(@RequestParam(defaultValue = "1", name = "page", required = false) Integer pageNo,
                               @RequestParam(defaultValue = "5", name = "pageSize", required = false) Integer pageSize,
                               Model model) {
-        model.addAttribute("createUserDto", new CreateUserDto());
+        model.addAttribute("createUserDto", CreateUserDto.builder().build());
         final PageDto pageDto = PageDto.builder().pageNo(pageNo).pageSize(pageSize).build();
         final UsersListDto dto = userService.getUsers(pageDto);
         model.addAttribute("users", dto.getListUsers());

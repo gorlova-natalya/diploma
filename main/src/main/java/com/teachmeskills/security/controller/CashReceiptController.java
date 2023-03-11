@@ -41,7 +41,7 @@ public class CashReceiptController {
         model.addAttribute("organizationsDto", organizations);
         List<EmployeeDto> employees = organizationService.getEmployees();
         model.addAttribute("employeesDto", employees);
-        model.addAttribute("cashDto", new CreateCashReceiptDto());
+        model.addAttribute("cashDto", CreateCashReceiptDto.builder().build());
         model.addAttribute("documentTypeId", id);
         return "cashReceiptForm";
     }
@@ -59,12 +59,12 @@ public class CashReceiptController {
         Context context = new Context();
         context.setVariable("cashReceipt", order);
         context.setVariable("sumText", format);
-        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash_receipt.html");
+        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/filledTemplates/cash_receipt.html");
         writer.write(ThymeLeafConfig.getTemplateEngine().process("cash.html", context));
         writer.close();
 
         String pdfFileName = "C:/Users/natas/Documents/diploma/print/cash_receipt.pdf";
-        String htmlFileName = "C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash_receipt.html";
+        String htmlFileName = "C:/Users/natas/Documents/diploma/main/src/main/resources/filledTemplates/cash_receipt.html";
 
         documentService.generatePDF(pdfFileName, htmlFileName);
         return "cash";

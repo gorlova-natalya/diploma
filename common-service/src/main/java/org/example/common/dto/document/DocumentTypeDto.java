@@ -1,16 +1,19 @@
 package org.example.common.dto.document;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
-@Data
+@Value
+@Builder
 @Jacksonized
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@NoArgsConstructor
 public class DocumentTypeDto {
 
     Long id;
@@ -19,9 +22,5 @@ public class DocumentTypeDto {
 
     public List<EmployeeDto> getSignersList() {
         return signersList;
-    }
-
-    public void setSignersList(List<EmployeeDto> signersList) {
-        this.signersList = signersList;
     }
 }

@@ -1,7 +1,7 @@
 package com.teachmeskills.documents.controller;
 
 import com.teachmeskills.documents.converter.CashVoucherConverter;
-import com.teachmeskills.documents.facade.DocumentFacade;
+import com.teachmeskills.documents.facade.CashVoucherFacade;
 import com.teachmeskills.documents.model.CashVoucher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +23,13 @@ import javax.validation.Valid;
 @Slf4j
 public class CashVoucherController {
 
-    private final DocumentFacade documentFacade;
+    private final CashVoucherFacade cashVoucherFacade;
     private final CashVoucherConverter cashVoucherConverter;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     protected CashVoucherDto createCashVoucher(@Valid @RequestBody final CreateCashVoucherDto dto) {
-        final CashVoucher cashVoucher = documentFacade.createCashVoucher(dto);
+        final CashVoucher cashVoucher = cashVoucherFacade.createCashVoucher(dto);
         log.info("Document created, " + cashVoucher.getDocumentType().getTypeName() +
                 ", №" + cashVoucher.getDocumentNumber());
         return cashVoucherConverter.toDto(cashVoucher);

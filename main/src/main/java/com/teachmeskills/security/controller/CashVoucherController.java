@@ -41,13 +41,14 @@ public class CashVoucherController {
         model.addAttribute("organizationsDto", organizations);
         List<EmployeeDto> employees = organizationService.getEmployees();
         model.addAttribute("employeesDto", employees);
-        model.addAttribute("voucherDto", new CreateCashVoucherDto());
+        model.addAttribute("voucherDto", CreateCashVoucherDto.builder().build());
         model.addAttribute("documentTypeId", id);
         return "cashVoucherForm";
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected String createCashVoucher(@ModelAttribute("voucherDto") CreateCashVoucherDto createCashVoucherDto, Model model) throws IOException {
+    protected String createCashVoucher(@ModelAttribute("voucherDto") CreateCashVoucherDto createCashVoucherDto,
+                                       Model model) throws IOException {
         CashVoucherDto voucher = documentService.createVoucher(createCashVoucherDto);
         model.addAttribute("cashVoucher", voucher);
         RuleBasedNumberFormat nf = new RuleBasedNumberFormat(Locale.forLanguageTag("ru"),
@@ -58,12 +59,12 @@ public class CashVoucherController {
         Context context = new Context();
         context.setVariable("cashVoucher", voucher);
         context.setVariable("sumText", format);
-        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash_voucher.html");
+        Writer writer = new FileWriter("C:/Users/natas/Documents/diploma/main/src/main/resources/filledTemplates/cash_voucher.html");
         writer.write(ThymeLeafConfig.getTemplateEngine().process("voucher.html", context));
         writer.close();
 
         String pdfFileName = "C:/Users/natas/Documents/diploma/print/cash_voucher.pdf";
-        String htmlFileName = "C:/Users/natas/Documents/diploma/main/src/main/resources/templates/cash_voucher.html";
+        String htmlFileName = "C:/Users/natas/Documents/diploma/main/src/main/resources/filledTemplates/cash_voucher.html";
 
         documentService.generatePDF(pdfFileName, htmlFileName);
         return "voucher";

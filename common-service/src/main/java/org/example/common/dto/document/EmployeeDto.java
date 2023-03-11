@@ -1,14 +1,17 @@
 package org.example.common.dto.document;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
-@Data
+@Value
+@Builder
 @Jacksonized
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@NoArgsConstructor
 public class EmployeeDto {
 
     Long id;

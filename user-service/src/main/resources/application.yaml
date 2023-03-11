@@ -6,7 +6,7 @@ spring:
     driver-class-name: 'org.postgresql.Driver'
     username: postgres
     password: postgres
-    url: jdbc:postgresql://localhost:35432/postgres
+    url: jdbc:postgresql://localhost:35432/users
   jpa:
     database: POSTGRESQL
     show-sql: false

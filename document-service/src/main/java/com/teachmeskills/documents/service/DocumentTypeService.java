@@ -1,7 +1,7 @@
 package com.teachmeskills.documents.service;
 
 import com.teachmeskills.documents.model.DocumentType;
-import com.teachmeskills.documents.repository.DocumentRepository;
+import com.teachmeskills.documents.repository.DocumentTypeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,15 +12,15 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class DocumentService {
+public class DocumentTypeService {
 
-    private final DocumentRepository documentRepository;
+    private final DocumentTypeRepository documentTypeRepository;
 
     public Optional<DocumentType> getDocumentType(Long id) {
-        return documentRepository.getDocumentTypeById(id);
+        return documentTypeRepository.getDocumentTypeById(id);
     }
 
     public List<DocumentType> getDocumentTypes() {
-        return documentRepository.findAll();
+        return documentTypeRepository.findAll();
     }
 }

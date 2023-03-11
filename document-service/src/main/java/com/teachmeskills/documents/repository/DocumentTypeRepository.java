@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface DocumentRepository extends JpaRepository<DocumentType, Long> {
+public interface DocumentTypeRepository extends JpaRepository<DocumentType, Long> {
 
     Optional<DocumentType> getDocumentTypeById(Long id);
 }

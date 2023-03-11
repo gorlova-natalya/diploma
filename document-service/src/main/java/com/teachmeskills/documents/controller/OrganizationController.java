@@ -3,14 +3,13 @@ package com.teachmeskills.documents.controller;
 import com.teachmeskills.documents.converter.DepartmentConverter;
 import com.teachmeskills.documents.converter.EmployeeConverter;
 import com.teachmeskills.documents.converter.OrganizationConverter;
+import com.teachmeskills.documents.facade.OrganizationFacade;
 import org.example.common.dto.document.DepartmentDto;
 import org.example.common.dto.document.EmployeeDto;
 import org.example.common.dto.document.OrganizationDto;
 import com.teachmeskills.documents.model.Department;
 import com.teachmeskills.documents.model.Employee;
 import com.teachmeskills.documents.model.Organization;
-import com.teachmeskills.documents.service.EmployeeService;
-import com.teachmeskills.documents.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,39 +25,38 @@ import java.util.List;
 @Slf4j
 public class OrganizationController {
 
-    private final OrganizationService organizationService;
+    private final OrganizationFacade organizationFacade;
     private final OrganizationConverter organizationConverter;
-    private final EmployeeService employeeService;
     private final EmployeeConverter employeeConverter;
     private final DepartmentConverter departmentConverter;
 
     @GetMapping
     protected List<OrganizationDto> getAllOrganizations() {
-        List<Organization> organizations = organizationService.findOrganizations();
+        List<Organization> organizations = organizationFacade.findOrganizations();
         return organizationConverter.toDto(organizations);
     }
 
     @GetMapping("/organization")
     protected OrganizationDto getOrganization(@RequestBody final String name) {
-        Organization organization = organizationService.getOrganizationByName(name).stream().findFirst().orElse(null);
+        Organization organization = organizationFacade.getOrganizationByName(name);
         return organizationConverter.toDto(organization);
     }
 
     @GetMapping("/employees")
     protected List<EmployeeDto> getAllEmployees() {
-        List<Employee> employees = employeeService.getEmployees();
+        List<Employee> employees = organizationFacade.getEmployees();
         return employeeConverter.toDto(employees);
     }
 
     @GetMapping("/employee")
     protected EmployeeDto getEmployeeByName(@RequestBody final String fullName) {
-        Employee employee = employeeService.getEmployeeByName(fullName).stream().findFirst().orElse(null);
+        Employee employee = organizationFacade.getEmployeeByName(fullName);
         return employeeConverter.toDto(employee);
     }
 
     @GetMapping("/departments")
     protected List<DepartmentDto> getDepartments() {
-        List<Department> departments = organizationService.findDepartments();
+        List<Department> departments = organizationFacade.findDepartments();
         return departmentConverter.toDto(departments);
     }
 }

@@ -33,4 +33,11 @@ public class Organization {
     @OneToOne
     @JoinColumn(name = "supervisor_id", referencedColumnName = "id")
     Employee supervisor;
+
+    public Organization(Long id, String name, int payerNumber, Employee supervisor) {
+        this.id = id;
+        this.name = name;
+        this.payerNumber = payerNumber;
+        this.supervisor = supervisor;
+    }
 }

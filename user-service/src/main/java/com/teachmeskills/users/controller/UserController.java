@@ -8,7 +8,6 @@ import org.example.common.dto.user.UsersListDto;
 import org.example.common.dto.user.VerifyResultDto;
 import com.teachmeskills.users.facade.UserFacade;
 import com.teachmeskills.users.model.User;
-import com.teachmeskills.users.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.example.common.dto.user.CreateUserDto;
 import org.example.common.dto.user.VerifyUserDto;
@@ -31,20 +30,17 @@ import java.util.List;
 @Slf4j
 public class UserController {
 
-    private final UserService userService;
     private final Converter converter;
     private final UserFacade userFacade;
 
     @GetMapping("/me")
     protected AppUserDto getUser(@RequestBody final String login) {
-        final User user = userService.getUser(login).stream().findFirst().orElse(null);
-        return AppUserDto.builder().id(user.getId()).login(user.getLogin()).
-                password(user.getPassword()).role(user.getRole().getName()).build();
+        return converter.toDto(userFacade.getUser(login));
     }
 
     @GetMapping
     protected UsersListDto getUsers(@RequestBody final PageDto dto) {
-        final Page<User> page = userService.findPaginatedUsers(dto.getPageNo(), dto.getPageSize());
+        final Page<User> page = userFacade.findPaginatedUsers(dto.getPageNo(), dto.getPageSize());
         List<User> listUsers = page.getContent();
         return UsersListDto.builder().listUsers(converter.toDto(listUsers)).
                 totalPages(page.getTotalPages()).totalElements(page.getTotalElements()).build();
@@ -52,8 +48,7 @@ public class UserController {
 
     @GetMapping("/all")
     protected List<AppUserDto> getAllUsers() {
-        List<User> listUsers = userService.findUsers();
-        return converter.toDto(listUsers);
+        return converter.toDto(userFacade.findUsers());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -61,13 +56,12 @@ public class UserController {
     protected AppUserDto createUser(@Valid @RequestBody final CreateUserDto dto) {
         final User user = userFacade.createUser(dto.getLogin(), dto.getPassword(), dto.getRole());
         log.info("User {} registered", dto.getLogin());
-        return AppUserDto.builder().login(user.getLogin()).password(user.getPassword()).role(user.getRole().getName())
-                .build();
+        return converter.toDto(user);
     }
 
     @PostMapping("/verify")
     public VerifyResultDto verifyUser(@RequestBody final VerifyUserDto request) {
-        final boolean isValid = userService.verify(request.getLogin(), request.getPassword());
+        final boolean isValid = userFacade.verify(request.getLogin(), request.getPassword());
         return VerifyResultDto.builder()
                 .valid(isValid)
                 .build();

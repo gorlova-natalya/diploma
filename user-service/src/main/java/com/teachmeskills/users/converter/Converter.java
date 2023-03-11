@@ -23,4 +23,11 @@ public class Converter {
         }
         return list;
     }
+
+    public AppUserDto toDto(User user) {
+        if (user == null) {
+            return null;
+        }
+        return new AppUserDto(user.getId(), user.getLogin(), user.getPassword(), user.getRole().getName());
+    }
 }
