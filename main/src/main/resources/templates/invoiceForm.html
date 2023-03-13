@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:if="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <script type="text/javascript">
+
+        var counter=0;
+
+        function addRows() {
+            var table = document.getElementById('emptbl');
+            var rowCount = table.rows.length;
+            var cellCount = table.rows[0].cells.length;
+            var row = table.insertRow(rowCount);
+            row.rowIndex;
+            for (var i = 0; i <= cellCount-1; i++) {
+                var cell = 'cell' + i;
+                cell = row.insertCell(i);
+                var copycel = document.getElementById('col' + i).innerHTML;
+                cell.innerHTML = copycel;
+                if(i == 0){
+                    cell.innerText=++counter+1;
+                }
+                if (i == 1) { // вставка HTML во 2 ячейку -> в данном случае добавляем к assetCountField
+                    cell.childNodes[1].setAttribute('name', 'assetCount['+ counter +'].assetId'); // атрибут name с текстом 'assetCount['+ counter (1,2,3...) +'].assetId'
+                    cell.childNodes[1].setAttribute('th:field','*{assetCount['+ counter +'].assetId}'); //атрибут th:field с текстом 'assetCount['+ counter (1,2,3...) +'].assetId'
+                }
+                if (i == 2) {
+                    cell.childNodes[1].setAttribute('name', 'assetCount['+ counter +'].count');
+                    cell.childNodes[1].setAttribute('th:field','*{assetCount['+ counter +'].count}');
+                }
+            }
+        }
+
+        function deleteRow(value) {
+            let table = document.getElementById('emptbl');
+            let rowCount = table.rows.length;
+            if(rowCount > 2) {
+                let row = value.parentNode.parentNode;
+                row.parentNode.removeChild(row)
+            } else {
+                alert('There should be atleast one row');
+            }
+        }
+    </script>
+</head>
+<body>
+<div th:insert="menu :: header"></div>
+<div class="container">
+    <div class="row" style="margin-top: 25px">
+        <div class="card">
+            <div class="card-body">
+
+                <h2 class="text-center">Накладная на выдачу в производство</h2>
+                <form name="1" method="POST"
+                      action="#"
+                      th:action="@{/internal-invoice}"
+                      th:object="${invoiceDto}">
+                    <div class="row g-3">
+                        <div class="col-sm-7">
+                            <label class="control-label col-sm-4" for="documentNumber">Номер документа</label>
+                            <input aria-label="Номер" class="form-control" id="documentNumber" name="documentNumber"
+                                   placeholder="Номер документа" th:filed="*{documentNumber}" type="number">
+                        </div>
+                        <div class="col-sm">
+                            <label class="control-label col-sm-4">Дата документа</label>
+                            <input type="date" name="documentDate" th:field="*{documentDate}"
+                                   th:value="*{documentDate}"
+                                   th:text="*{documentDate}"
+                                   class="form-control" placeholder="Дата документа"
+                                   aria-label="Дата">
+                        </div>
+                    </div>
+                    <div class="row mt-4"></div>
+                    <div class="col-auto">
+                        <label class="control-label col-sm-4">Организация</label>
+                        <select class="form-control" id="organization" name="organization"
+                                th:field="*{organization}"> \\в какое поле записывает
+                            <option selected value="0">Выбрать организацию</option>
+                            <option th:each="organizationDto : ${organizationsDto}" th:value="${organizationDto.id}"
+                                    th:text="${organizationDto.name}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="row mt-4"></div>
+
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label class="control-label col-sm-4">Откуда</label>
+                            <select class="form-control" id="department1" name="department"
+                                    th:field="*{fromDepartment}">
+                                <option selected value="0">Выбрать отдел</option>
+                                <option th:each="departmentDto : ${departmentsDto}" th:value="${departmentDto.id}"
+                                        th:text="${departmentDto.departmentName}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm">
+                            <label class="control-label col-sm-4">От кого</label>
+                            <select class="form-control" name="employee" th:field="*{fromEmployee}">
+                                <option selected value="0">Выбрать сотрудника</option>
+                                <option th:each="employeeDto : ${employeesDto}"
+                                        th:value="${employeeDto.id}"
+                                        th:text="${employeeDto.fullName}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4"></div>
+
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label class="control-label col-sm-4">Куда</label>
+                            <select class="form-control" id="department" name="department"
+                                    th:field="*{toDepartment}"> \\в какое поле записывает
+                                <option selected value="0">Выбрать отдел</option>
+                                <option th:each="departmentDto : ${departmentsDto}" th:value="${departmentDto.id}"
+                                        th:text="${departmentDto.departmentName}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm">
+                            <label class="control-label col-sm-4">Кому</label>
+                            <select class="form-control" name="employee" th:field="*{toEmployee}">
+                                <option selected value="0">Выбрать сотрудника</option>
+                                <option th:each="employeeDto : ${employeesDto}"
+                                        th:value="${employeeDto.id}"
+                                        th:text="${employeeDto.fullName}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4"></div>
+
+                    <div>
+                        <table cellpadding="5px 15px;" id="emptbl">
+                            <thead>
+                            <tr>
+                                <th>№ п/п</th>
+                                <th>Материальные ценности</th>
+                                <th>Количество</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td id="col0">1</td>
+
+                                <td id="col1">
+                                    <select class="form-control" id="assetCountField" name="asset"
+                                            th:field="*{assetCount[0].assetId}">
+                                        <option selected value="0">Выбрать матценность</option>
+                                        <option th:each="assetDto : ${assetsDto}" th:value="${assetDto.id}"
+                                                th:text="${assetDto.assetName}+ ' (в наличии ' + ${assetDto.assetCount}+ ')'">
+                                        </option>
+                                    </select>
+                                </td>
+
+                                <td id="col2">
+                                    <input type="number" class="form-control" id="assetCountField1" th:field="*{assetCount[0].count}">
+                                </td>
+
+                                <td id="col3">
+                                    <input class="btn btn-info" th:align="right" value="Удалить"
+                                           type="button" id="deleteAsset" onclick="deleteRow(this)">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row mt-4"></div>
+                        <input class="btn btn-info" th:align="right" value="Добавить матценность"
+                               type="button" id="AddAsset" onclick="addRows()">
+                    </div>
+
+                    <div class="row mt-4">
+                        <input type="hidden" th:value="${documentTypeId}" th:name="documentTypeId"
+                               class="form-control">
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary waves-effect waves-light " id="btn-submit">Печать документа
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

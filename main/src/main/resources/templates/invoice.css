@@ -1,0 +1,85 @@
+@font-face {
+    font-family: "Cambria Math";
+    panose-1: 2 4 5 3 5 4 6 3 2 4;
+}
+
+@font-face {
+    font-family: Calibri;
+    panose-1: 2 15 5 2 2 2 4 3 2 4;
+}
+
+@font-face {
+    font-family: Tahoma;
+    panose-1: 2 11 6 4 3 5 4 4 2 4;
+}
+
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal {
+    margin: 0in;
+    text-autospace: none;
+    font-size: 10.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+p.newncpi, li.newncpi, div.newncpi {
+    mso-style-name: newncpi;
+    margin: 0in;
+    text-align: justify;
+    text-indent: 28.35pt;
+    font-size: 12.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+p.newncpi0, li.newncpi0, div.newncpi0 {
+    mso-style-name: newncpi0;
+    margin: 0in;
+    text-align: justify;
+    font-size: 12.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+p.titlep, li.titlep, div.titlep {
+    mso-style-name: titlep;
+    margin-top: 12.0pt;
+    margin-right: 0in;
+    margin-bottom: 12.0pt;
+    margin-left: 0in;
+    text-align: center;
+    font-size: 12.0pt;
+    font-family: "Times New Roman", serif;
+    font-weight: bold;
+}
+
+p.table10, li.table10, div.table10 {
+    mso-style-name: table10;
+    margin: 0in;
+    font-size: 10.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+p.undline, li.undline, div.undline {
+    mso-style-name: undline;
+    margin: 0in;
+    text-align: justify;
+    font-size: 10.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+.MsoChpDefault {
+    font-family: "Calibri", sans-serif;
+}
+
+.MsoPapDefault {
+    margin-bottom: 10.0pt;
+    line-height: 115%;
+}
+
+/* Page Definitions */
+@page WordSection1 {
+    size: 595.35pt 841.95pt;
+    margin: 14.2pt 56.7pt 28.35pt 28.4pt;
+}
+
+div.WordSection1 {
+    page: WordSection1;
+}

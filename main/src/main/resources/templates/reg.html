@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-5">Create user</h2>
+                            <h2 class="text-uppercase text-center mb-5">Регистрация пользователя</h2>
 
                             <form method="POST"
                                   action="#"
@@ -24,31 +24,31 @@
                                 <div class="form-outline mb-4">
                                     <input type="text" id="login" class="form-control form-control-lg"
                                            th:field="*{login}"
-                                           name="login" placeholder="Login"/>
-                                    <label class="form-label" for="login">Login</label>
+                                           name="login" placeholder="Логин"/>
+                                    <label class="form-label" for="login">Логин</label>
                                     <p th:if="${#fields.hasErrors('login')}">Invalid Name</p>
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <input type="password" id="password" class="form-control form-control-lg"
                                            th:field="*{password}" name="password"
-                                           placeholder="Password">
-                                    <label class="form-label" for="Password">Password</label>
+                                           placeholder="Пароль">
+                                    <label class="form-label" for="Password">Пароль</label>
                                     <p th:if="${#fields.hasErrors('password')}">Invalid Name</p>
                                 </div>
 
                                 <div class="form-outline mb-4">
                                     <input type="text" id="role" class="form-control form-control-lg"
                                            th:field="*{role}"
-                                           name="role" placeholder="Role"/>
-                                    <label class="form-label" for="role">Role</label>
+                                           name="role" placeholder="user или admin"/>
+                                    <label class="form-label" for="role">Права доступа</label>
                                     <p th:if="${#fields.hasErrors('role')}">Invalid Role</p>
                                 </div>
 
                                 <div class="d-flex justify-content-center">
                                     <button type="submit"
                                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
-                                        Register
+                                        Зарегистрировать
                                     </button>
                                 </div>
                             </form>
@@ -69,9 +69,9 @@
                 <div class="card-text">
                     <table class="table">
                         <tr>
-                            <th>Login</th>
-                            <th>Password</th>
-                            <th>Role</th>
+                            <th>Логин</th>
+                            <th>Пароль</th>
+                            <th>Доступ</th>
                             <!--                            <th>Delete user</th>-->
                         </tr>
                         <tbody>
@@ -101,7 +101,7 @@
                     <div th:if="${totalPages > 1}">
                         <div class="row col-sm-10">
                             <div class="col-sm-2">
-                                Total Rows: [[${totalItems}]]
+                                Итого пользователей: [[${totalItems}]]
                             </div>
                             <div class="col-sm-2">
                                 <span th:each="i: ${#numbers.sequence(1, totalPages)}">
@@ -113,13 +113,13 @@
                             <div class="col-sm-1">
                                 <a th:if="${currentPage < totalPages}"
                                    th:href="@{'/users?page=' + ${currentPage + 1} + '&pageSize=' + ${pageSize}}">Next</a>
-                                <span th:unless="${currentPage < totalPages}">Next</span>
+                                <span th:unless="${currentPage < totalPages}">Следующая</span>
                             </div>
 
                             <div class="col-sm-1">
                                 <a th:if="${currentPage < totalPages}"
                                    th:href="@{'/users?page=' + ${totalPages} + '&pageSize=' + ${pageSize}}">Last</a>
-                                <span th:unless="${currentPage < totalPages}">Last</span>
+                                <span th:unless="${currentPage < totalPages}">Последняя страница</span>
                             </div>
                         </div>
                     </div>

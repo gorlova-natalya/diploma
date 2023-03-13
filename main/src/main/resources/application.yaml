@@ -2,13 +2,15 @@ server:
   port: 9090
 
 spring:
-  datasource:
   mvc:
     hiddenmethod:
       filter:
         enabled: true
     pathmatch:
       matching-strategy: ant_path_matcher
+#  autoconfigure:
+#    exclude:
+#      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
 jwtSecret: "SECRET"
 
@@ -28,3 +30,6 @@ feign:
 services:
   user:
     url: 'http://localhost:9092'
+  document:
+    url: 'http://localhost:9093'
+

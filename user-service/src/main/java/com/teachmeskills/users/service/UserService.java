@@ -3,7 +3,7 @@ package com.teachmeskills.users.service;
 import com.teachmeskills.users.model.Role;
 import com.teachmeskills.users.model.User;
 import com.teachmeskills.users.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
+@AllArgsConstructor
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;

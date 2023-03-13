@@ -1,0 +1,3 @@
+docker run --rm -v "C:\Users\natas\Documents\diploma\db\users:/flyway/sql/users" --network "diploma_default" flyway/flyway -url=jdbc:postgresql://db:5432/users -user=postgres -password=postgres migrate
+
+docker run --rm -v "C:\Users\natas\Documents\diploma\db\documents:/flyway/sql/documents" --network "diploma_default" flyway/flyway -url=jdbc:postgresql://db:5432/documents -user=postgres -password=postgres migrate

@@ -11,6 +11,8 @@
     <modules>
         <module>main</module>
         <module>user-service</module>
+        <module>document-service</module>
+        <module>common-service</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -32,6 +34,7 @@
         <org.lombok.version>1.18.22</org.lombok.version>
         <jib.maven.plugin.version>3.3.1</jib.maven.plugin.version>
         <feign.httpclient>11.8</feign.httpclient>
+        <com.fasterxml.jackson.version>2.13.4</com.fasterxml.jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -39,12 +42,12 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
-                <version>2.13.4</version>
+                <version>${com.fasterxml.jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>2.13.4</version>
+                <version>${com.fasterxml.jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.thymeleaf</groupId>
@@ -139,16 +142,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
                 <version>5.3.23</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>5.7.5</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-                <version>5.7.5</version>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
@@ -280,7 +273,6 @@
                                         <exclude>org.slf4j:slf4j-log4j12</exclude>
                                         <exclude>org.slf4j:slf4j-jdk14</exclude>
                                         <exclude>log4j:log4j</exclude>
-                                        <!--                                        <exclude>commons-logging:commons-logging</exclude>-->
                                     </excludes>
                                 </bannedDependencies>
                             </rules>
@@ -318,38 +310,6 @@
                         <arg>-Amapstruct.defaultComponentModel=spring</arg>
                         <arg>-Amapstruct.injectionStrategy=constructor</arg>
                     </compilerArgs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>${jib.maven.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>dockerBuild</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <from>
-                        <image>openjdk</image>
-                        <image>openjdk:17-jdk-slim-bullseye</image>
-                    </from>
-                    <to>
-                        <image>main</image>
-                        <tags>
-                            <tag>latest</tag>
-                        </tags>
-                        <image>user-service</image>
-                        <tags>
-                            <tag>latest</tag>
-                        </tags>
-                    </to>
-                    <container>
-                        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-                    </container>
                 </configuration>
             </plugin>
         </plugins>

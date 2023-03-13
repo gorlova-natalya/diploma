@@ -1,12 +1,12 @@
 package com.teachmeskills.security.controller;
 
-import com.teachmeskills.security.client.dto.AppUserDto;
-import com.teachmeskills.security.dto.CreateUserDto;
-import com.teachmeskills.security.client.dto.PageDto;
-import com.teachmeskills.security.client.dto.UsersListDto;
 import com.teachmeskills.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.common.dto.user.AppUserDto;
+import org.example.common.dto.user.CreateUserDto;
+import org.example.common.dto.user.PageDto;
+import org.example.common.dto.user.UsersListDto;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +30,7 @@ public class UserController {
     protected String getUsers(@RequestParam(defaultValue = "1", name = "page", required = false) Integer pageNo,
                               @RequestParam(defaultValue = "5", name = "pageSize", required = false) Integer pageSize,
                               Model model) {
-        model.addAttribute("createUserDto", new CreateUserDto());
+        model.addAttribute("createUserDto", CreateUserDto.builder().build());
         final PageDto pageDto = PageDto.builder().pageNo(pageNo).pageSize(pageSize).build();
         final UsersListDto dto = userService.getUsers(pageDto);
         model.addAttribute("users", dto.getListUsers());

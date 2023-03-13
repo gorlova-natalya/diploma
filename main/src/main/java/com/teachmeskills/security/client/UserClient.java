@@ -1,12 +1,12 @@
 package com.teachmeskills.security.client;
 
-import com.teachmeskills.security.client.dto.AppUserDto;
-import com.teachmeskills.security.dto.CreateUserDto;
-import com.teachmeskills.security.client.dto.PageDto;
-import com.teachmeskills.security.client.dto.UsersListDto;
-import com.teachmeskills.security.client.dto.VerifyResultDto;
-import com.teachmeskills.security.client.dto.VerifyUserDto;
+import org.example.common.dto.user.VerifyUserDto;
 import feign.Headers;
+import org.example.common.dto.user.AppUserDto;
+import org.example.common.dto.user.CreateUserDto;
+import org.example.common.dto.user.PageDto;
+import org.example.common.dto.user.UsersListDto;
+import org.example.common.dto.user.VerifyResultDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -1,5 +1,6 @@
 package com.teachmeskills.users.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.NonFinal;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 @NonFinal
 @Entity
 @Table(name = "roles")
+@AllArgsConstructor
 public class Role {
 
     @Id

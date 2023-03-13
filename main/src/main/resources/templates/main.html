@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Users Info</title>
+    <title>Documents</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
 </head>
 <body>
@@ -16,19 +16,25 @@
                 </div>
                 <div class="row mt-4"></div>
                 <div class="card">
-                    <div class="card-body">Приходные кассовые ордера</div>
+
+                    <a href="#"
+                       th:href="@{/cash-receipt/{id}(id=1)}"
+                       class="btn btn-light" role="button">Приходные кассовые ордера</a>
                 </div>
                 <div class="row mt-4"></div>
                 <div class="card">
-                    <div class="card-body">Расходные кассовые ордера</div>
+                    <a href="#"
+                       th:href="@{/cash-voucher/{id}(id=2)}" class="btn btn-light" role="button">Расходные кассовые ордера</a>
                 </div>
                 <div class="row mt-4"></div>
                 <div class="card">
-                    <div class="card-body">Накладные на выдачу в производство</div>
+                    <a href="#"
+                       th:href="@{/internal-invoice/{id}(id=3)}" class="btn btn-light" role="button">Накладные на выдачу в производство</a>
                 </div>
                 <div class="row mt-4"></div>
                 <div class="card">
-                    <div class="card-body">Накладные на внутреннее перемещение</div>
+                    <a href="#"
+                          th:href="@{/internal-invoice/{id}(id=4)}" class="btn btn-light" role="button">Накладные на внутреннее перемещение</a>
                 </div>
             </div>
         </div>

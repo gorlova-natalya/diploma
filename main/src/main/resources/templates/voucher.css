@@ -1,0 +1,54 @@
+p.MsoNormal, li.MsoNormal, div.MsoNormal {
+    margin: 0in;
+    font-size: 12.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+p.onestring, li.onestring, div.onestring {
+    mso-style-name: onestring;
+    margin: 0in;
+    text-align: right;
+    font-size: 11.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+p.table10, li.table10, div.table10 {
+    mso-style-name: table10;
+    margin: 0in;
+    font-size: 10.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+p.append, li.append, div.append {
+    mso-style-name: append;
+    margin: 0in;
+    font-size: 11.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+p.newncpi, li.newncpi, div.newncpi {
+    mso-style-name: newncpi;
+    margin: 0in;
+    text-align: justify;
+    text-indent: 28.35pt;
+    font-size: 12.0pt;
+    font-family: "Times New Roman", serif;
+}
+
+p.table10Arial, li.table10Arial, div.table10Arial {
+    mso-style-name: "Стиль table10 + Arial По центру";
+    margin: 0in;
+    text-align: center;
+    font-size: 9.0pt;
+    font-family: "Arial", sans-serif;
+}
+
+/* Page Definitions */
+@page WordSection1 {
+    size: 595.3pt 841.9pt;
+    margin: 28.35pt 28.35pt 14.2pt 56.7pt;
+}
+
+div.WordSection1 {
+    page: WordSection1;
+}
