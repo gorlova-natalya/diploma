@@ -1,5 +1,7 @@
 package com.teachmeskills.documents;
 
+import com.teachmeskills.documents.model.Asset;
+import com.teachmeskills.documents.model.AssetCount;
 import com.teachmeskills.documents.model.Department;
 import com.teachmeskills.documents.model.DocumentType;
 import com.teachmeskills.documents.model.Employee;
@@ -18,6 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -37,6 +40,9 @@ public class InvoiceServiceTest {
 
     @Test
     public void createInvoiceTest() {
+        List<AssetCount> assetCounts = new ArrayList<>();
+        assetCounts.add(AssetCount.builder().id(1L).count(1).asset(new Asset()).sum(1.0).build());
+        assetCounts.add(AssetCount.builder().id(2L).count(2).asset(new Asset()).sum(2.0).build());
         Invoice invoice = Invoice.builder().documentNumber(12345)
                 .documentDate(LocalDate.of(2023, 3, 1))
                 .organization(new Organization(1L, "OAO", 1234567, new Employee()))
@@ -45,7 +51,7 @@ public class InvoiceServiceTest {
                 .fromEmployee(new Employee())
                 .toEmployee(new Employee())
                 .documentType(new DocumentType())
-                .assetCount(new ArrayList<>())
+                .assetCount(assetCounts)
                 .build();
         invoice.getDocumentType().setId(1L);
         invoice.getFromDepartment().setId(1L);

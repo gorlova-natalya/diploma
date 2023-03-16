@@ -1,8 +1,8 @@
 package com.teachmeskills;
 
-import com.teachmeskills.security.client.OrganizationClient;
-import com.teachmeskills.security.service.OrganizationService;
-import org.example.common.dto.document.OrganizationDto;
+import com.teachmeskills.security.client.EmployeeClient;
+import com.teachmeskills.security.service.EmployeeService;
+import org.example.common.dto.document.EmployeeDto;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,24 +22,24 @@ import static org.mockito.Mockito.verify;
 @Disabled
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = OrganizationService.class)
-public class OrganizationServiceTest {
+@ContextConfiguration(classes = EmployeeService.class)
+public class EmployeeServiceTest {
 
     @Autowired
-    private OrganizationService organizationService;
+    private EmployeeService employeeService;
 
     @MockBean
-    private OrganizationClient organizationClient;
+    private EmployeeClient employeeClient;
 
     @Test
-    public void getAllOrganizationsTest() {
-        List<OrganizationDto> organizationDtos = new ArrayList<>();
+    public void getAllEmployeesTest() {
+        List<EmployeeDto> employees = new ArrayList<>();
 
-        given(organizationClient.getAllOrganizations()).willReturn(organizationDtos);
-        List<OrganizationDto> expected = organizationService.getOrganizations();
+        given(employeeClient.getEmployees()).willReturn(employees);
+        List<EmployeeDto> expected = employeeService.getEmployees();
 
-        assertEquals(expected, organizationDtos);
+        assertEquals(expected, employees);
 
-        verify(organizationClient).getAllOrganizations();
+        verify(employeeClient).getEmployees();
     }
 }

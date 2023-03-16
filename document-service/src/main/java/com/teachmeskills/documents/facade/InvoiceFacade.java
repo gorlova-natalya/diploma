@@ -16,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.common.dto.document.CreateInvoiceDto;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +49,8 @@ public class InvoiceFacade {
                         .build())
                 .collect(Collectors.toList());
 
-        return invoiceService.createInvoice(dto.getDocumentNumber(), dto.getDocumentDate(), organization,
+        return invoiceService.createInvoice(dto.getDocumentNumber(),
+                LocalDate.parse(dto.getDocumentDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), organization,
                 fromDepartment, toDepartment, fromEmployee, toEmployee, documentType, assets);
     }
 }

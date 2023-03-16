@@ -1,13 +1,11 @@
 package org.example.common.dto.document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.jackson.Jacksonized;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +13,12 @@ import java.util.List;
 @Jacksonized
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CreateInvoiceDto {
 
     Long id;
     int documentNumber;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
-    LocalDate documentDate;
+    String documentDate;
     Long organization;
     Long fromDepartment;
     Long toDepartment;

@@ -1,14 +1,15 @@
 package com.teachmeskills.documents;
 
 import com.teachmeskills.documents.controller.CashReceiptController;
-import com.teachmeskills.documents.converter.CashReceiptConverter;
-import com.teachmeskills.documents.facade.CashReceiptFacade;
-import com.teachmeskills.documents.model.CashReceipt;
+import com.teachmeskills.documents.controller.CashVoucherController;
+import com.teachmeskills.documents.converter.CashVoucherConverter;
+import com.teachmeskills.documents.facade.CashVoucherFacade;
+import com.teachmeskills.documents.model.CashVoucher;
 import com.teachmeskills.documents.model.DocumentType;
 import com.teachmeskills.documents.model.Employee;
 import com.teachmeskills.documents.model.Organization;
-import org.example.common.dto.document.CashReceiptDto;
-import org.example.common.dto.document.CreateCashReceiptDto;
+import org.example.common.dto.document.CashVoucherDto;
+import org.example.common.dto.document.CreateCashVoucherDto;
 import org.example.common.dto.document.DocumentTypeDto;
 import org.example.common.dto.document.EmployeeDto;
 import org.example.common.dto.document.OrganizationDto;
@@ -42,8 +43,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(CashReceiptController.class)
 @AutoConfigureMockMvc(addFilters = false)
-@ContextConfiguration(classes = CashReceiptController.class)
-public class CashReceiptControllerTest {
+@ContextConfiguration(classes = CashVoucherController.class)
+public class CashVoucherControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -51,26 +52,27 @@ public class CashReceiptControllerTest {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @MockBean
-    private CashReceiptFacade cashReceiptFacade;
+    private CashVoucherFacade cashVoucherFacade;
 
     @MockBean
-    private CashReceiptConverter cashReceiptConverter;
+    private CashVoucherConverter cashVoucherConverter;
 
     @Test
-    public void createCashReceiptTest() throws Exception {
+    public void createCashVoucherTest() throws Exception {
 
-        final CreateCashReceiptDto createCashReceiptDto = CreateCashReceiptDto.builder()
+        final CreateCashVoucherDto createCashVoucherDto = CreateCashVoucherDto.builder()
                 .purpose("командировочные расходы")
                 .documentTypeId(1L)
                 .employeeId(1L)
                 .organizationId(1L)
                 .sum(10.0)
                 .documentNumber(12345)
-                .documentDate("2023-03-01")
+                .documentDate("01.03.2023")
                 .annex("паспорт")
+                .passport("паспортные данные")
                 .build();
 
-        final CashReceipt cashReceipt = CashReceipt.builder()
+        final CashVoucher cashVoucher = CashVoucher.builder()
                 .purpose("командировочные расходы")
                 .documentType(new DocumentType())
                 .employee(new Employee())
@@ -79,13 +81,14 @@ public class CashReceiptControllerTest {
                 .documentNumber(12345)
                 .documentDate(LocalDate.of(2023, 3, 1))
                 .annex("паспорт")
+                .passport("паспортные данные")
                 .build();
-        cashReceipt.getDocumentType().setId(1L);
-        cashReceipt.getDocumentType().setTypeName("кассовый ордер");
-        cashReceipt.getDocumentType().setSignersList(new ArrayList<>());
-        cashReceipt.getEmployee().setId(1L);
+        cashVoucher.getDocumentType().setId(1L);
+        cashVoucher.getDocumentType().setTypeName("кассовый ордер");
+        cashVoucher.getDocumentType().setSignersList(new ArrayList<>());
+        cashVoucher.getEmployee().setId(1L);
 
-        final CashReceiptDto expected = CashReceiptDto.builder()
+        final CashVoucherDto expected = CashVoucherDto.builder()
                 .purpose("командировочные расходы")
                 .documentType(DocumentTypeDto.builder().id(1L).typeName("кассовый ордер")
                         .signersList(new ArrayList<>()).build())
@@ -95,13 +98,14 @@ public class CashReceiptControllerTest {
                 .documentNumber(12345)
                 .documentDate("01.03.2023")
                 .annex("паспорт")
+                .passport("паспортные данные")
                 .build();
 
-        when(cashReceiptFacade.createCashReceipt(createCashReceiptDto)).thenReturn(cashReceipt);
-        when(cashReceiptConverter.toDto(cashReceipt)).thenReturn(expected);
+        when(cashVoucherFacade.createCashVoucher(createCashVoucherDto)).thenReturn(cashVoucher);
+        when(cashVoucherConverter.toDto(cashVoucher)).thenReturn(expected);
 
-        MvcResult mvcResult = mockMvc.perform(post("/api/v1/cash-receipts")
-                        .content(mapper.writeValueAsString(createCashReceiptDto))
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/cash-vouchers")
+                        .content(mapper.writeValueAsString(createCashVoucherDto))
                         .contentType(APPLICATION_JSON_VALUE)
                         .characterEncoding("utf-8")
                 )
@@ -109,12 +113,12 @@ public class CashReceiptControllerTest {
                 .andExpect(status().isAccepted())
                 .andReturn();
 
-        then(cashReceiptFacade)
+        then(cashVoucherFacade)
                 .should()
-                .createCashReceipt(createCashReceiptDto);
+                .createCashVoucher(createCashVoucherDto);
 
-        CashReceiptDto returned = mapper.readValue(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
-                new TypeReference<CashReceiptDto>() {
+        CashVoucherDto returned = mapper.readValue(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
+                new TypeReference<CashVoucherDto>() {
                 });
         assertEquals(expected, returned);
     }

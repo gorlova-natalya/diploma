@@ -1,5 +1,6 @@
 package com.teachmeskills.security.service;
 
+import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -16,9 +17,7 @@ import org.example.common.dto.document.CreateInvoiceDto;
 import org.example.common.dto.document.InvoiceDto;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 
 @Service
 @RequiredArgsConstructor
@@ -40,11 +39,15 @@ public class DocumentService {
         return invoiceClient.createInvoice(createInvoiceDto);
     }
 
-    public void generatePDF(String pdfFileName, String htmlFileName) throws IOException {
-        PdfDocument pdfDoc = new PdfDocument(new PdfWriter(pdfFileName));
+    public byte[] generatePDF(String stringFilledHtml) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        PdfWriter pdfWriter = new PdfWriter(outputStream);
+        PdfDocument pdfDoc = new PdfDocument(pdfWriter);
         pdfDoc.setDefaultPageSize(new PageSize(774, 1095));
-        HtmlConverter.convertToPdf(new FileInputStream(htmlFileName), pdfDoc);
-        File directory = new File(pdfFileName);
-        Runtime.getRuntime().exec("explorer.exe /select," + directory);
+
+        HtmlConverter.convertToPdf(stringFilledHtml, pdfDoc, new ConverterProperties());
+
+        return outputStream.toByteArray();
     }
 }
