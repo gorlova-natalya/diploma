@@ -22,7 +22,6 @@ import org.testcontainers.shaded.com.fasterxml.jackson.core.type.TypeReference;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,10 +54,8 @@ public class EmployeeControllerTest {
     @Test
     public void getAllEmployeesTest() throws Exception {
 
-        Employee employee1 = new Employee(1L, "Иванов Иван Иванович", new Position(), new ArrayList<>(),
-                new ArrayList<>());
-        Employee employee2 = new Employee(2L, "Петров Петр Петрович", new Position(), new ArrayList<>(),
-                new ArrayList<>());
+        Employee employee1 = new Employee(1L, "Иванов Иван Иванович", new Position());
+        Employee employee2 = new Employee(2L, "Петров Петр Петрович", new Position());
         List<Employee> allEmployees = List.of(employee1, employee2);
 
         List<EmployeeDto> expected = allEmployees.stream()
@@ -68,7 +65,7 @@ public class EmployeeControllerTest {
         when(employeeFacade.getEmployees()).thenReturn(allEmployees);
         when(employeeConverter.toDto(allEmployees)).thenReturn(expected);
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/employees")
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/employees/all")
                         .content(mapper.writeValueAsString(allEmployees))
                         .contentType(APPLICATION_JSON))
                 .andDo(print())
@@ -88,15 +85,15 @@ public class EmployeeControllerTest {
     @Test
     public void getEmployeeByFullNameTest() throws Exception {
         String fullName = "Иванов Иван Иванович";
-        Employee employee = new Employee(1L, fullName, new Position(), new ArrayList<>(),
-                new ArrayList<>());
+        Employee employee = new Employee(1L, fullName, new Position());
 
         EmployeeDto expected = new EmployeeDto(employee.getId(), employee.getFullName(), new PositionDto());
 
         when(employeeFacade.getEmployeeByName(fullName)).thenReturn(employee);
         when(employeeConverter.toDto(employee)).thenReturn(expected);
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/employees/Иванов Иван Иванович").characterEncoding("utf-8")
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/employees/Иванов Иван Иванович")
+                        .characterEncoding("utf-8")
                         .content(fullName)
                         .contentType(APPLICATION_JSON))
                 .andDo(print())

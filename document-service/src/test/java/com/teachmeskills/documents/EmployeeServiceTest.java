@@ -13,7 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,10 +35,8 @@ public class EmployeeServiceTest {
     @Test
     public void getAllEmployeesTest() {
 
-        Employee employee1 = new Employee(1L, "Иванов Иван Иванович", new Position(), new ArrayList<>(),
-                new ArrayList<>());
-        Employee employee2 = new Employee(2L, "Петров Петр Петрович", new Position(), new ArrayList<>(),
-                new ArrayList<>());
+        Employee employee1 = new Employee(1L, "Иванов Иван Иванович", new Position());
+        Employee employee2 = new Employee(2L, "Петров Петр Петрович", new Position());
         List<Employee> allEmployees = List.of(employee1, employee2);
 
         given(employeeRepository.findAll()).willReturn(allEmployees);
@@ -52,8 +49,7 @@ public class EmployeeServiceTest {
 
     @Test
     public void getEmployeeByNameTest() {
-        Employee employee = new Employee(1L, "Иванов Иван Иванович", new Position(), new ArrayList<>(),
-                new ArrayList<>());
+        Employee employee = new Employee(1L, "Иванов Иван Иванович", new Position());
 
         final Optional<Employee> expected = Optional.of(employee);
 
@@ -68,8 +64,7 @@ public class EmployeeServiceTest {
 
     @Test
     public void getEmployeeByIdTest() {
-        Employee employee = new Employee(1L, "Иванов Иван Иванович", new Position(), new ArrayList<>(),
-                new ArrayList<>());
+        Employee employee = new Employee(1L, "Иванов Иван Иванович", new Position());
 
         final Optional<Employee> expected = Optional.of(employee);
 

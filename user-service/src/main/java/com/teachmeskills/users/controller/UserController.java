@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,8 @@ public class UserController {
     private final Converter converter;
     private final UserFacade userFacade;
 
-    @GetMapping("/me")
-    protected AppUserDto getUser(@RequestBody final String login) {
+    @GetMapping("/me/{login}")
+    protected AppUserDto getUser(@PathVariable("login") final String login) {
         return converter.toDto(userFacade.getUser(login));
     }
 

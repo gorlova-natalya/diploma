@@ -8,6 +8,7 @@ import org.example.common.dto.user.PageDto;
 import org.example.common.dto.user.UsersListDto;
 import org.example.common.dto.user.VerifyResultDto;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,9 +17,9 @@ import java.util.List;
 @FeignClient(name = "domain", url = "${services.user.url}/api/v1/users")
 public interface UserClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/me")
+    @RequestMapping(method = RequestMethod.GET, value = "/me/{login}")
     @Headers(value = "Content-Type: application/json")
-    AppUserDto getUser(final String login);
+    AppUserDto getUser(@PathVariable("login") final String login);
 
     @RequestMapping(method = RequestMethod.GET)
     @Headers(value = "Content-Type: application/json")
