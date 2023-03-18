@@ -36,7 +36,7 @@ public class OrganizationIntegrationTest extends AbstractIntegrationDocumentsTes
     }
 
     @Test
-    public void findUsersTest() {
+    public void findOrganizationsTest() {
         List<Organization> organizations = organizationRepository.findAll();
 
         assertThat(organizations)

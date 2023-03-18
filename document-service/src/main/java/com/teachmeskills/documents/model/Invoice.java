@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class Invoice {
     @JoinColumn(name = "document_type_id", referencedColumnName = "id")
     private DocumentType documentType;
 
+    @NotEmpty
     @OneToMany(mappedBy = "asset")
     List<AssetCount> assetCount;
 
