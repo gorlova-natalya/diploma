@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.context.Context;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 
@@ -44,7 +45,7 @@ public class CashVoucherController {
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     protected ResponseEntity<byte[]> createCashVoucher(
-            @ModelAttribute("voucherDto") CreateCashVoucherDto createCashVoucherDto,
+            @Valid @ModelAttribute("voucherDto") CreateCashVoucherDto createCashVoucherDto,
             Model model) {
         CashVoucherDto voucher = cashVoucherFacade.createVoucher(createCashVoucherDto);
         model.addAttribute("cashVoucher", voucher);

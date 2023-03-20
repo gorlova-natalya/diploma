@@ -56,8 +56,9 @@ public class LoginController {
             log.info("User {} logged in", login);
             return "redirect:/documents";
         } else {
+            response.setCharacterEncoding("utf-8");
             final PrintWriter out = response.getWriter();
-            out.println("Username or password error");
+            out.println(" Логин или пароль введены неверно");
             return "login";
         }
     }

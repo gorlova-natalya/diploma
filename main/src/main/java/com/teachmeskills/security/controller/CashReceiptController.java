@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.context.Context;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,7 +46,7 @@ public class CashReceiptController {
 
     @SneakyThrows
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected ResponseEntity<byte[]> createOrder(@ModelAttribute("cashDto") CreateCashReceiptDto createCashReceiptDto,
+    protected ResponseEntity<byte[]> createOrder(@Valid @ModelAttribute("cashDto") CreateCashReceiptDto createCashReceiptDto,
                                                  Model model) {
         CashReceiptDto order = cashReceiptFacade.createOrder(createCashReceiptDto);
         model.addAttribute("cashReceipt", order);

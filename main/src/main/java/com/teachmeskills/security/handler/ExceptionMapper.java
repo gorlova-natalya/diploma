@@ -1,6 +1,7 @@
 package com.teachmeskills.security.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,15 @@ public class ExceptionMapper {
         ModelAndView model = new ModelAndView();
         log.error("Unexpected Exception: ", exception);
         model.addObject("message", "Internal server error");
+        model.setViewName("error");
+        return model;
+    }
+
+    @ExceptionHandler(BindException.class)
+    public ModelAndView handleException(final BindException exception) {
+        ModelAndView model = new ModelAndView();
+        log.error("Unexpected Exception: ", exception);
+        model.addObject("message", ": Не заполнена форма, проверьте введенные данные");
         model.setViewName("error");
         return model;
     }

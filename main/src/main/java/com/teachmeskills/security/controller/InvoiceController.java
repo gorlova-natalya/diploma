@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.context.Context;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,9 +49,9 @@ public class InvoiceController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected ResponseEntity<byte[]> createInvoice(@ModelAttribute("invoiceDto") CreateInvoiceDto createInvoiceDto,
+    protected ResponseEntity<byte[]> createInvoice(@Valid @ModelAttribute("invoiceDto") CreateInvoiceDto dto,
                                                    Model model) {
-        InvoiceDto invoice = invoiceFacade.createInvoice(createInvoiceDto);
+        InvoiceDto invoice = invoiceFacade.createInvoice(dto);
         double sumInvoice = invoice.getAssetCount().stream().mapToDouble(AssetCountDto::getSum).sum();
         long countOfAssets = invoice.getAssetCount().size();
         model.addAttribute("invoice", invoice);

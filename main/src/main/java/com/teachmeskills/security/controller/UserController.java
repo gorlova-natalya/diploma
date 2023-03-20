@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -42,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    protected String createUser(@ModelAttribute("createUserDto") final CreateUserDto createUserDto, Model model) {
+    protected String createUser(@Valid @ModelAttribute("createUserDto") final CreateUserDto createUserDto, Model model) {
         userService.createUser(createUserDto);
         final List<AppUserDto> dto = userService.getAllUsers();
         model.addAttribute("users", dto);
