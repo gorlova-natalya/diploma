@@ -41,7 +41,7 @@ public class AssetServiceTest {
         assets.add(mock(Asset.class));
         assets.add(Asset.builder().id(1L).assetName("Бумага").assetCount(12).assetNumber(21334).cost(7.80).build());
 
-        given(assetService.findAssets()).willReturn(assets);
+        given(assetRepository.findAll()).willReturn(assets);
         List<Asset> expected = assetService.findAssets();
 
         assertEquals(expected, assets);
@@ -54,7 +54,7 @@ public class AssetServiceTest {
         Asset asset = Asset.builder().id(1L).assetName("Бумага").assetCount(12).assetNumber(21334).cost(7.80).build();
         final Optional<Asset> expectedAsset = Optional.of(asset);
 
-        given(assetService.getAsset(asset.getId())).willReturn(expectedAsset);
+        given(assetRepository.findById(asset.getId())).willReturn(expectedAsset);
         Optional<Asset> returnedAsset = assetService.getAsset(asset.getId());
 
         assertEquals(expectedAsset, returnedAsset);

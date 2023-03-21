@@ -155,7 +155,7 @@ public class UserControllerTest {
         when(userFacade.getUser(user.getLogin())).thenReturn(user);
         when(converter.toDto(user)).thenReturn(expectedUser);
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/users/me")
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/users/Natasha")
                         .content(String.valueOf(user.getLogin()))
                         .contentType(APPLICATION_JSON))
                 .andDo(print())

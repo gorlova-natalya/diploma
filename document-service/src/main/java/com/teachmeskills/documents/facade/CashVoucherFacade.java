@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.example.common.dto.document.CreateCashVoucherDto;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Service
 @RequiredArgsConstructor
 public class CashVoucherFacade {
@@ -27,7 +30,8 @@ public class CashVoucherFacade {
         DocumentType documentType = documentTypeService.getDocumentType(dto.getDocumentTypeId()).orElse(null);
 
         return cashVoucherService.createCashVoucher(documentType,
-                dto.getDocumentNumber(), dto.getPurpose(), dto.getDocumentDate(),
+                dto.getDocumentNumber(), dto.getPurpose(),
+                LocalDate.parse(dto.getDocumentDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 employee, organization, dto.getSum(), dto.getAnnex(), dto.getPassport());
     }
 }

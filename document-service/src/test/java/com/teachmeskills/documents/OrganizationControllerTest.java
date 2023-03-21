@@ -1,15 +1,10 @@
 package com.teachmeskills.documents;
 
 import com.teachmeskills.documents.controller.OrganizationController;
-import com.teachmeskills.documents.converter.DepartmentConverter;
-import com.teachmeskills.documents.converter.EmployeeConverter;
 import com.teachmeskills.documents.converter.OrganizationConverter;
 import com.teachmeskills.documents.facade.OrganizationFacade;
-import com.teachmeskills.documents.model.Department;
 import com.teachmeskills.documents.model.Employee;
 import com.teachmeskills.documents.model.Organization;
-import com.teachmeskills.documents.model.Position;
-import org.example.common.dto.document.DepartmentDto;
 import org.example.common.dto.document.EmployeeDto;
 import org.example.common.dto.document.OrganizationDto;
 import org.example.common.dto.document.PositionDto;
@@ -28,7 +23,6 @@ import org.testcontainers.shaded.com.fasterxml.jackson.core.type.TypeReference;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,12 +51,6 @@ public class OrganizationControllerTest {
 
     @MockBean
     private OrganizationConverter organizationConverter;
-
-    @MockBean
-    private EmployeeConverter employeeConverter;
-
-    @MockBean
-    private DepartmentConverter departmentConverter;
 
     @Test
     public void getAllOrganizationsTest() throws Exception {
@@ -97,17 +85,17 @@ public class OrganizationControllerTest {
 
     @Test
     public void getOrganizationByNameTest() throws Exception {
-        String orgName = "OAO";
-        Organization organization = new Organization(1L, orgName, 1234567, new Employee());
+        final String name = "OAO";
+        Organization organization = new Organization(1L, name, 1234567, new Employee());
 
         OrganizationDto expected = new OrganizationDto(organization.getId(), organization.getName(),
                 organization.getPayerNumber(), new EmployeeDto(1L, "Сотрудник", new PositionDto()));
 
-        when(organizationFacade.getOrganizationByName(orgName)).thenReturn(organization);
+        when(organizationFacade.getOrganizationByName(name)).thenReturn(organization);
         when(organizationConverter.toDto(organization)).thenReturn(expected);
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/organizations/organization")
-                        .content(orgName)
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/organizations/OAO")
+                        .content(name)
                         .contentType(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -115,103 +103,10 @@ public class OrganizationControllerTest {
 
         then(organizationFacade)
                 .should()
-                .getOrganizationByName(orgName);
+                .getOrganizationByName(name);
 
         OrganizationDto returned = mapper.readValue(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
                 new TypeReference<OrganizationDto>() {
-                });
-        assertEquals(expected, returned);
-    }
-
-    @Test
-    public void getAllEmployeesTest() throws Exception {
-
-        Employee employee1 = new Employee(1L, "Иванов Иван Иванович", new Position(), new ArrayList<>(),
-                new ArrayList<>());
-        Employee employee2 = new Employee(2L, "Петров Петр Петрович", new Position(), new ArrayList<>(),
-                new ArrayList<>());
-        List<Employee> allEmployees = List.of(employee1, employee2);
-
-        List<EmployeeDto> expected = allEmployees.stream()
-                .map(emp -> new EmployeeDto(emp.getId(), emp.getFullName(), new PositionDto()))
-                .collect(Collectors.toList());
-
-        when(organizationFacade.getEmployees()).thenReturn(allEmployees);
-        when(employeeConverter.toDto(allEmployees)).thenReturn(expected);
-
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/organizations/employees")
-                        .content(mapper.writeValueAsString(allEmployees))
-                        .contentType(APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andReturn();
-
-        then(organizationFacade)
-                .should()
-                .getEmployees();
-
-        List<EmployeeDto> returned = mapper.readValue(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
-                new TypeReference<List<EmployeeDto>>() {
-                });
-        assertEquals(expected, returned);
-    }
-
-    @Test
-    public void getEmployeeByFullNameTest() throws Exception {
-        String fullName = "Иванов Иван Иванович";
-        Employee employee = new Employee(1L, fullName, new Position(), new ArrayList<>(),
-                new ArrayList<>());
-
-        EmployeeDto expected = new EmployeeDto(employee.getId(), employee.getFullName(), new PositionDto());
-
-        when(organizationFacade.getEmployeeByName(fullName)).thenReturn(employee);
-        when(employeeConverter.toDto(employee)).thenReturn(expected);
-
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/organizations/employee")
-                        .content(fullName)
-                        .contentType(APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andReturn();
-
-        then(organizationFacade)
-                .should()
-                .getEmployeeByName(fullName);
-
-        EmployeeDto returned = mapper.readValue(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
-                new TypeReference<EmployeeDto>() {
-                });
-        assertEquals(expected, returned);
-    }
-
-    @Test
-    public void getAllDepartmentsTest() throws Exception {
-
-        Department department1 = new Department(1L, "АХО", new Organization());
-        Department department2 = new Department(2L, "ОТО", new Organization());
-        List<Department> allDepartments = List.of(department1, department2);
-
-        List<DepartmentDto> expected = allDepartments.stream()
-                .map(dep -> new DepartmentDto(dep.getId(), dep.getDepartmentName(),
-                        new OrganizationDto(1L, "OAO", 12345, EmployeeDto.builder().build())))
-                .collect(Collectors.toList());
-
-        when(organizationFacade.findDepartments()).thenReturn(allDepartments);
-        when(departmentConverter.toDto(allDepartments)).thenReturn(expected);
-
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/organizations/departments")
-                        .content(mapper.writeValueAsString(allDepartments))
-                        .contentType(APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andReturn();
-
-        then(organizationFacade)
-                .should()
-                .findDepartments();
-
-        List<DepartmentDto> returned = mapper.readValue(mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
-                new TypeReference<List<DepartmentDto>>() {
                 });
         assertEquals(expected, returned);
     }

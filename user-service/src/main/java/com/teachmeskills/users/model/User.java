@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -25,11 +24,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
-    @NotNull(message = "Логин не должен быть пустым")
     @Column(name = "login")
     String login;
 
-    @NotNull(message = "Пароль не должен быть пустым")
     @Column(name = "password")
     String password;
 

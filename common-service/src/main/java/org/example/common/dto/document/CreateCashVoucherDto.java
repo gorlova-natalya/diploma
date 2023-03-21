@@ -1,15 +1,14 @@
 package org.example.common.dto.document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Value
 @Jacksonized
@@ -19,14 +18,16 @@ import java.time.LocalDate;
 public class CreateCashVoucherDto {
 
     String purpose;
+    @NotNull(message = "Employee must not be empty")
     Long employeeId;
     Long documentTypeId;
     Long organizationId;
+    @NotNull(message = "Sum must not be empty")
     double sum;
+    @NotNull(message = "Document number must not be empty")
     int documentNumber;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
-    LocalDate documentDate;
+    @NotEmpty(message = "Document date must not be empty")
+    String documentDate;
     String annex;
     String passport;
 }

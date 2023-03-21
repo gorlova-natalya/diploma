@@ -10,6 +10,6 @@ import java.util.List;
 @FeignClient(name = "domain3", url = "${services.document.url}/api/v1/assets")
 public interface AssetClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/all")
+    @RequestMapping(method = RequestMethod.GET)
     List<AssetDto> getAssets();
 }

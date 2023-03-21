@@ -66,7 +66,7 @@ public class CashReceiptControllerTest {
                 .organizationId(1L)
                 .sum(10.0)
                 .documentNumber(12345)
-                .documentDate("01.03.2023")
+                .documentDate("2023-03-01")
                 .annex("паспорт")
                 .build();
 
@@ -93,7 +93,7 @@ public class CashReceiptControllerTest {
                 .organization(new OrganizationDto(1L, "OAO", 12345, EmployeeDto.builder().build()))
                 .sum(10.0)
                 .documentNumber(12345)
-                .documentDate(LocalDate.of(2023, 3, 1))
+                .documentDate("01.03.2023")
                 .annex("паспорт")
                 .build();
 

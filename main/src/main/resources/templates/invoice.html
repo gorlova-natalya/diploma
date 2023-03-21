@@ -170,7 +170,7 @@
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in .3pt 0in .3pt;height:6.05pt'>
                 <p class=table10 align=center style='text-align:center'><span lang=RU style='font-size:9.0pt'>&nbsp;</span>
-                    <span style='font-size:9.0pt' th:text="${#temporals.format(invoice.documentDate, 'dd.MM.yyyy')}"></span></p>
+                    <span style='font-size:9.0pt' th:text="*{documentDate}"></span></p>
             </td>
             <td width="61%" colspan=2 valign=top style='width:61.54%;padding:0in .3pt 0in .3pt;
   height:6.05pt'>
