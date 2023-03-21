@@ -66,7 +66,7 @@ public class OrganizationControllerTest {
         when(organizationFacade.findOrganizations()).thenReturn(allOrganizations);
         when(organizationConverter.toDto(allOrganizations)).thenReturn(expected);
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/organizations/all")
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/organizations")
                         .content(mapper.writeValueAsString(allOrganizations))
                         .contentType(APPLICATION_JSON))
                 .andDo(print())

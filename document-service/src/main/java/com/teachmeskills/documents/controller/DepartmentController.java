@@ -21,7 +21,7 @@ public class DepartmentController {
     private final DepartmentFacade departmentFacade;
     private final DepartmentConverter departmentConverter;
 
-    @GetMapping("/all")
+    @GetMapping
     protected List<DepartmentDto> getDepartments() {
         List<Department> departments = departmentFacade.findDepartments();
         return departmentConverter.toDto(departments);

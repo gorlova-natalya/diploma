@@ -73,7 +73,7 @@ public class AssetControllerTest {
         when(assetService.findAssets()).thenReturn(allAssets);
         when(assetConverter.toDto(allAssets)).thenReturn(expectedAssets);
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/assets/all")
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/assets")
                         .content(String.valueOf(allAssets))
                         .contentType(APPLICATION_JSON))
                 .andDo(print())

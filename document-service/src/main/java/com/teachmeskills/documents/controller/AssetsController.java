@@ -22,7 +22,7 @@ public class AssetsController {
 
     private final AssetConverter assetConverter;
 
-    @GetMapping("/all")
+    @GetMapping
     protected List<AssetDto> getAssets() {
         List<Asset> assets = assetService.findAssets();
         return assetConverter.toDto(assets);

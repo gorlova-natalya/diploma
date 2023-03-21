@@ -12,7 +12,7 @@ import java.util.List;
 @FeignClient(name = "domain2", url = "${services.document.url}/api/v1/organizations")
 public interface OrganizationClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "all")
+    @RequestMapping(method = RequestMethod.GET)
     List<OrganizationDto> getAllOrganizations();
 
     @RequestMapping(method = RequestMethod.GET, value = "/{name}")

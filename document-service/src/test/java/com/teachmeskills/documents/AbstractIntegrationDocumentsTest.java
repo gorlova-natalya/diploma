@@ -2,7 +2,6 @@ package com.teachmeskills.documents;
 
 import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +13,6 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@Disabled
 @RunWith(SpringJUnit4ClassRunner.class)
 @Testcontainers
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

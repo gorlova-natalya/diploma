@@ -65,7 +65,7 @@ public class EmployeeControllerTest {
         when(employeeFacade.getEmployees()).thenReturn(allEmployees);
         when(employeeConverter.toDto(allEmployees)).thenReturn(expected);
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/employees/all")
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/employees")
                         .content(mapper.writeValueAsString(allEmployees))
                         .contentType(APPLICATION_JSON))
                 .andDo(print())

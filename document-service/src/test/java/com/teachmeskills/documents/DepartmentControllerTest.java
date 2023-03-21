@@ -66,7 +66,7 @@ public class DepartmentControllerTest {
         when(departmentFacade.findDepartments()).thenReturn(allDepartments);
         when(departmentConverter.toDto(allDepartments)).thenReturn(expected);
 
-        MvcResult mvcResult = mockMvc.perform(get("/api/v1/departments/all")
+        MvcResult mvcResult = mockMvc.perform(get("/api/v1/departments")
                         .content(mapper.writeValueAsString(allDepartments))
                         .contentType(APPLICATION_JSON))
                 .andDo(print())

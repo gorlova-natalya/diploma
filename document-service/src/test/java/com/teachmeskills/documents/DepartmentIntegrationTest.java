@@ -5,6 +5,7 @@ import com.teachmeskills.documents.model.Employee;
 import com.teachmeskills.documents.model.Organization;
 import com.teachmeskills.documents.repository.DepartmentRepository;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
 public class DepartmentIntegrationTest extends AbstractIntegrationDocumentsTest {
 
     @Autowired

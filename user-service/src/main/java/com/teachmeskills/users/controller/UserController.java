@@ -34,7 +34,7 @@ public class UserController {
     private final Converter converter;
     private final UserFacade userFacade;
 
-    @GetMapping("/me/{login}")
+    @GetMapping("/{login}")
     protected AppUserDto getUser(@PathVariable("login") final String login) {
         return converter.toDto(userFacade.getUser(login));
     }

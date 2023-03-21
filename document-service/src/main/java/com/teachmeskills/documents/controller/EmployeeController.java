@@ -22,7 +22,7 @@ public class EmployeeController {
     private final EmployeeFacade employeeFacade;
     private final EmployeeConverter employeeConverter;
 
-    @GetMapping("/all")
+    @GetMapping
     protected List<EmployeeDto> getAllEmployees() {
         List<Employee> employees = employeeFacade.getEmployees();
         return employeeConverter.toDto(employees);

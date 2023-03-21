@@ -16,6 +16,6 @@ public interface EmployeeClient {
     @Headers(value = "Content-Type: application/json")
     EmployeeDto getEmployeeByName(@PathVariable("fullName") final String fullName);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/all")
+    @RequestMapping(method = RequestMethod.GET)
     List<EmployeeDto> getEmployees();
 }

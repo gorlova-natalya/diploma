@@ -17,7 +17,7 @@ import java.util.List;
 @FeignClient(name = "domain", url = "${services.user.url}/api/v1/users")
 public interface UserClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/me/{login}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{login}")
     @Headers(value = "Content-Type: application/json")
     AppUserDto getUser(@PathVariable("login") final String login);
 

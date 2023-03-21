@@ -22,7 +22,7 @@ public class OrganizationController {
     private final OrganizationFacade organizationFacade;
     private final OrganizationConverter organizationConverter;
 
-    @GetMapping("/all")
+    @GetMapping
     protected List<OrganizationDto> getAllOrganizations() {
         List<Organization> organizations = organizationFacade.findOrganizations();
         return organizationConverter.toDto(organizations);
